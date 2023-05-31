@@ -143,6 +143,7 @@ namespace PCBsetup.Forms
             int StartID = Boxes.Add(this.Text, tbNanoModuleID, 15);
             Boxes.Add(this.Text, tbNanoSensorCount, 2);
             Boxes.Add(this.Text, tbNanoIP, 254);
+            Boxes.Add(this.Text, tbNanoDebounce, 100);
 
             Boxes.Add(this.Text, tbNanoFlow1, 21);
             Boxes.Add(this.Text, tbNanoFlow2, 21);
@@ -176,7 +177,6 @@ namespace PCBsetup.Forms
                 Boxes.Item(i).TB.Validating += tb_Validating;
             }
 
-            Boxes.Add(this.Text, tbNanoDebounce, 100);
         }
 
         private void ckNanoFlowOn_HelpRequested(object sender, HelpEventArgs hlpevent)
@@ -369,7 +369,8 @@ namespace PCBsetup.Forms
 
         private void tbNanoDebounce_HelpRequested(object sender, HelpEventArgs hlpevent)
         {
-            string Message = "Mimiumum milliseconds between sensor pulses.";
+            string Message = "Mimiumum milliseconds between sensor pulses." +
+                " If using 'Time for one pulse' in product options, the debounce time will be multiplied by 5.";
 
             mf.Tls.ShowHelp(Message, "Debounce");
             hlpevent.Handled = true;
