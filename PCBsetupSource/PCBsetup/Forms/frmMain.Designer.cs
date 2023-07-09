@@ -211,7 +211,7 @@
             "Teensy Rate",
             "Nano Rate",
             "Nano SwitchBox",
-            "Wifi AOG"});
+            "Wifi RC"});
             this.cbModule.Location = new System.Drawing.Point(12, 160);
             this.cbModule.Name = "cbModule";
             this.cbModule.Size = new System.Drawing.Size(182, 32);

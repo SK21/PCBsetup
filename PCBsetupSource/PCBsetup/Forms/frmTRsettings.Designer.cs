@@ -31,8 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTRsettings));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tbTRDebounce = new System.Windows.Forms.TextBox();
-            this.label26 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.cbTRRelayControl = new System.Windows.Forms.ComboBox();
             this.tbTRWemosPort = new System.Windows.Forms.TextBox();
@@ -113,8 +111,6 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.tbTRDebounce);
-            this.tabPage1.Controls.Add(this.label26);
             this.tabPage1.Controls.Add(this.label28);
             this.tabPage1.Controls.Add(this.cbTRRelayControl);
             this.tabPage1.Controls.Add(this.tbTRWemosPort);
@@ -137,28 +133,10 @@
             this.tabPage1.Text = "Config 1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // tbTRDebounce
-            // 
-            this.tbTRDebounce.Location = new System.Drawing.Point(318, 233);
-            this.tbTRDebounce.Name = "tbTRDebounce";
-            this.tbTRDebounce.Size = new System.Drawing.Size(58, 29);
-            this.tbTRDebounce.TabIndex = 43;
-            this.tbTRDebounce.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tbTRDebounce.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.tbTRDebounce_HelpRequested);
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(91, 235);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(99, 24);
-            this.label26.TabIndex = 42;
-            this.label26.Text = "Debounce";
-            // 
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(94, 285);
+            this.label28.Location = new System.Drawing.Point(94, 237);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(122, 24);
             this.label28.TabIndex = 41;
@@ -175,7 +153,7 @@
             "PCA9555  16 relays",
             "MCP23017",
             "Teensy GPIOs"});
-            this.cbTRRelayControl.Location = new System.Drawing.Point(240, 281);
+            this.cbTRRelayControl.Location = new System.Drawing.Point(240, 233);
             this.cbTRRelayControl.Name = "cbTRRelayControl";
             this.cbTRRelayControl.Size = new System.Drawing.Size(187, 32);
             this.cbTRRelayControl.TabIndex = 40;
@@ -879,7 +857,5 @@
         private System.Windows.Forms.Button bntOK;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.ComboBox cbTRRelayControl;
-        private System.Windows.Forms.TextBox tbTRDebounce;
-        private System.Windows.Forms.Label label26;
     }
 }

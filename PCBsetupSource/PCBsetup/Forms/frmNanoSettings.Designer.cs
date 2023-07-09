@@ -35,8 +35,6 @@
             this.bntOK = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tbNanoDebounce = new System.Windows.Forms.TextBox();
-            this.label25 = new System.Windows.Forms.Label();
             this.lbIPpart4 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
             this.tbNanoIP = new System.Windows.Forms.TextBox();
@@ -167,8 +165,6 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.tbNanoDebounce);
-            this.tabPage1.Controls.Add(this.label25);
             this.tabPage1.Controls.Add(this.lbIPpart4);
             this.tabPage1.Controls.Add(this.label30);
             this.tabPage1.Controls.Add(this.tbNanoIP);
@@ -187,24 +183,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Config 1";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tbNanoDebounce
-            // 
-            this.tbNanoDebounce.Location = new System.Drawing.Point(287, 228);
-            this.tbNanoDebounce.Name = "tbNanoDebounce";
-            this.tbNanoDebounce.Size = new System.Drawing.Size(58, 29);
-            this.tbNanoDebounce.TabIndex = 29;
-            this.tbNanoDebounce.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tbNanoDebounce.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.tbNanoDebounce_HelpRequested);
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(60, 230);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(99, 24);
-            this.label25.TabIndex = 28;
-            this.label25.Text = "Debounce";
             // 
             // lbIPpart4
             // 
@@ -843,7 +821,5 @@
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.TextBox tbNanoIP;
         private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.TextBox tbNanoDebounce;
-        private System.Windows.Forms.Label label25;
     }
 }

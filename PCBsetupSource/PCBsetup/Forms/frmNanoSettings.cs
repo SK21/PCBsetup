@@ -92,7 +92,7 @@ namespace PCBsetup.Forms
             tbNanoPWM2.Text = "9";
 
             tbNanoIP.Text = "1";
-            tbNanoDebounce.Text = "3";
+            //tbNanoDebounce.Text = "3";
         }
 
         private void btnSendToModule_Click(object sender, EventArgs e)
@@ -143,7 +143,7 @@ namespace PCBsetup.Forms
             int StartID = Boxes.Add(this.Text, tbNanoModuleID, 15);
             Boxes.Add(this.Text, tbNanoSensorCount, 2);
             Boxes.Add(this.Text, tbNanoIP, 254);
-            Boxes.Add(this.Text, tbNanoDebounce, 100);
+            //Boxes.Add(this.Text, tbNanoDebounce, 100);
 
             Boxes.Add(this.Text, tbNanoFlow1, 21);
             Boxes.Add(this.Text, tbNanoFlow2, 21);

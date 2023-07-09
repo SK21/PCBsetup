@@ -87,7 +87,7 @@ namespace PCBsetup.Forms
             ckNanoRelayOn.Checked = false;
             ckNanoFlowOn.Checked = false;
             tbTRWemosPort.Text = "1";
-            tbTRDebounce.Text = "3";
+            //tbTRDebounce.Text = "3";
 
             tbTRFlow1.Text = "28";
             tbTRDir1.Text = "37";
@@ -190,7 +190,7 @@ namespace PCBsetup.Forms
                 Boxes.Item(i).TB.Validating += tb_Validating;
             }
 
-            Boxes.Add(this.Text, tbTRDebounce, 100);
+            //Boxes.Add(this.Text, tbTRDebounce, 100);
         }
 
         private void ckNanoFlowOn_HelpRequested(object sender, HelpEventArgs hlpevent)

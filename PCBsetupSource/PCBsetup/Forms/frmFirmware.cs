@@ -99,7 +99,7 @@ namespace PCBsetup.Forms
 
                             default:
                                 // autosteer
-                                File.WriteAllBytes(filename, PCBsetup.Properties.Resources.AutoSteerTeensy2_ino);
+                                File.WriteAllBytes(filename, PCBsetup.Properties.Resources.AutoSteerTeensyRVC_ino);
                                 break;
                         }
                     }

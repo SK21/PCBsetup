@@ -353,6 +353,7 @@
     </Compile>
     <None Include="Resources\AutoSteerTeensy.ino.hex" />
     <None Include="Resources\AutoSteerTeensy2.ino.hex" />
+    <None Include="Resources\AutoSteerTeensyRVC.ino.hex" />
     <None Include="Resources\Example.con" />
     <None Include="Resources\NanoRateNB.ino.hex" />
     <None Include="Resources\NanoRateOB.ino.hex" />
@@ -372,6 +373,7 @@
     <None Include="Resources\SwitchboxOldBootLoader.ino.hex" />
     <None Include="Resources\WifiAOG.ino.bin" />
     <None Include="Resources\WifiRate.ino.bin" />
+    <None Include="Resources\WifiRC.ino.bin" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

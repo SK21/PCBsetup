@@ -118,8 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="AutoSteerTeensy2_ino" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AutoSteerTeensy2.ino.hex;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="AutoSteerTeensyRVC_ino" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AutoSteerTeensyRVC.ino.hex;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="bntOK_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bntOK.Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -184,7 +184,7 @@
   <data name="VehFileLoad" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\VehFileLoad.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="WifiAOG_ino" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WifiAOG.ino.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="WifiRC_ino" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WifiRC.ino.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

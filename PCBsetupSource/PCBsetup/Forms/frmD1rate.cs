@@ -61,7 +61,7 @@ namespace PCBsetup.Forms
                 }
                 else
                 {
-                    File.WriteAllBytes(NewBin, PCBsetup.Properties.Resources.WifiAOG_ino);
+                    File.WriteAllBytes(NewBin, PCBsetup.Properties.Resources.WifiRC_ino);
                 }
                 File.WriteAllBytes(PathName + "//esptool.exe", PCBsetup.Properties.Resources.esptool);
 

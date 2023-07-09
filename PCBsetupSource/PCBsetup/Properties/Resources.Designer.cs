@@ -63,9 +63,9 @@ namespace PCBsetup.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] AutoSteerTeensy2_ino {
+        internal static byte[] AutoSteerTeensyRVC_ino {
             get {
-                object obj = ResourceManager.GetObject("AutoSteerTeensy2_ino", resourceCulture);
+                object obj = ResourceManager.GetObject("AutoSteerTeensyRVC_ino", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -283,9 +283,9 @@ namespace PCBsetup.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] WifiAOG_ino {
+        internal static byte[] WifiRC_ino {
             get {
-                object obj = ResourceManager.GetObject("WifiAOG_ino", resourceCulture);
+                object obj = ResourceManager.GetObject("WifiRC_ino", resourceCulture);
                 return ((byte[])(obj));
             }
         }
