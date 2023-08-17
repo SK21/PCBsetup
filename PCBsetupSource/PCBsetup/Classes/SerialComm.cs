@@ -219,20 +219,9 @@ namespace PCBsetup
 
                             switch (PGN)
                             {
-                                //case 32618:
-                                //    if (mf.SwitchBox.ParseStringData(words)) SerialActive = true;
-                                //    break;
-
-                                //case 32613:
-                                //    foreach (clsProduct Prod in mf.Products.Items)
-                                //    {
-                                //        if (Prod.SerialFromAruduino(words)) SerialActive = true;
-                                //    }
-                                //    break;
-
-                                //case 32621:
-                                //    if (mf.PressureData.ParseStringData(words)) SerialActive = true;
-                                //    break;
+                                case 32403:
+                                    mf.FormNetwork.ParseStringData(words);
+                                    break;
 
                                 case 0xABC:
                                     // debug info from module

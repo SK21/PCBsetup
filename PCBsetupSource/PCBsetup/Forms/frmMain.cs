@@ -24,6 +24,7 @@ namespace PCBsetup.Forms
         private byte cModule = 0;
         private int PortID = 1;
         private string cSelectedPortName;
+        public frmNetwork FormNetwork;
 
         public frmMain()
         {
@@ -32,6 +33,7 @@ namespace PCBsetup.Forms
             CommPort = new SerialComm(this, PortID);
             UDPmodulesConfig = new UDPComm(this, 29900, 28800, 1482);     // pcb config
             CommPort.ModuleConnected += CommPort_ModuleConnected;
+            FormNetwork = new frmNetwork(this);
         }
 
         private string TrimPortName(string portName)
@@ -123,7 +125,7 @@ namespace PCBsetup.Forms
             {
                 case 0:
                     // Teensy AutoSteer
-                    Form tmp = new frmPCBsettings(this);
+                    Form tmp = new frmTeensySteer(this);
                     tmp.ShowDialog();
                     break;
 
@@ -190,7 +192,11 @@ namespace PCBsetup.Forms
 
             // ethernet
             UDPmodulesConfig.StartUDPServer();
-            if (!UDPmodulesConfig.isUDPSendConnected)
+            if (UDPmodulesConfig.IsUDPSendConnected)
+            {
+                UDPmodulesConfig.EthernetEP = Tls.LoadProperty("EthernetEP");
+            }
+            else
             {
                 Tls.ShowHelp("UDPconfig failed to start.", "", 3000, true);
             }
@@ -380,6 +386,12 @@ namespace PCBsetup.Forms
 
             Tls.ShowHelp(Message, this.Text);
             hlpevent.Handled = true;
+        }
+
+        private void uDPToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormNetwork = new frmNetwork(this);
+            FormNetwork.ShowDialog();
         }
     }
 }
