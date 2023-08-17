@@ -38,6 +38,7 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SerialMonitorItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.uDPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cboPort1 = new System.Windows.Forms.ComboBox();
             this.btnRescan = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -58,7 +59,8 @@
             this.menuStrip1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.SerialMonitorItem});
+            this.SerialMonitorItem,
+            this.uDPToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(438, 32);
@@ -124,6 +126,13 @@
             this.SerialMonitorItem.Size = new System.Drawing.Size(137, 28);
             this.SerialMonitorItem.Text = "Serial Monitor";
             this.SerialMonitorItem.Click += new System.EventHandler(this.SerialMonitorItem_Click);
+            // 
+            // uDPToolStripMenuItem
+            // 
+            this.uDPToolStripMenuItem.Name = "uDPToolStripMenuItem";
+            this.uDPToolStripMenuItem.Size = new System.Drawing.Size(91, 28);
+            this.uDPToolStripMenuItem.Text = "Network";
+            this.uDPToolStripMenuItem.Click += new System.EventHandler(this.uDPToolStripMenuItem_Click);
             // 
             // cboPort1
             // 
@@ -295,5 +304,6 @@
         private System.Windows.Forms.ComboBox cbModule;
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Button btnFirmware;
+        private System.Windows.Forms.ToolStripMenuItem uDPToolStripMenuItem;
     }
 }

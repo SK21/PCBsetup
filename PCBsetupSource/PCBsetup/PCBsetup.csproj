@@ -247,6 +247,12 @@
     <Compile Include="Forms\frmNanoSettings.Designer.cs">
       <DependentUpon>frmNanoSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmNetwork.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmNetwork.Designer.cs">
+      <DependentUpon>frmNetwork.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmPCBsettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -265,6 +271,12 @@
     <Compile Include="Forms\frmSwitchboxSettings.Designer.cs">
       <DependentUpon>frmSwitchboxSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmTeensySteer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmTeensySteer.Designer.cs">
+      <DependentUpon>frmTeensySteer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmTRsettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -276,6 +288,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Lang.resx</DependentUpon>
     </Compile>
+    <Compile Include="PGNs\PGN32400.cs" />
+    <Compile Include="PGNs\PGN32401.cs" />
+    <Compile Include="PGNs\PGN32402.cs" />
     <Compile Include="PGNs\PGN32500.cs" />
     <Compile Include="PGNs\PGN32622.cs" />
     <Compile Include="PGNs\PGN32623.cs" />
@@ -313,6 +328,9 @@
     <EmbeddedResource Include="Forms\frmNanoSettings.resx">
       <DependentUpon>frmNanoSettings.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmNetwork.resx">
+      <DependentUpon>frmNetwork.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmPCBsettings.resx">
       <DependentUpon>frmPCBsettings.cs</DependentUpon>
     </EmbeddedResource>
@@ -321,6 +339,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmSwitchboxSettings.resx">
       <DependentUpon>frmSwitchboxSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmTeensySteer.resx">
+      <DependentUpon>frmTeensySteer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmTRsettings.resx">
       <DependentUpon>frmTRsettings.cs</DependentUpon>
@@ -387,6 +408,8 @@
     <Content Include="configurator-icon-19.ico" />
     <Content Include="Forms\Keypad.dll" />
     <Content Include="Forms\RepeatButtonControl.dll" />
+    <None Include="Resources\OK64.png" />
+    <None Include="Resources\ConS_SourcesRoll.png" />
     <None Include="Resources\Save.png" />
     <None Include="Resources\VehFileLoad.png" />
     <None Include="Resources\btnBrowse.Image.png" />
