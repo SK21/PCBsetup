@@ -80,8 +80,7 @@
             this.btnRescan.FlatAppearance.BorderSize = 0;
             this.btnRescan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRescan.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRescan.Image = global::PCBsetup.Properties.Resources.Update;
-            this.btnRescan.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnRescan.Image = ((System.Drawing.Image)(resources.GetObject("btnRescan.Image")));
             this.btnRescan.Location = new System.Drawing.Point(196, 308);
             this.btnRescan.Name = "btnRescan";
             this.btnRescan.Size = new System.Drawing.Size(72, 72);

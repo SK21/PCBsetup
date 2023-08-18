@@ -408,6 +408,7 @@
     <Content Include="configurator-icon-19.ico" />
     <Content Include="Forms\Keypad.dll" />
     <Content Include="Forms\RepeatButtonControl.dll" />
+    <None Include="Resources\Update.png" />
     <None Include="Resources\OK64.png" />
     <None Include="Resources\ConS_SourcesRoll.png" />
     <None Include="Resources\Save.png" />

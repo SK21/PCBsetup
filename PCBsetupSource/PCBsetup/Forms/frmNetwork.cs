@@ -260,7 +260,7 @@ namespace PCBsetup.Forms
                 else
                 {
                     btnCancel.Enabled = false;
-                    bntOK.Image = Properties.Resources.OK;
+                    bntOK.Image = Properties.Resources.bntOK_Image;
                     btnRescan.Enabled = true;
                     btnSend.Enabled = true;
                 }
