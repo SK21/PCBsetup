@@ -25,6 +25,8 @@ namespace PCBsetup.Forms
         private int PortID = 1;
         private string cSelectedPortName;
         public frmNetwork FormNetwork;
+        public PGN32700 ModuleConfig;
+        public int RateModuleSelected;  // 0 nano, 1 Teensy, 2 ESP32
 
         public frmMain()
         {
@@ -34,6 +36,7 @@ namespace PCBsetup.Forms
             UDPmodulesConfig = new UDPComm(this, 29900, 28800, 1482);     // pcb config
             CommPort.ModuleConnected += CommPort_ModuleConnected;
             FormNetwork = new frmNetwork(this);
+            ModuleConfig = new PGN32700(this);
         }
 
         private string TrimPortName(string portName)
@@ -131,13 +134,15 @@ namespace PCBsetup.Forms
 
                 case 1:
                     // Teensy Rate
-                    Form tmp1 = new frmTRsettings(this);
+                    RateModuleSelected = 1;
+                    Form tmp1 = new frmTeensyRate(this);
                     tmp1.ShowDialog();
                     break;
 
                 case 2:
                     // Nano Rate
-                    Form tmp2 = new frmNanoSettings(this);
+                    RateModuleSelected = 0;
+                    Form tmp2 = new frmTeensyRate(this);
                     tmp2.ShowDialog();
                     break;
 
@@ -257,6 +262,8 @@ namespace PCBsetup.Forms
                 // module
                 byte.TryParse(Tls.LoadProperty("Module"), out cModule);
                 cbModule.SelectedIndex = cModule;
+
+                ModuleConfig.Load();
             }
             catch (Exception ex)
             {

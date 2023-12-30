@@ -83,7 +83,7 @@ namespace PCBsetup.Forms
         private void btnLoadDefaults_Click(object sender, EventArgs e)
         {
             tbTRModuleID.Text = "0";
-            tbTRSensorCount.Text = "1";
+            tbTRSensorCount.Text = "2";
             ckNanoRelayOn.Checked = false;
             ckNanoFlowOn.Checked = false;
             tbTRWemosPort.Text = "1";

@@ -17,7 +17,7 @@ namespace PCBsetup
         private string cVersionDate = "30-Dec-2023";
 
         private string cTeensyAutoSteerFirmware = "30-Dec-2023";
-        private string cTeensyRateVersion = "25-Jun-2023";
+        private string cTeensyRateVersion = "30-Dec-2023";
 
         private string cNanoFirmware = "25-Jun-2023";   // rate
         private string cSwitchboxFirmware = "20-Mar-2023";
