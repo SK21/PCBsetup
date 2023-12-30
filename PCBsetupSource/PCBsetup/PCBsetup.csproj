@@ -277,12 +277,6 @@
     <Compile Include="Forms\frmTeensySteer.Designer.cs">
       <DependentUpon>frmTeensySteer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmTRsettings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmTRsettings.Designer.cs">
-      <DependentUpon>frmTRsettings.cs</DependentUpon>
-    </Compile>
     <Compile Include="Languages\Lang.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -291,10 +285,9 @@
     <Compile Include="PGNs\PGN32300.cs" />
     <Compile Include="PGNs\PGN32301.cs" />
     <Compile Include="PGNs\PGN32303.cs" />
-    <Compile Include="PGNs\PGN32500.cs" />
     <Compile Include="PGNs\PGN32503.cs" />
-    <Compile Include="PGNs\PGN32627.cs" />
     <Compile Include="PGNs\PGN32700.cs" />
+    <Compile Include="PGNs\PGN32701.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\FormNumeric.resx">
@@ -339,9 +332,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmTeensySteer.resx">
       <DependentUpon>frmTeensySteer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmTRsettings.resx">
-      <DependentUpon>frmTRsettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Languages\Lang.resx">
       <Generator>ResXFileCodeGenerator</Generator>

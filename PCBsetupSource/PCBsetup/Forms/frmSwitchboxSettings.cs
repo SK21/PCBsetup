@@ -11,8 +11,8 @@ namespace PCBsetup.Forms
         public clsTextBoxes Boxes;
         public frmMain mf;
         private bool ConfigEdited;
-        private bool Initializing = false;
         private bool FormEdited = false;
+        private bool Initializing = false;
 
         public frmSwitchboxSettings(frmMain CallingForm)
         {
@@ -59,7 +59,6 @@ namespace PCBsetup.Forms
             tbMasterOff.Text = "5";
             tbRateUp.Text = "17";
             tbRateDown.Text = "16";
-            tbIPaddress.Text = "1";
 
             tbSW1.Text = "18";
             tbSW2.Text = "9";
@@ -78,7 +77,14 @@ namespace PCBsetup.Forms
             tbSW14.Text = "0";
             tbSW15.Text = "0";
             tbSW16.Text = "0";
+        }
 
+        private void btnLoadDefaults_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            string Message = "Load defaults.";
+
+            mf.Tls.ShowHelp(Message);
+            hlpevent.Handled = true;
         }
 
         private void btnSendToModule_Click(object sender, EventArgs e)
@@ -86,7 +92,7 @@ namespace PCBsetup.Forms
             bool Sent;
             try
             {
-                PGN32627 PGN = new PGN32627(this);
+                PGN32701 PGN = new PGN32701(this);
                 Sent = PGN.Send();
 
                 if (Sent)
@@ -118,6 +124,14 @@ namespace PCBsetup.Forms
             }
         }
 
+        private void btnSendToModule_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            string Message = "Send to module.";
+
+            mf.Tls.ShowHelp(Message);
+            hlpevent.Handled = true;
+        }
+
         private void BuildBoxes()
         {
             Boxes.Add(this.Text, tbAuto, 21);
@@ -125,7 +139,6 @@ namespace PCBsetup.Forms
             Boxes.Add(this.Text, tbMasterOff, 21);
             Boxes.Add(this.Text, tbRateUp, 21);
             Boxes.Add(this.Text, tbRateDown, 21);
-            Boxes.Add(this.Text, tbIPaddress, 254); 
 
             Boxes.Add(this.Text, tbSW1, 21);
             Boxes.Add(this.Text, tbSW2, 21);
@@ -271,45 +284,19 @@ namespace PCBsetup.Forms
             }
         }
 
-        private void UpdateForm()
-        {
-            Initializing = true;
-            LoadSettings();
-            Initializing = false;
-        }
-
-        private void tbIPaddress_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tbRateDown_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnSendToModule_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            string Message = "Send to module.";
-
-            mf.Tls.ShowHelp(Message);
-            hlpevent.Handled = true;
-        }
-
-        private void btnLoadDefaults_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            string Message = "Load defaults.";
-
-            mf.Tls.ShowHelp(Message);
-            hlpevent.Handled = true;
-        }
-
         private void tbAuto_HelpRequested(object sender, HelpEventArgs hlpevent)
         {
             string Message = "Pin number for function. For A0-A7 use 14-21.";
 
             mf.Tls.ShowHelp(Message);
             hlpevent.Handled = true;
+        }
+
+        private void UpdateForm()
+        {
+            Initializing = true;
+            LoadSettings();
+            Initializing = false;
         }
     }
 }

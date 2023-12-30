@@ -42,16 +42,16 @@ namespace PCBsetup
             // CRC
             cData[5] = mf.Tls.CRC(cData, 5);
 
-            try
-            {
-                //send serial
-                mf.CommPort.Send(cData);
-                Result = true;
-            }
-            catch (Exception ex)
-            {
-                mf.Tls.WriteErrorLog("PGN32503/send serial:  " + ex.Message);
-            }
+            //try
+            //{
+            //    //send serial
+            //    mf.CommPort.Send(cData);
+            //    Result = true;
+            //}
+            //catch (Exception ex)
+            //{
+            //    mf.Tls.WriteErrorLog("PGN32503/send serial:  " + ex.Message);
+            //}
 
             if (!Result)
             {
