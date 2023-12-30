@@ -114,10 +114,10 @@ namespace PCBsetup.Forms
             bool Sent;
             try
             {
-                PGN32400 PGN = new PGN32400(this);
+                PGN32300 PGN = new PGN32300(this);
                 Sent = PGN.Send();
 
-                PGN32401 PGN2 = new PGN32401(this);
+                PGN32301 PGN2 = new PGN32301(this);
                 Sent = Sent & PGN2.Send();
 
                 if (Sent)

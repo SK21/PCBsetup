@@ -220,7 +220,7 @@ namespace PCBsetup
                 int PGN = Data[1] << 8 | Data[0];   
                 switch (PGN)
                 {
-                    case 32403:
+                    case 32302:
                         mf.FormNetwork.ParseByteData(Data);
                         break;
 

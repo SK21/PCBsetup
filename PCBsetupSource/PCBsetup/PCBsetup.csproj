@@ -253,12 +253,6 @@
     <Compile Include="Forms\frmNetwork.Designer.cs">
       <DependentUpon>frmNetwork.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmPCBsettings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmPCBsettings.Designer.cs">
-      <DependentUpon>frmPCBsettings.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\frmSwitchboxFirmware.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -288,13 +282,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Lang.resx</DependentUpon>
     </Compile>
-    <Compile Include="PGNs\PGN32400.cs" />
-    <Compile Include="PGNs\PGN32401.cs" />
-    <Compile Include="PGNs\PGN32402.cs" />
+    <Compile Include="PGNs\PGN32300.cs" />
+    <Compile Include="PGNs\PGN32301.cs" />
+    <Compile Include="PGNs\PGN32303.cs" />
     <Compile Include="PGNs\PGN32500.cs" />
-    <Compile Include="PGNs\PGN32622.cs" />
-    <Compile Include="PGNs\PGN32623.cs" />
-    <Compile Include="PGNs\PGN32624.cs" />
+    <Compile Include="PGNs\PGN32503.cs" />
     <Compile Include="PGNs\PGN32625.cs" />
     <Compile Include="PGNs\PGN32626.cs" />
     <Compile Include="PGNs\PGN32627.cs" />
@@ -330,9 +322,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmNetwork.resx">
       <DependentUpon>frmNetwork.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmPCBsettings.resx">
-      <DependentUpon>frmPCBsettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmSwitchboxFirmware.resx">
       <DependentUpon>frmSwitchboxFirmware.cs</DependentUpon>

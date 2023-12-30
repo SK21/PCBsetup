@@ -29,7 +29,7 @@ namespace PCBsetup
             cPortNumber = PortNumber;
             cSCportName = "SCport" + cPortNumber.ToString();
             ID = "_" + PortNumber.ToString();
-            ArduinoPort.ReadTimeout = 500;
+            ArduinoPort.ReadTimeout = 1500;
             ArduinoPort.WriteTimeout = 500;
 
             Timer Watchdog = new Timer(3000);
@@ -175,9 +175,9 @@ namespace PCBsetup
         private void AddToLog(string NewData)
         {
             cLog += NewData + "\n";
-            if (cLog.Length > 10000)
+            if (cLog.Length > 100000)
             {
-                cLog = cLog.Substring(cLog.Length - 9800, 9800);
+                cLog = cLog.Substring(cLog.Length - 98000, 98000);
             }
         }
 
@@ -219,7 +219,7 @@ namespace PCBsetup
 
                             switch (PGN)
                             {
-                                case 32403:
+                                case 32302:
                                     mf.FormNetwork.ParseStringData(words);
                                     break;
 
@@ -251,7 +251,7 @@ namespace PCBsetup
                 {
                     string sentence = ArduinoPort.ReadLine();
                     mf.BeginInvoke(new NewDataDelegate(ReceiveData), sentence);
-                    if (ArduinoPort.BytesToRead > 32) ArduinoPort.DiscardInBuffer();
+                    if (ArduinoPort.BytesToRead > 150) ArduinoPort.DiscardInBuffer();
                 }
                 catch (Exception ex)
                 {

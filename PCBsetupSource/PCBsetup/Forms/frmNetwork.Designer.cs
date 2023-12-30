@@ -81,7 +81,7 @@
             this.btnRescan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRescan.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRescan.Image = ((System.Drawing.Image)(resources.GetObject("btnRescan.Image")));
-            this.btnRescan.Location = new System.Drawing.Point(196, 308);
+            this.btnRescan.Location = new System.Drawing.Point(196, 475);
             this.btnRescan.Name = "btnRescan";
             this.btnRescan.Size = new System.Drawing.Size(72, 72);
             this.btnRescan.TabIndex = 160;
@@ -96,7 +96,7 @@
             this.btnCancel.FlatAppearance.BorderSize = 0;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Image = global::PCBsetup.Properties.Resources.Cancel64;
-            this.btnCancel.Location = new System.Drawing.Point(352, 308);
+            this.btnCancel.Location = new System.Drawing.Point(352, 475);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(72, 72);
             this.btnCancel.TabIndex = 159;
@@ -110,7 +110,7 @@
             this.bntOK.FlatAppearance.BorderSize = 0;
             this.bntOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntOK.Image = global::PCBsetup.Properties.Resources.bntOK_Image;
-            this.bntOK.Location = new System.Drawing.Point(430, 308);
+            this.bntOK.Location = new System.Drawing.Point(430, 475);
             this.bntOK.Name = "bntOK";
             this.bntOK.Size = new System.Drawing.Size(72, 72);
             this.bntOK.TabIndex = 158;
@@ -123,7 +123,7 @@
             this.groupBox1.Controls.Add(this.tbModuleInfo);
             this.groupBox1.Location = new System.Drawing.Point(12, 132);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(490, 170);
+            this.groupBox1.Size = new System.Drawing.Size(490, 337);
             this.groupBox1.TabIndex = 161;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Modules";
@@ -135,7 +135,7 @@
             this.tbModuleInfo.Multiline = true;
             this.tbModuleInfo.Name = "tbModuleInfo";
             this.tbModuleInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbModuleInfo.Size = new System.Drawing.Size(478, 136);
+            this.tbModuleInfo.Size = new System.Drawing.Size(478, 295);
             this.tbModuleInfo.TabIndex = 158;
             // 
             // btnSend
@@ -145,7 +145,7 @@
             this.btnSend.FlatAppearance.BorderSize = 0;
             this.btnSend.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSend.Image = global::PCBsetup.Properties.Resources.UpArrow64;
-            this.btnSend.Location = new System.Drawing.Point(274, 308);
+            this.btnSend.Location = new System.Drawing.Point(274, 475);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(72, 72);
             this.btnSend.TabIndex = 162;
@@ -171,7 +171,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(518, 385);
+            this.ClientSize = new System.Drawing.Size(518, 561);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.groupBox1);

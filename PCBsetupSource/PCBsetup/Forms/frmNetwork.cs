@@ -10,11 +10,11 @@ namespace PCBsetup.Forms
     public partial class frmNetwork : Form
     {
         public frmMain mf;
-        private const byte cByteCount = 10;
+        private const byte cByteCount = 7;
         private const byte HeaderHi = 126;
-        private const byte HeaderLo = 147;
+        private const byte HeaderLo = 46;
         private bool FormEdited;
-        private PGN32402 Info;
+        private PGN32303 Info;
         private byte InfoID;
         private bool Initializing;
 
@@ -22,7 +22,7 @@ namespace PCBsetup.Forms
         {
             InitializeComponent();
             mf = CalledFrom;
-            Info = new PGN32402(this);
+            Info = new PGN32303(this);
         }
 
         public void ParseByteData(byte[] Data)
@@ -32,23 +32,84 @@ namespace PCBsetup.Forms
             {
                 string Mes = "\r\n";
 
-                InfoID = Data[2];
-                switch (InfoID)
-                {
-                    case 0:
-                        // subnet
-                        Mes += "Module type: " + Data[2].ToString();
-                        Mes += ", Module ID: " + Data[3].ToString();
-                        Mes += ", Address: " + Data[5].ToString() + "." + Data[6].ToString() + "." + Data[7].ToString();
-                        break;
+                // Ino ID
+                Mes += "Ino ID: ";
+                UInt16 ID = (ushort)(Data[2] | Data[3] << 8);
+                Mes += ID.ToString() + "\r\n";
 
-                    case 1:
-                        // Ino ID
-                        Mes += "Ino ID: ";
-                        UInt16 ID = (ushort)(Data[3] | Data[4] << 8);
-                        Mes += ID.ToString();
-                        break;
+                byte Status = Data[4];
+                if (mf.Tls.BitRead(Status, 0))
+                {
+                    Mes += "IMU connected.\r\n";
                 }
+                else
+                {
+                    Mes += "IMU not connected.\r\n";
+                }
+
+                if (mf.Tls.BitRead(Status, 1))
+                {
+                    Mes += "ADS1115 connected.\r\n";
+                }
+                else
+                {
+                    Mes += "ADS1115 not connected.\r\n";
+                }
+
+                if (mf.Tls.BitRead(Status, 2))
+                {
+                    Mes += "Relay controller connected.\r\n";
+                }
+                else
+                {
+                    Mes += "Relay controller not connected.\r\n";
+                }
+
+                if (mf.Tls.BitRead(Status, 3))
+                {
+                    Mes += "Steer switch on.\r\n";
+                }
+                else
+                {
+                    Mes += "Steer switch off.\r\n";
+                }
+
+                if (mf.Tls.BitRead(Status, 4))
+                {
+                    Mes += "AOG connected.\r\n";
+                }
+                else
+                {
+                    Mes += "AOG not connected.\r\n";
+                }
+
+                if (mf.Tls.BitRead(Status, 5))
+                {
+                    Mes += "GPS receiver connected.\r\n";
+                }
+                else
+                {
+                    Mes += "GPS receiver not connected.\r\n";
+                }
+
+                if (mf.Tls.BitRead(Status, 6))
+                {
+                    Mes += "Ntrip connected.\r\n";
+                }
+                else
+                {
+                    Mes += "Ntrip not connected.\r\n";
+                }
+
+                if (mf.Tls.BitRead(Status, 7))
+                {
+                    Mes += "Ethernet connected.\r\n";
+                }
+                else
+                {
+                    Mes += "Ethernet not connected.\r\n";
+                }
+
                 tbModuleInfo.AppendText(Mes);
             }
         }
@@ -93,8 +154,7 @@ namespace PCBsetup.Forms
             tbModuleInfo.AppendText("\r\n Sending module info request ...");
             try
             {
-                Info.Send(0);   // subnet
-                Info.Send(1);   // ino id
+                Info.Send();
             }
             catch (Exception ex)
             {
@@ -103,71 +163,16 @@ namespace PCBsetup.Forms
             UpdateForm();
         }
 
-        // from AGIO/FormUDP
         private void btnSend_Click(object sender, EventArgs e)
         {
-            byte[] NewIP = { 148, 126, 192, 168, 1, 0 };
-            IPEndPoint epModuleSet = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 28800);
-            IPAddress IP;
-            string[] data;
-
-            if (IPAddress.TryParse(mf.UDPmodulesConfig.EthernetEP, out IP))
+            PGN32503 SetSubnet = new PGN32503(mf);
+            if (SetSubnet.Send(mf.UDPmodulesConfig.EthernetEP))
             {
-                data = mf.UDPmodulesConfig.EthernetEP.Split('.');
-                NewIP[2] = byte.Parse(data[0]);
-                NewIP[3] = byte.Parse(data[1]);
-                NewIP[4] = byte.Parse(data[2]);
-                NewIP[5] = mf.Tls.CRC(NewIP, 5);
-
-                //loop thru all interfaces
-                foreach (var nic in NetworkInterface.GetAllNetworkInterfaces())
-                {
-                    if (nic.Supports(NetworkInterfaceComponent.IPv4) && nic.OperationalStatus == OperationalStatus.Up)
-                    {
-                        foreach (var info in nic.GetIPProperties().UnicastAddresses)
-                        {
-                            // Only InterNetwork and not loopback which have a subnetmask
-                            if (info.Address.AddressFamily == AddressFamily.InterNetwork &&
-                                !IPAddress.IsLoopback(info.Address) &&
-                                info.IPv4Mask != null)
-                            {
-                                Socket scanSocket;
-                                try
-                                {
-                                    if (nic.OperationalStatus == OperationalStatus.Up
-                                        && info.IPv4Mask != null)
-                                    {
-                                        scanSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-                                        scanSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, true);
-                                        scanSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
-                                        scanSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.DontRoute, true);
-
-                                        try
-                                        {
-                                            scanSocket.Bind(new IPEndPoint(info.Address, 9999));
-                                            scanSocket.SendTo(NewIP, 0, NewIP.Length, SocketFlags.None, epModuleSet);
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            mf.Tls.WriteErrorLog("frmNework/btnSend_Click/Bind error " + ex.Message);
-                                        }
-
-                                        scanSocket.Dispose();
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    mf.Tls.WriteErrorLog("frmNework/btnSend_Click/nic loop error " + ex.Message);
-                                }
-                            }
-                        }
-                    }
-                }
-                tbModuleInfo.AppendText("\r\nNew Subnet address sent to modules.");
+                tbModuleInfo.AppendText("\r\n New Subnet address sent.");
             }
             else
             {
-                tbModuleInfo.AppendText("\r\nNew Subnet address not sent.");
+                tbModuleInfo.AppendText("\r\n New Subnet address not sent.");
             }
         }
 
@@ -278,7 +283,7 @@ namespace PCBsetup.Forms
             if (IPAddress.TryParse(Address, out IP))
             {
                 data = Address.Split('.');
-                Result = data[0] + "." + data[1] + "." + data[2];
+                Result = data[0] + "." + data[1] + "." + data[2] + ".";
             }
             return Result;
         }

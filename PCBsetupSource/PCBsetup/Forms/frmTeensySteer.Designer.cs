@@ -290,7 +290,7 @@
             this.cbTSRelayControl.FormattingEnabled = true;
             this.cbTSRelayControl.Items.AddRange(new object[] {
             "No Relays",
-            "RS485",
+            "PCA9685",
             "PCA9555  8 relays",
             "PCA9555  16 relays",
             "MCP23017",
