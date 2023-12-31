@@ -20,7 +20,7 @@ namespace PCBsetup
         //4     IP 2
         //5     CRC
 
-        private const int ConfigPort = 28800;
+        private const int ConfigPort = 28888;
         private byte[] cData = new byte[6];
         private frmMain mf;
 

@@ -34,6 +34,8 @@ namespace PCBsetup
 
         public bool Send()
         {
+            bool Result = false;
+
             cData[2] = (byte)cf.Boxes.Value("tbTSDir");
             cData[3] = (byte)cf.Boxes.Value("tbTSPWM");
 
@@ -53,8 +55,21 @@ namespace PCBsetup
             // CRC
             cData[25] = cf.mf.Tls.CRC(cData, 25);
 
-            bool Result = cf.mf.UDPmodulesConfig.SendUDPMessage(cData);
-            //Result |= cf.mf.CommPort.Send(cData);
+            try
+            {
+                // send serial
+                Result = cf.mf.CommPort.Send(cData);
+            }
+            catch (Exception ex)
+            {
+                cf.mf.Tls.WriteErrorLog("PGN32301/send serial: " + ex.Message);
+            }
+
+            if (!Result)
+            {
+                // send ethernet
+                Result = cf.mf.UDPmodulesConfig.SendUDPMessage(cData);
+            }
 
             return Result;
         }

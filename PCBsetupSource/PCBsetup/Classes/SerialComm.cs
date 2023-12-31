@@ -148,26 +148,19 @@ namespace PCBsetup
             bool Result = false;
             if (ArduinoPort.IsOpen)
             {
-                if (cReceiveActive)
+                try
                 {
-                    try
-                    {
-                        ArduinoPort.Write(Data, 0, Data.Length);
-                        Result = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        mf.Tls.WriteErrorLog("SerialComm/SendData: " + ex.Message);
-                    }
+                    ArduinoPort.Write(Data, 0, Data.Length);
+                    Result = true;
                 }
-                else
+                catch (Exception ex)
                 {
-                    throw new InvalidOperationException("ModuleDisconnected");
+                    mf.Tls.WriteErrorLog("SerialComm/SendData: " + ex.Message);
                 }
             }
             else
             {
-                throw new InvalidOperationException("CommDisconnected");
+                mf.Tls.WriteErrorLog("SerialComm/Send: CommDisconnected");
             }
             return Result;
         }

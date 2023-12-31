@@ -39,6 +39,7 @@ namespace PCBsetup
         }
         public bool Send()
         {
+            bool Result = false;
             byte tmp;
             string Name;
             bool Checked;
@@ -69,8 +70,21 @@ namespace PCBsetup
             // CRC
             cData[11] = cf.mf.Tls.CRC(cData, 11);
 
-            bool Result = cf.mf.UDPmodulesConfig.SendUDPMessage(cData);
-            //Result |= cf.mf.CommPort.Send(cData);
+            try
+            {
+                // send serial
+                Result = cf.mf.CommPort.Send(cData);
+            }
+            catch (Exception ex)
+            {
+                cf.mf.Tls.WriteErrorLog("PGN32300/send serial: " + ex.Message);
+            }
+
+            if (!Result)
+            {
+                // send ethernet
+                Result = cf.mf.UDPmodulesConfig.SendUDPMessage(cData);
+            }
 
             return Result;
         }

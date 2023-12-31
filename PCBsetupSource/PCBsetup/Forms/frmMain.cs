@@ -33,7 +33,7 @@ namespace PCBsetup.Forms
             InitializeComponent();
             Tls = new clsTools(this);
             CommPort = new SerialComm(this, PortID);
-            UDPmodulesConfig = new UDPComm(this, 29900, 28800, 1482);     // pcb config
+            UDPmodulesConfig = new UDPComm(this, 29999, 28888, 1482);     // pcb config
             CommPort.ModuleConnected += CommPort_ModuleConnected;
             FormNetwork = new frmNetwork(this);
             ModuleConfig = new PGN32700(this);

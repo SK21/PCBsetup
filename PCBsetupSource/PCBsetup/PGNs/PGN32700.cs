@@ -148,14 +148,31 @@ namespace PCBsetup
             cRecordsFound = true;
         }
 
-        public void Send()
+        public bool Send()
         {
+            bool Result = false;
+
             // CRC
             cData[cByteCount - 1] = mf.Tls.CRC(cData, cByteCount - 1);
 
             // send
-            mf.CommPort.Send(cData);
-            mf.UDPmodulesConfig.SendUDPMessage(cData);
+            try
+            {
+                // send serial
+                Result = mf.CommPort.Send(cData);
+            }
+            catch (Exception ex)
+            {
+                mf.Tls.WriteErrorLog("PGN32700/send serial: " + ex.Message);
+            }
+
+            if (!Result)
+            {
+                // send ethernet
+                Result = mf.UDPmodulesConfig.SendUDPMessage(cData);
+            }
+
+            return Result;
         }
     }
 }
