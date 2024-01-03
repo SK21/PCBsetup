@@ -15,7 +15,6 @@ namespace PCBsetup.Forms
         private const byte HeaderLo = 46;
         private bool FormEdited;
         private PGN32303 Info;
-        private byte InfoID;
         private bool Initializing;
 
         public frmNetwork(frmMain CalledFrom)

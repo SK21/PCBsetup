@@ -77,6 +77,8 @@ namespace PCBsetup.Forms
             tbSW14.Text = "0";
             tbSW15.Text = "0";
             tbSW16.Text = "0";
+
+            tbWorkSwitch.Text = "0";
         }
 
         private void btnLoadDefaults_HelpRequested(object sender, HelpEventArgs hlpevent)
@@ -157,6 +159,8 @@ namespace PCBsetup.Forms
             Boxes.Add(this.Text, tbSW14, 21);
             Boxes.Add(this.Text, tbSW15, 21);
             Boxes.Add(this.Text, tbSW16, 21);
+
+            Boxes.Add(this.Text,tbWorkSwitch, 21);
 
             for (int i = 0; i < Boxes.Count(); i++)
             {

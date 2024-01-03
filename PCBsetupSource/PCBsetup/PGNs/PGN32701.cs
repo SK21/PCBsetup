@@ -18,9 +18,10 @@ namespace PCBsetup
         //5         Rate Up
         //6         Rate Down
         //7-22      switches 1-16
-        //23        crc
+        //23        work pin
+        //24        crc
 
-        private byte[] cData = new byte[24];
+        private byte[] cData = new byte[25];
         private frmSwitchboxSettings cf;
 
         public PGN32701(frmSwitchboxSettings CalledFrom)
@@ -58,7 +59,9 @@ namespace PCBsetup
             cData[21] = (byte)cf.Boxes.Value("tbSW15");
             cData[22] = (byte)cf.Boxes.Value("tbSW16");
 
-            cData[23] = cf.mf.Tls.CRC(cData, 23);
+            cData[23] = (byte)cf.Boxes.Value("tbWorkSwitch");
+
+            cData[24] = cf.mf.Tls.CRC(cData, 23);
 
             try
             {
