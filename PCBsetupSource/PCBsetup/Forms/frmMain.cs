@@ -22,11 +22,8 @@ namespace PCBsetup.Forms
         public clsTools Tls;
         public UDPComm UDPmodulesConfig;
         private byte cModule = 0;
-        private int PortID = 1;
         private string cSelectedPortName;
-        public frmNetwork FormNetwork;
-        public PGN32700 ModuleConfig;
-        public int RateModuleSelected;  // 0 nano, 1 Teensy, 2 ESP32
+        private int PortID = 1;
 
         public frmMain()
         {
@@ -35,22 +32,10 @@ namespace PCBsetup.Forms
             CommPort = new SerialComm(this, PortID);
             UDPmodulesConfig = new UDPComm(this, 29999, 28888, 1482);     // pcb config
             CommPort.ModuleConnected += CommPort_ModuleConnected;
-            FormNetwork = new frmNetwork(this);
-            ModuleConfig = new PGN32700(this);
         }
 
-        private string TrimPortName(string portName)
-        {
-            string tmp = portName;
-            int End = tmp.IndexOf(" - ");
-            if (End > 0) tmp = tmp.Substring(0, End);
-            return tmp;
-        }
-
-        public string SelectedPortName()
-        {
-            return cSelectedPortName;
-        }
+        public byte ModuleSelected
+        { get { return cModule; } }
 
         public bool OpenComm()
         {
@@ -58,6 +43,11 @@ namespace PCBsetup.Forms
             CommPort.SCportBaud = 38400;
             CommPort.Open();
             return CommPort.IsOpen();
+        }
+
+        public string SelectedPortName()
+        {
+            return cSelectedPortName;
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -85,31 +75,32 @@ namespace PCBsetup.Forms
             {
                 case 0:
                     // Teensy AutoSteer
-                    Form tmp = new frmFirmware(this, 0);
+                    Form tmp = new frmFWTeensySteer(this, 0);
                     tmp.ShowDialog();
                     break;
 
                 case 1:
                     // Teensy Rate
-                    Form tmp1 = new frmFirmware(this, 1);
+                    Form tmp1 = new frmFWTeensySteer(this, 1);
                     tmp1.ShowDialog();
                     break;
 
                 case 2:
                     // Nano Rate
-                    Form tmp2 = new frmNanoFirmware(this);
+                    Form tmp2 = new frmFWNanoRate(this);
                     tmp2.ShowDialog();
                     break;
 
                 case 3:
                     // Nano SwitchBox
-                    Form tmp3 = new frmSwitchboxFirmware(this);
+                    Form tmp3 = new frmFWNanoSwitchBox(this);
                     tmp3.ShowDialog();
                     break;
 
                 case 4:
+                case 5:
                     // wifi rate
-                    Form tmp4 = new frmD1rate(this);
+                    Form tmp4 = new frmFWESP8266(this);
                     CommPort.Close();   // needs to be closed for esptool to connect
                     tmp4.ShowDialog();
                     break;
@@ -128,36 +119,44 @@ namespace PCBsetup.Forms
             {
                 case 0:
                     // Teensy AutoSteer
-                    Form tmp = new frmTeensySteer(this);
+                    Form tmp = new frmSetTeensySteer(this);
                     tmp.ShowDialog();
-                    break;
-
-                case 1:
-                    // Teensy Rate
-                    RateModuleSelected = 1;
-                    Form tmp1 = new frmTeensyRate(this);
-                    tmp1.ShowDialog();
-                    break;
-
-                case 2:
-                    // Nano Rate
-                    RateModuleSelected = 0;
-                    Form tmp2 = new frmTeensyRate(this);
-                    tmp2.ShowDialog();
                     break;
 
                 case 3:
                     // Nano SwitchBox
-                    Form tmp3 = new frmSwitchboxSettings(this);
+                    Form tmp3 = new frmSetNanoSwitchbox(this);
                     tmp3.ShowDialog();
                     break;
             }
+        }
+
+        private void btnSettings_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            string Message = "Rate settings are done in the Rate Controller app.";
+
+            Tls.ShowHelp(Message, "Settings");
+            hlpevent.Handled = true;
         }
 
         private void cbModule_SelectedIndexChanged(object sender, EventArgs e)
         {
             Tls.SaveProperty("Module", cbModule.SelectedIndex.ToString());
             cModule = (byte)cbModule.SelectedIndex;
+            SetButtons();
+        }
+
+        private void cboPort1_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            string Message = "List of connected serial ports.";
+
+            Tls.ShowHelp(Message, this.Text);
+            hlpevent.Handled = true;
+        }
+
+        private void cboPort1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cSelectedPortName = TrimPortName(cboPort1.SelectedItem.ToString());
         }
 
         private void CommPort_ModuleConnected(object sender, EventArgs e)
@@ -205,6 +204,7 @@ namespace PCBsetup.Forms
             {
                 Tls.ShowHelp("UDPconfig failed to start.", "", 3000, true);
             }
+            SetButtons();
         }
 
         private void GroupBoxPaint(object sender, PaintEventArgs e)
@@ -262,8 +262,6 @@ namespace PCBsetup.Forms
                 // module
                 byte.TryParse(Tls.LoadProperty("Module"), out cModule);
                 cbModule.SelectedIndex = cModule;
-
-                ModuleConfig.Load();
             }
             catch (Exception ex)
             {
@@ -336,6 +334,21 @@ namespace PCBsetup.Forms
             //tmp.Show();
         }
 
+        private void SetButtons()
+        {
+            switch (cbModule.SelectedIndex)
+            {
+                case 0:
+                case 3:
+                    btnSettings.Enabled = true;
+                    break;
+
+                default:
+                    btnSettings.Enabled = false;
+                    break;
+            }
+        }
+
         private void SetDayMode()
         {
             if (Properties.Settings.Default.IsDay)
@@ -359,6 +372,14 @@ namespace PCBsetup.Forms
             }
         }
 
+        private string TrimPortName(string portName)
+        {
+            string tmp = portName;
+            int End = tmp.IndexOf(" - ");
+            if (End > 0) tmp = tmp.Substring(0, End);
+            return tmp;
+        }
+
         private void UpdateForm()
         {
             if (CommPort.IsOpen())
@@ -380,25 +401,6 @@ namespace PCBsetup.Forms
             {
                 ModuleIndicator.Image = Properties.Resources.Off;
             }
-        }
-
-        private void cboPort1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            cSelectedPortName = TrimPortName(cboPort1.SelectedItem.ToString());
-        }
-
-        private void cboPort1_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            string Message = "List of connected serial ports.";
-
-            Tls.ShowHelp(Message, this.Text);
-            hlpevent.Handled = true;
-        }
-
-        private void uDPToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FormNetwork = new frmNetwork(this);
-            FormNetwork.ShowDialog();
         }
     }
 }

@@ -29,9 +29,9 @@ namespace PCBsetup
         //11    CRC
 
         private byte[] cData = new byte[12];
-        private frmTeensySteer cf;
+        private frmSetTeensySteer cf;
 
-        public PGN32300(frmTeensySteer CalledFrom)
+        public PGN32300(frmSetTeensySteer CalledFrom)
         {
             cf = CalledFrom;
             cData[0] = 44;

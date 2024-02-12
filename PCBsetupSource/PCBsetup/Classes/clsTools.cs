@@ -14,15 +14,17 @@ namespace PCBsetup
         private static Hashtable ht;
         private string cAppName = "PCBsetup";
         private string cAppVersion = "1.1.3";
-        private string cVersionDate = "02-Jan-2024";
+        private string cVersionDate = "11-Feb-2024";
 
         private string cTeensyAutoSteerFirmware = "30-Dec-2023";
-        private string cTeensyRateVersion = "30-Dec-2023";
+        private string cTeensyRateVersion = "11-Feb-2023";
 
-        private string cNanoFirmware = "30-Dec-2023";   // rate
-        private string cSwitchboxFirmware = "02-Jan-2024";
+        private string cNanoFirmware = "11-Feb-2023";   // rate
+        private string cSwitchboxFirmware = "11-Feb-2024";
 
-        private string cWifiRCfirmware = "27-Jun-2023";
+        private string cWifiRCfirmware = "11-Feb-2023";
+
+        private string cESPfirmware = "11-Feb-2023";
 
         private string cPropertiesFile = "";
         private string cSettingsDir = "";
@@ -212,6 +214,10 @@ namespace PCBsetup
         public string D1RateFirmware()
         {
             return cWifiRCfirmware;
+        }
+        public string ESP32RateFirmware()
+        {
+            return cESPfirmware;
         }
         public bool NewFile(string Name)
         {

@@ -22,9 +22,9 @@ namespace PCBsetup
         //24        crc
 
         private byte[] cData = new byte[25];
-        private frmSwitchboxSettings cf;
+        private frmSetNanoSwitchbox cf;
 
-        public PGN32701(frmSwitchboxSettings CalledFrom)
+        public PGN32701(frmSetNanoSwitchbox CalledFrom)
         {
             cf = CalledFrom;
             cData[0] = 189;

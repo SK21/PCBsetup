@@ -221,12 +221,12 @@ namespace PCBsetup.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static System.Drawing.Bitmap Pins {
+        internal static byte[] RC_ESP32_ino {
             get {
-                object obj = ResourceManager.GetObject("Pins", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                object obj = ResourceManager.GetObject("RC_ESP32_ino", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

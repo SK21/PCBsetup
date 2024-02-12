@@ -220,10 +220,6 @@ namespace PCBsetup
                 int PGN = Data[1] << 8 | Data[0];   
                 switch (PGN)
                 {
-                    case 32302:
-                        mf.FormNetwork.ParseByteData(Data);
-                        break;
-
                     case 0xABC:
                         // debug info from module
                         Debug.Print("");

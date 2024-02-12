@@ -212,10 +212,6 @@ namespace PCBsetup
 
                             switch (PGN)
                             {
-                                case 32302:
-                                    mf.FormNetwork.ParseStringData(words);
-                                    break;
-
                                 case 0xABC:
                                     // debug info from module
                                     Debug.Print("");

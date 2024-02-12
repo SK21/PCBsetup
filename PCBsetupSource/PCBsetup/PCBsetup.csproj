@@ -205,17 +205,17 @@
     <Compile Include="Forms\frmAbout.Designer.cs">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmD1rate.cs">
+    <Compile Include="Forms\frmFWESP8266.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmD1rate.Designer.cs">
-      <DependentUpon>frmD1rate.cs</DependentUpon>
+    <Compile Include="Forms\frmFWESP8266.Designer.cs">
+      <DependentUpon>frmFWESP8266.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmFirmware.cs">
+    <Compile Include="Forms\frmFWTeensySteer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmFirmware.Designer.cs">
-      <DependentUpon>frmFirmware.cs</DependentUpon>
+    <Compile Include="Forms\frmFWTeensySteer.Designer.cs">
+      <DependentUpon>frmFWTeensySteer.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmHelp.cs">
       <SubType>Form</SubType>
@@ -235,47 +235,29 @@
     <Compile Include="Forms\frmMonitor.Designer.cs">
       <DependentUpon>frmMonitor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmNanoFirmware.cs">
+    <Compile Include="Forms\frmFWNanoRate.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmNanoFirmware.Designer.cs">
-      <DependentUpon>frmNanoFirmware.cs</DependentUpon>
+    <Compile Include="Forms\frmFWNanoRate.Designer.cs">
+      <DependentUpon>frmFWNanoRate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmNetwork.cs">
+    <Compile Include="Forms\frmFWNanoSwitchBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmNetwork.Designer.cs">
-      <DependentUpon>frmNetwork.cs</DependentUpon>
+    <Compile Include="Forms\frmFWNanoSwitchBox.Designer.cs">
+      <DependentUpon>frmFWNanoSwitchBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmPins.cs">
+    <Compile Include="Forms\frmSetNanoSwitchbox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmPins.Designer.cs">
-      <DependentUpon>frmPins.cs</DependentUpon>
+    <Compile Include="Forms\frmSetNanoSwitchbox.Designer.cs">
+      <DependentUpon>frmSetNanoSwitchbox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmSwitchboxFirmware.cs">
+    <Compile Include="Forms\frmSetTeensySteer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmSwitchboxFirmware.Designer.cs">
-      <DependentUpon>frmSwitchboxFirmware.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmSwitchboxSettings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmSwitchboxSettings.Designer.cs">
-      <DependentUpon>frmSwitchboxSettings.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmTeensyRate.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmTeensyRate.Designer.cs">
-      <DependentUpon>frmTeensyRate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmTeensySteer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmTeensySteer.Designer.cs">
-      <DependentUpon>frmTeensySteer.cs</DependentUpon>
+    <Compile Include="Forms\frmSetTeensySteer.Designer.cs">
+      <DependentUpon>frmSetTeensySteer.cs</DependentUpon>
     </Compile>
     <Compile Include="Languages\Lang.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -284,9 +266,6 @@
     </Compile>
     <Compile Include="PGNs\PGN32300.cs" />
     <Compile Include="PGNs\PGN32301.cs" />
-    <Compile Include="PGNs\PGN32303.cs" />
-    <Compile Include="PGNs\PGN32503.cs" />
-    <Compile Include="PGNs\PGN32700.cs" />
     <Compile Include="PGNs\PGN32701.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -297,11 +276,11 @@
       <DependentUpon>frmAbout.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmD1rate.resx">
-      <DependentUpon>frmD1rate.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\frmFWESP8266.resx">
+      <DependentUpon>frmFWESP8266.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmFirmware.resx">
-      <DependentUpon>frmFirmware.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\frmFWTeensySteer.resx">
+      <DependentUpon>frmFWTeensySteer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmHelp.resx">
       <DependentUpon>frmHelp.cs</DependentUpon>
@@ -312,26 +291,17 @@
     <EmbeddedResource Include="Forms\frmMonitor.resx">
       <DependentUpon>frmMonitor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmNanoFirmware.resx">
-      <DependentUpon>frmNanoFirmware.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\frmFWNanoRate.resx">
+      <DependentUpon>frmFWNanoRate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmNetwork.resx">
-      <DependentUpon>frmNetwork.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\frmFWNanoSwitchBox.resx">
+      <DependentUpon>frmFWNanoSwitchBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmPins.resx">
-      <DependentUpon>frmPins.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\frmSetNanoSwitchbox.resx">
+      <DependentUpon>frmSetNanoSwitchbox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmSwitchboxFirmware.resx">
-      <DependentUpon>frmSwitchboxFirmware.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmSwitchboxSettings.resx">
-      <DependentUpon>frmSwitchboxSettings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmTeensyRate.resx">
-      <DependentUpon>frmTeensyRate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmTeensySteer.resx">
-      <DependentUpon>frmTeensySteer.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\frmSetTeensySteer.resx">
+      <DependentUpon>frmSetTeensySteer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Languages\Lang.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -374,6 +344,7 @@
     <None Include="Resources\RCnano.ino.hex" />
     <None Include="Resources\RCnanoOldBootLoader.ino.hex" />
     <None Include="Resources\RCteensy.ino.hex" />
+    <None Include="Resources\RC_ESP32.ino.bin" />
     <None Include="Resources\SW.ino.hex" />
     <None Include="Resources\SWarduinoNB.ino.hex" />
     <None Include="Resources\SWarduinoOB.ino.hex" />
@@ -395,6 +366,9 @@
     <Content Include="configurator-icon-19.ico" />
     <Content Include="Forms\Keypad.dll" />
     <Content Include="Forms\RepeatButtonControl.dll" />
+    <None Include="Resources\PCB.png" />
+    <None Include="Resources\Pins2.PNG" />
+    <None Include="Resources\Pins1.PNG" />
     <None Include="Resources\Pins.PNG" />
     <None Include="Resources\Update.png" />
     <None Include="Resources\OK64.png" />
