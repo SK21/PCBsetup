@@ -1,42 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace PCBsetup.Forms
 {
     public partial class frmMonitor : Form
     {
-        private frmMain mf;
         private bool FreezeUpdate;
+        private frmMain mf;
 
         public frmMonitor(frmMain CallingForm)
         {
             InitializeComponent();
             mf = CallingForm;
             this.BackColor = PCBsetup.Properties.Settings.Default.DayColour;
+            tbMonitor.BackColor=PCBsetup.Properties.Settings.Default.DayColour;
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void bntOK_Click(object sender, EventArgs e)
         {
-            if (!FreezeUpdate)
+            Close();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            try
             {
-                tbMonitor.Text = mf.CommPort.Log();
-                tbMonitor.Select(tbMonitor.Text.Length, 0);
-                tbMonitor.Focus();
-                tbMonitor.ScrollToCaret();
+                File.WriteAllText(mf.Tls.FilesDir() + "\\Serial Log.txt", tbMonitor.Text);
+                mf.Tls.ShowHelp("File saved.", "Save", 10000);
+            }
+            catch (Exception ex)
+            {
+                mf.Tls.WriteErrorLog("frmMonitor/btnSave_Click: " + ex.Message);
             }
         }
 
-        private void frmMonitor_Load(object sender, EventArgs e)
+        private void btnStart_Click(object sender, EventArgs e)
         {
-            mf.Tls.LoadFormData(this);
-            timer1.Enabled = true;
+            FreezeUpdate = !FreezeUpdate;
+            UpdateForm();
         }
 
         private void frmMonitor_FormClosing(object sender, FormClosingEventArgs e)
@@ -48,14 +50,39 @@ namespace PCBsetup.Forms
             }
         }
 
-        private void bntOK_Click(object sender, EventArgs e)
+        private void frmMonitor_Load(object sender, EventArgs e)
         {
-            Close();
+            mf.Tls.LoadFormData(this);
+            timer1.Enabled = true;
+            UpdateForm();
         }
 
         private void tbMonitor_Click(object sender, EventArgs e)
         {
             FreezeUpdate = !FreezeUpdate;
+            UpdateForm();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (!FreezeUpdate)
+            {
+                tbMonitor.Text = mf.CommPort.Log();
+                tbMonitor.Select(tbMonitor.Text.Length, 0);
+                tbMonitor.ScrollToCaret();
+            }
+        }
+
+        private void UpdateForm()
+        {
+            if (FreezeUpdate)
+            {
+                btnStart.Image = Properties.Resources.Start;
+            }
+            else
+            {
+                btnStart.Image = Properties.Resources.Pause;
+            }
         }
     }
 }

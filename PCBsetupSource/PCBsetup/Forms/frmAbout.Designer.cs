@@ -86,7 +86,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(363, 383);
+            this.textBox1.Size = new System.Drawing.Size(363, 236);
             this.textBox1.TabIndex = 6;
             this.textBox1.Text = resources.GetString("textBox1.Text");
             // 
@@ -96,7 +96,7 @@
             this.bntOK.FlatAppearance.BorderSize = 0;
             this.bntOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntOK.Image = global::PCBsetup.Properties.Resources.bntOK_Image;
-            this.bntOK.Location = new System.Drawing.Point(157, 466);
+            this.bntOK.Location = new System.Drawing.Point(303, 319);
             this.bntOK.Name = "bntOK";
             this.bntOK.Size = new System.Drawing.Size(72, 72);
             this.bntOK.TabIndex = 3;
@@ -108,7 +108,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(387, 543);
+            this.ClientSize = new System.Drawing.Size(387, 388);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.lbIPdes);
             this.Controls.Add(this.bntOK);

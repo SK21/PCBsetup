@@ -172,6 +172,7 @@ namespace PCBsetup
             {
                 cLog = cLog.Substring(cLog.Length - 98000, 98000);
             }
+            cLog = cLog.Replace("\0", string.Empty);
         }
 
         private void CheckConnected(object sender, ElapsedEventArgs e)

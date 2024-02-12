@@ -13,21 +13,17 @@ namespace PCBsetup
     {
         private static Hashtable ht;
         private string cAppName = "PCBsetup";
-        private string cAppVersion = "1.1.3";
+        private string cAppVersion = "1.1.4";
         private string cVersionDate = "11-Feb-2024";
 
-        private string cTeensyAutoSteerFirmware = "30-Dec-2023";
-        private string cTeensyRateVersion = "11-Feb-2023";
-
-        private string cNanoFirmware = "11-Feb-2023";   // rate
-        private string cSwitchboxFirmware = "11-Feb-2024";
-
-        private string cWifiRCfirmware = "11-Feb-2023";
-
         private string cESPfirmware = "11-Feb-2023";
-
+        private string cNanoFirmware = "11-Feb-2023"; // rate
         private string cPropertiesFile = "";
         private string cSettingsDir = "";
+        private string cSwitchboxFirmware = "11-Feb-2024";
+        private string cTeensyAutoSteerFirmware = "30-Dec-2023";
+        private string cTeensyRateVersion = "11-Feb-2023";
+        private string cWifiRCfirmware = "11-Feb-2023";
         private frmMain mf;
 
         public clsTools(frmMain CallingForm)
@@ -93,6 +89,11 @@ namespace PCBsetup
             return Result;
         }
 
+        public string D1RateFirmware()
+        {
+            return cWifiRCfirmware;
+        }
+
         public void DelayMilliSeconds(int MS)
         {
             if (MS < 300000)    // max 5 minutes
@@ -144,6 +145,16 @@ namespace PCBsetup
                 //Top2
                 g.DrawLine(borderPen, new Point(rect.X + box.Padding.Left + (int)strSize.Width, rect.Y), new Point(rect.X + rect.Width, rect.Y));
             }
+        }
+
+        public string ESP32RateFirmware()
+        {
+            return cESPfirmware;
+        }
+
+        public string FilesDir()
+        {
+            return Properties.Settings.Default.FilesDir;
         }
 
         public bool GoodCRC(byte[] Data, byte Start = 0)
@@ -211,14 +222,7 @@ namespace PCBsetup
         {
             return cNanoFirmware;
         }
-        public string D1RateFirmware()
-        {
-            return cWifiRCfirmware;
-        }
-        public string ESP32RateFirmware()
-        {
-            return cESPfirmware;
-        }
+
         public bool NewFile(string Name)
         {
             bool Result = false;
@@ -408,11 +412,11 @@ namespace PCBsetup
             {
                 // SettingsDir
                 cSettingsDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + cAppName;
-                if (!Directory.Exists(cSettingsDir))
-                {
-                    Directory.CreateDirectory(cSettingsDir);
-                    File.WriteAllBytes(cSettingsDir + "\\Example.con", Properties.Resources.Example);
-                }
+                if (!Directory.Exists(cSettingsDir)) Directory.CreateDirectory(cSettingsDir);
+                if (!File.Exists(cSettingsDir + "\\Example.con")) File.WriteAllBytes(cSettingsDir + "\\Example.con", Properties.Resources.Example);
+
+                string FilesDir = Properties.Settings.Default.FilesDir;
+                if (!Directory.Exists(FilesDir)) Properties.Settings.Default.FilesDir = cSettingsDir;
 
                 OpenFile(Properties.Settings.Default.FileName);
             }
@@ -447,12 +451,15 @@ namespace PCBsetup
         {
             try
             {
-                NewFile = Path.GetFileName(NewFile);
-                cPropertiesFile = cSettingsDir + "\\" + NewFile;
-                if (!File.Exists(cPropertiesFile)) File.Create(cPropertiesFile).Dispose();
+                string PathName = Path.GetDirectoryName(NewFile); // only works if file name present
+                string FileName = Path.GetFileName(NewFile);
+                if (FileName == "") PathName = NewFile;     // no file name present, fix path name
+                if (Directory.Exists(PathName)) Properties.Settings.Default.FilesDir = PathName; // set the new files dir
 
+                cPropertiesFile = Properties.Settings.Default.FilesDir + "\\" + FileName;
+                if (!File.Exists(cPropertiesFile)) File.Create(cPropertiesFile).Dispose();
                 LoadProperties(cPropertiesFile);
-                Properties.Settings.Default.FileName = NewFile;
+                Properties.Settings.Default.FileName = FileName;
                 Properties.Settings.Default.Save();
             }
             catch (Exception ex)

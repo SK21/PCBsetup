@@ -211,7 +211,8 @@
             "Teensy Rate",
             "Nano Rate",
             "Nano SwitchBox",
-            "Wifi RC"});
+            "Wifi RC",
+            "ESP32 Rate"});
             this.cbModule.Location = new System.Drawing.Point(12, 160);
             this.cbModule.Name = "cbModule";
             this.cbModule.Size = new System.Drawing.Size(182, 32);

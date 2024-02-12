@@ -59,6 +59,9 @@ namespace PCBsetup.Forms
         {
             string cmd = "";
             string arg = "";
+            string BootLoader = "BootLoader.tmp";
+            string Partitions = "Partitions.tmp";
+            string BootApp = "BootApp.tmp";
             try
             {
                 SetButtons(true);
@@ -68,8 +71,7 @@ namespace PCBsetup.Forms
 
                 if (mf.ModuleSelected == 4)
                 {
-                    cmd = PathName + "//esptool.exe";
-                    arg = "--port " + mf.SelectedPortName() + " --baud " + "115200" + " write_flash 0x0 " + NewBin;
+                    // esp8266
                     if (UserSelectedFile)
                     {
                         File.Copy(tbHexfile.Text, NewBin, true);
@@ -78,23 +80,33 @@ namespace PCBsetup.Forms
                     {
                         File.WriteAllBytes(NewBin, PCBsetup.Properties.Resources.WifiRC_ino);
                     }
+                    arg = "--port " + mf.SelectedPortName() + " --baud " + "460800" + " write_flash 0x0 " + NewBin;
                 }
                 else
                 {
-                    cmd = PathName + "//esptool.exe";
-                    arg = "--port " + mf.SelectedPortName() + " --baud " + "115200" + " write_flash 0x1000 " + NewBin;
+                    // esp32
                     if (UserSelectedFile)
                     {
-                        File.Copy(tbHexfile.Text, NewBin, true);
+                        //File.Copy(tbHexfile.Text, NewBin, true);
                     }
                     else
                     {
+                        BootLoader = PathName + "\\" + BootLoader;
+                        Partitions = PathName + "\\" + Partitions;
+                        BootApp = PathName + "\\" + BootApp;
+                        File.WriteAllBytes(BootLoader, PCBsetup.Properties.Resources.RC_ESP32_ino_bootloader);
+                        File.WriteAllBytes(Partitions, PCBsetup.Properties.Resources.RC_ESP32_ino_partitions);
+                        File.WriteAllBytes(BootApp, PCBsetup.Properties.Resources.boot_app0);
                         File.WriteAllBytes(NewBin, PCBsetup.Properties.Resources.RC_ESP32_ino);
                     }
+                    arg = "--chip esp32 --port " + mf.SelectedPortName() + " --baud " + "460800"
+                        + " --before default_reset --after hard_reset write_flash -z --flash_mode dio"
+                        + " 0x1000 " + BootLoader + " 0x8000 " + Partitions +  " 0x10000 " + NewBin;
                 }
 
                 File.WriteAllBytes(PathName + "//esptool.exe", PCBsetup.Properties.Resources.esptool);
                 Process myProcess = null;
+                cmd = PathName + "//esptool.exe";
                 myProcess = Process.Start(cmd, arg);
                 while (!myProcess.WaitForExit(1000)) ;
                 if (myProcess.ExitCode != 0)

@@ -329,9 +329,17 @@ namespace PCBsetup.Forms
 
         private void SerialMonitorItem_Click(object sender, EventArgs e)
         {
-            Form tmp = new frmMonitor(this);
-            tmp.ShowDialog();
-            //tmp.Show();
+            Form fs = Application.OpenForms["frmMonitor"];
+
+            if (fs == null)
+            {
+                Form frm = new frmMonitor(this);
+                frm.Show();
+            }
+            else
+            {
+                fs.Focus();
+            }
         }
 
         private void SetButtons()
