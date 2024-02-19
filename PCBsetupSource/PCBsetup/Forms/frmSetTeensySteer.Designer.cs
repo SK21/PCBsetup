@@ -37,10 +37,6 @@
             this.ckTSuse4_20 = new System.Windows.Forms.CheckBox();
             this.tbTSPulseCal = new System.Windows.Forms.TextBox();
             this.label32 = new System.Windows.Forms.Label();
-            this.tbTSMaxSpeed = new System.Windows.Forms.TextBox();
-            this.tbTSMinSpeed = new System.Windows.Forms.TextBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
             this.cbTSreceiver = new System.Windows.Forms.ComboBox();
             this.label26 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
@@ -124,10 +120,6 @@
             this.tabPage1.Controls.Add(this.ckTSuse4_20);
             this.tabPage1.Controls.Add(this.tbTSPulseCal);
             this.tabPage1.Controls.Add(this.label32);
-            this.tabPage1.Controls.Add(this.tbTSMaxSpeed);
-            this.tabPage1.Controls.Add(this.tbTSMinSpeed);
-            this.tabPage1.Controls.Add(this.label25);
-            this.tabPage1.Controls.Add(this.label31);
             this.tabPage1.Controls.Add(this.cbTSreceiver);
             this.tabPage1.Controls.Add(this.label26);
             this.tabPage1.Controls.Add(this.label28);
@@ -202,7 +194,7 @@
             // 
             // tbTSPulseCal
             // 
-            this.tbTSPulseCal.Location = new System.Drawing.Point(343, 266);
+            this.tbTSPulseCal.Location = new System.Drawing.Point(356, 241);
             this.tbTSPulseCal.Name = "tbTSPulseCal";
             this.tbTSPulseCal.Size = new System.Drawing.Size(71, 29);
             this.tbTSPulseCal.TabIndex = 8;
@@ -212,45 +204,11 @@
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(86, 268);
+            this.label32.Location = new System.Drawing.Point(99, 243);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(146, 24);
             this.label32.TabIndex = 49;
             this.label32.Text = "Speed pulse cal";
-            // 
-            // tbTSMaxSpeed
-            // 
-            this.tbTSMaxSpeed.Location = new System.Drawing.Point(343, 215);
-            this.tbTSMaxSpeed.Name = "tbTSMaxSpeed";
-            this.tbTSMaxSpeed.Size = new System.Drawing.Size(71, 29);
-            this.tbTSMaxSpeed.TabIndex = 7;
-            this.tbTSMaxSpeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // tbTSMinSpeed
-            // 
-            this.tbTSMinSpeed.Location = new System.Drawing.Point(343, 164);
-            this.tbTSMinSpeed.Name = "tbTSMinSpeed";
-            this.tbTSMinSpeed.Size = new System.Drawing.Size(71, 29);
-            this.tbTSMinSpeed.TabIndex = 6;
-            this.tbTSMinSpeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(86, 217);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(151, 24);
-            this.label25.TabIndex = 46;
-            this.label25.Text = "Maximum speed";
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(86, 166);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(146, 24);
-            this.label31.TabIndex = 45;
-            this.label31.Text = "Minimum speed";
             // 
             // cbTSreceiver
             // 
@@ -259,7 +217,7 @@
             this.cbTSreceiver.Items.AddRange(new object[] {
             "None",
             "SimpleRTK2B"});
-            this.cbTSreceiver.Location = new System.Drawing.Point(227, 8);
+            this.cbTSreceiver.Location = new System.Drawing.Point(240, 88);
             this.cbTSreceiver.Name = "cbTSreceiver";
             this.cbTSreceiver.Size = new System.Drawing.Size(187, 32);
             this.cbTSreceiver.TabIndex = 0;
@@ -269,7 +227,7 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(86, 11);
+            this.label26.Location = new System.Drawing.Point(99, 91);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(121, 24);
             this.label26.TabIndex = 42;
@@ -278,7 +236,7 @@
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(86, 321);
+            this.label28.Location = new System.Drawing.Point(99, 296);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(122, 24);
             this.label28.TabIndex = 41;
@@ -290,12 +248,12 @@
             this.cbTSRelayControl.FormattingEnabled = true;
             this.cbTSRelayControl.Items.AddRange(new object[] {
             "No Relays",
+            "Teensy GPIOs",
             "PCA9685",
             "PCA9555  8 relays",
             "PCA9555  16 relays",
-            "MCP23017",
-            "Teensy GPIOs"});
-            this.cbTSRelayControl.Location = new System.Drawing.Point(227, 317);
+            "MCP23017"});
+            this.cbTSRelayControl.Location = new System.Drawing.Point(240, 292);
             this.cbTSRelayControl.Name = "cbTSRelayControl";
             this.cbTSRelayControl.Size = new System.Drawing.Size(187, 32);
             this.cbTSRelayControl.TabIndex = 9;
@@ -303,7 +261,7 @@
             // 
             // tbTSIMUport
             // 
-            this.tbTSIMUport.Location = new System.Drawing.Point(343, 113);
+            this.tbTSIMUport.Location = new System.Drawing.Point(356, 193);
             this.tbTSIMUport.Name = "tbTSIMUport";
             this.tbTSIMUport.Size = new System.Drawing.Size(71, 29);
             this.tbTSIMUport.TabIndex = 2;
@@ -312,7 +270,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(86, 115);
+            this.label2.Location = new System.Drawing.Point(99, 195);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(129, 24);
             this.label2.TabIndex = 22;
@@ -320,7 +278,7 @@
             // 
             // tbTSReceiverPort
             // 
-            this.tbTSReceiverPort.Location = new System.Drawing.Point(343, 62);
+            this.tbTSReceiverPort.Location = new System.Drawing.Point(356, 142);
             this.tbTSReceiverPort.Name = "tbTSReceiverPort";
             this.tbTSReceiverPort.Size = new System.Drawing.Size(71, 29);
             this.tbTSReceiverPort.TabIndex = 1;
@@ -329,7 +287,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(86, 64);
+            this.label1.Location = new System.Drawing.Point(99, 144);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(171, 24);
             this.label1.TabIndex = 20;
@@ -853,7 +811,7 @@
             this.bntOK.UseVisualStyleBackColor = false;
             this.bntOK.Click += new System.EventHandler(this.bntOK_Click);
             // 
-            // frmTeensySteer
+            // frmSetTeensySteer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -870,7 +828,7 @@
             this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmTeensySteer";
+            this.Name = "frmSetTeensySteer";
             this.ShowInTaskbar = false;
             this.Text = "Teensy Autosteer";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmTeensySteer_FormClosed);
@@ -942,10 +900,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cbTSreceiver;
         private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.TextBox tbTSMaxSpeed;
-        private System.Windows.Forms.TextBox tbTSMinSpeed;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Label label31;
         private System.Windows.Forms.CheckBox ckTSSwapRoll;
         private System.Windows.Forms.CheckBox ckTSInvertRoll;
         private System.Windows.Forms.CheckBox ckTSuse4_20;
