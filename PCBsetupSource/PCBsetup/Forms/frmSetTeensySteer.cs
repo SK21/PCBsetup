@@ -82,8 +82,6 @@ namespace PCBsetup.Forms
             cbTSreceiver.SelectedIndex = 1;
             tbTSReceiverPort.Text = "3";    // 3 micro, 8 simpleRTK2B
             tbTSIMUport.Text = "5";         // 5 Adafruit, 4 Sparkfun
-            tbTSMinSpeed.Text = "1";
-            tbTSMaxSpeed.Text = "15";
             tbTSPulseCal.Text = "255";
             cbTSRelayControl.SelectedIndex = 0;
             tbTSDir.Text = "23";
@@ -164,8 +162,6 @@ namespace PCBsetup.Forms
         {
             int StartID = Boxes.Add(this.Text, tbTSReceiverPort, 8, 1);
             Boxes.Add(this.Text, tbTSIMUport, 8, 1);
-            Boxes.Add(this.Text, tbTSMinSpeed, 40, 0);
-            Boxes.Add(this.Text, tbTSMaxSpeed, 40, 0);
             Boxes.Add(this.Text, tbTSPulseCal);
             Boxes.Add(this.Text, tbTSDir, 41);
             Boxes.Add(this.Text, tbTSPWM, 41);
