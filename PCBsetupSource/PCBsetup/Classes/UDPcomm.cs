@@ -61,15 +61,15 @@ namespace PCBsetup
             get { return cEthernetEP.ToString(); }
             set
             {
-                IPAddress IP;
-                string[] data;
+                //IPAddress IP;
+                //string[] data;
 
-                if (IPAddress.TryParse(value, out IP))
-                {
-                    data = value.Split('.');
-                    cEthernetEP = IPAddress.Parse(data[0] + "." + data[1] + "." + data[2] + ".255");
-                    mf.Tls.SaveProperty("EthernetEP", value);
-                }
+                //if (IPAddress.TryParse(value, out IP))
+                //{
+                //    data = value.Split('.');
+                //    cEthernetEP = IPAddress.Parse(data[0] + "." + data[1] + "." + data[2] + ".255");
+                //    mf.Tls.SaveProperty("EthernetEP", value);
+                //}
             }
         }
 
@@ -289,7 +289,7 @@ namespace PCBsetup
             try
             {
                 // ethernet
-                cEthernetEP = IPAddress.Parse("192.168.1.255");
+                cEthernetEP = IPAddress.Parse("192.255.255.255");
                 if (IPAddress.TryParse(cDestinationIP, out IP))
                 {
                     // keep pre-defined address
