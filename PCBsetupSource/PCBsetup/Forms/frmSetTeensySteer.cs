@@ -80,7 +80,7 @@ namespace PCBsetup.Forms
         {
             // AS15 pcb
             cbTSreceiver.SelectedIndex = 1;
-            tbTSReceiverPort.Text = "3";    // 3 micro, 8 simpleRTK2B
+            tbTSReceiverPort.Text = "8";    // 8 both micro and  simpleRTK2B
             tbTSIMUport.Text = "5";         // 5 Adafruit, 4 Sparkfun
             tbTSPulseCal.Text = "255";
             cbTSRelayControl.SelectedIndex = 0;
