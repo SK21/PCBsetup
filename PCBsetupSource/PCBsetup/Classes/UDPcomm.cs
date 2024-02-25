@@ -9,95 +9,32 @@ namespace PCBsetup
 {
     public class UDPComm
     {
-        private bool cIsUDPSendConnected;
         private readonly frmMain mf;
         private byte[] buffer = new byte[1024];
-
-        private readonly string cDestinationIP;
-
         private IPAddress cEthernetEP;
-
-        // local ports must be unique for each app on same pc and each class instance
+        private bool cIsUDPSendConnected;
         private int cReceivePort;
 
         private int cSendFromPort;
         private int cSendToPort;
         private bool cUpdateDestinationIP;
-        private readonly bool cUseLoopback;
 
-        // wifi endpoint address
-        private IPAddress cWiFiEP;
-
-        private string cWiFiIP;
-
-        // local wifi ip address
         private HandleDataDelegateObj HandleDataDelegate = null;
 
         private Socket recvSocket;
         private Socket sendSocket;
 
-        public UDPComm(frmMain CallingForm, int ReceivePort, int SendToPort
-            , int SendFromPort, string DestinationIP = "", bool UseLoopBack = false
-            , bool UpdateDestinationIP = false)
+        public UDPComm(frmMain CallingForm, int ReceivePort, int SendToPort, int SendFromPort)
         {
             mf = CallingForm;
             cReceivePort = ReceivePort;
             cSendToPort = SendToPort;
             cSendFromPort = SendFromPort;
-            cUseLoopback = UseLoopBack;
-            cUpdateDestinationIP = UpdateDestinationIP;
-            cDestinationIP = DestinationIP;
-
             SetEndPoints();
-
-            NetworkChange.NetworkAddressChanged += new NetworkAddressChangedEventHandler(AddressChanged);
         }
 
         // Status delegate
         private delegate void HandleDataDelegateObj(int port, byte[] msg);
-
-        public string EthernetEP
-        {
-            get { return cEthernetEP.ToString(); }
-            set
-            {
-                //IPAddress IP;
-                //string[] data;
-
-                //if (IPAddress.TryParse(value, out IP))
-                //{
-                //    data = value.Split('.');
-                //    cEthernetEP = IPAddress.Parse(data[0] + "." + data[1] + "." + data[2] + ".255");
-                //    mf.Tls.SaveProperty("EthernetEP", value);
-                //}
-            }
-        }
-
-        public void Close()
-        {
-            recvSocket.Close();
-            sendSocket.Close();
-        }
-
-        public string WifiEP
-        {
-            get { return cWiFiEP.ToString(); }
-            set
-            {
-                IPAddress IP;
-                string[] data;
-
-                if (IPAddress.TryParse(value, out IP))
-                {
-                    data = value.Split('.');
-                    cWiFiEP = IPAddress.Parse(data[0] + "." + data[1] + "." + data[2] + ".255");
-                    cWiFiIP = value;
-                    mf.Tls.SaveProperty("WifiIP", value);
-                }
-            }
-        }
-
-        public bool IsUDPSendConnected { get => cIsUDPSendConnected; set => cIsUDPSendConnected = value; }
 
         public string EthernetIP()
         {
@@ -118,32 +55,22 @@ namespace PCBsetup
         }
 
         //sends byte array
-        public bool SendUDPMessage(byte[] byteData )
+        public bool SendUDPMessage(byte[] byteData)
         {
             bool Result = false;
-            if (IsUDPSendConnected)
+            try
             {
-                try
+                if (byteData.Length != 0)
                 {
-                    if (byteData.Length != 0)
-                    {
-                        // ethernet
-                        IPEndPoint EndPt = new IPEndPoint(cEthernetEP, cSendToPort);
-                        sendSocket.BeginSendTo(byteData, 0, byteData.Length, SocketFlags.None, EndPt, new AsyncCallback(SendData), null);
-
-                        if (!cUseLoopback)
-                        {
-                            // wifi
-                            EndPt = new IPEndPoint(cWiFiEP, cSendToPort);
-                            sendSocket.BeginSendTo(byteData, 0, byteData.Length, SocketFlags.None, EndPt, new AsyncCallback(SendData), null);
-                        }
-                    }
-                    Result = true;
+                    // ethernet
+                    IPEndPoint EndPt = new IPEndPoint(cEthernetEP, cSendToPort);
+                    sendSocket.BeginSendTo(byteData, 0, byteData.Length, SocketFlags.None, EndPt, new AsyncCallback(SendData), null);
                 }
-                catch (Exception ex)
-                {
-                    mf.Tls.WriteErrorLog("UDPcomm/SendUDPMessage " + ex.Message);
-                }
+                Result = true;
+            }
+            catch (Exception ex)
+            {
+                mf.Tls.WriteErrorLog("UDPcomm/SendUDPMessage " + ex.Message);
             }
             return Result;
         }
@@ -172,24 +99,12 @@ namespace PCBsetup
 
                 // Start listening for incoming data
                 recvSocket.BeginReceiveFrom(buffer, 0, buffer.Length, SocketFlags.None, ref client, new AsyncCallback(ReceiveData), recvSocket);
-                IsUDPSendConnected = true;
             }
             catch (Exception e)
             {
                 //mf.Tls.ShowHelp("UDP start error: \n" + e.Message, "Comm", 3000, true);
                 mf.Tls.WriteErrorLog("StartUDPServer: \n" + e.Message);
             }
-        }
-
-        public string WifiIP()
-        {
-            return cWiFiIP;
-        }
-
-        private void AddressChanged(object sender, EventArgs e)
-        {
-            if (cUpdateDestinationIP) SetEndPoints();
-            mf.Tls.WriteActivityLog("UDPcomm: Network Address Changed");
         }
 
         private string GetLocalIPv4(NetworkInterfaceType _type)
@@ -217,7 +132,7 @@ namespace PCBsetup
         {
             try
             {
-                int PGN = Data[1] << 8 | Data[0];   
+                int PGN = Data[1] << 8 | Data[0];
                 switch (PGN)
                 {
                     case 0xABC:
@@ -282,30 +197,12 @@ namespace PCBsetup
 
         private void SetEndPoints()
         {
-            string Adr;
-            IPAddress IP;
-            string[] data;
-
             try
             {
-                // ethernet
-                cEthernetEP = IPAddress.Parse("192.255.255.255");
-                if (IPAddress.TryParse(cDestinationIP, out IP))
-                {
-                    // keep pre-defined address
-                    cEthernetEP = IP;
-                }
-
-                // wifi
-                cWiFiIP = "127.0.0.1";
-                cWiFiEP = IPAddress.Parse(cWiFiIP);
-                Adr = GetLocalIPv4(NetworkInterfaceType.Wireless80211);
-                if (IPAddress.TryParse(Adr, out IP))
-                {
-                    data = Adr.Split('.');
-                    cWiFiEP = IPAddress.Parse(data[0] + "." + data[1] + "." + data[2] + ".255");
-                    cWiFiIP = Adr;
-                }
+                cEthernetEP = IPAddress.Parse(EthernetIP());
+                byte[] parts = cEthernetEP.GetAddressBytes();
+                string ads = parts[0].ToString() + "." + parts[1].ToString() + "." + parts[2].ToString() + ".255";
+                cEthernetEP = IPAddress.Parse(ads);
             }
             catch (Exception ex)
             {

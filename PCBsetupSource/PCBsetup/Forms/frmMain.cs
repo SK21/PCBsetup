@@ -196,14 +196,6 @@ namespace PCBsetup.Forms
 
             // ethernet
             UDPmodulesConfig.StartUDPServer();
-            if (UDPmodulesConfig.IsUDPSendConnected)
-            {
-                UDPmodulesConfig.EthernetEP = Tls.LoadProperty("EthernetEP");
-            }
-            else
-            {
-                Tls.ShowHelp("UDPconfig failed to start.", "", 3000, true);
-            }
             SetButtons();
         }
 
