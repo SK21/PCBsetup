@@ -1,6 +1,9 @@
 ﻿using AgOpenGPS;
 using System;
 using System.ComponentModel;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Windows.Forms;
 
 namespace PCBsetup.Forms
@@ -55,6 +58,7 @@ namespace PCBsetup.Forms
                 }
                 else
                 {
+                    mf.UDPmodulesConfig.NetworkEP = cbEthernet.Text;
                     SaveSettings();
                     SetButtons(false);
                     UpdateForm();
@@ -105,6 +109,11 @@ namespace PCBsetup.Forms
 
             mf.Tls.ShowHelp(Message);
             hlpevent.Handled = true;
+        }
+
+        private void btnRescan_Click(object sender, EventArgs e)
+        {
+            UpdateForm();
         }
 
         private void btnSendToModule_Click(object sender, EventArgs e)
@@ -200,6 +209,11 @@ namespace PCBsetup.Forms
             }
         }
 
+        private void cbEthernet_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetButtons(true);
+        }
+
         private void cbTSreceiver_HelpRequested(object sender, HelpEventArgs hlpevent)
         {
             string Message = "GPS receiver connected.";
@@ -279,6 +293,33 @@ namespace PCBsetup.Forms
             }
         }
 
+        private void LoadCombo()
+        {
+            // https://stackoverflow.com/questions/6803073/get-local-ip-address
+            try
+            {
+                cbEthernet.Items.Clear();
+                foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
+                {
+                    if ((item.NetworkInterfaceType == NetworkInterfaceType.Ethernet || item.NetworkInterfaceType == NetworkInterfaceType.Wireless80211) && item.OperationalStatus == OperationalStatus.Up)
+                    {
+                        foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
+                        {
+                            if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
+                            {
+                                cbEthernet.Items.Add(ip.Address.ToString());
+                            }
+                        }
+                    }
+                }
+                cbEthernet.SelectedIndex = cbEthernet.FindString(SubAddress(mf.UDPmodulesConfig.NetworkEP));
+            }
+            catch (Exception ex)
+            {
+                mf.Tls.WriteErrorLog("frmModuleConfig/LoadCombo " + ex.Message);
+            }
+        }
+
         private void LoadSettings()
         {
             try
@@ -351,7 +392,7 @@ namespace PCBsetup.Forms
                     btnCancel.Enabled = true;
                     bntOK.Image = Properties.Resources.Save;
                     btnSendToModule.Enabled = false;
-                    TabEdited[tabControl1.SelectedIndex] = true;
+                    if (tabControl1.SelectedIndex < 2) TabEdited[tabControl1.SelectedIndex] = true;
                 }
                 else
                 {
@@ -362,6 +403,20 @@ namespace PCBsetup.Forms
 
                 FormEdited = Edited;
             }
+        }
+
+        private string SubAddress(string Address)
+        {
+            IPAddress IP;
+            string[] data;
+            string Result = "";
+
+            if (IPAddress.TryParse(Address, out IP))
+            {
+                data = Address.Split('.');
+                Result = data[0] + "." + data[1] + "." + data[2] + ".";
+            }
+            return Result;
         }
 
         private void tb_Enter(object sender, EventArgs e)
@@ -410,6 +465,8 @@ namespace PCBsetup.Forms
         {
             Initializing = true;
             LoadSettings();
+            LoadCombo();
+            lbModuleIP.Text = mf.UDPmodulesConfig.SubNet;
             Initializing = false;
         }
     }

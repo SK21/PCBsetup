@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 
 namespace PCBsetup
 {
@@ -11,16 +12,12 @@ namespace PCBsetup
     {
         private readonly frmMain mf;
         private byte[] buffer = new byte[1024];
-        private IPAddress cEthernetEP;
-        private bool cIsUDPSendConnected;
+        private IPAddress cNetworkEP;
         private int cReceivePort;
-
         private int cSendFromPort;
         private int cSendToPort;
-        private bool cUpdateDestinationIP;
-
+        private string cSubNet;
         private HandleDataDelegateObj HandleDataDelegate = null;
-
         private Socket recvSocket;
         private Socket sendSocket;
 
@@ -30,19 +27,51 @@ namespace PCBsetup
             cReceivePort = ReceivePort;
             cSendToPort = SendToPort;
             cSendFromPort = SendFromPort;
-            SetEndPoints();
+            NetworkEP = EthernetIP();
         }
 
         // Status delegate
         private delegate void HandleDataDelegateObj(int port, byte[] msg);
 
+        public string NetworkEP
+        {
+            get { return cNetworkEP.ToString(); }
+            set
+            {
+                string[] data;
+                if (IPAddress.TryParse(value, out IPAddress IP))
+                {
+                    data = value.Split('.');
+                    cNetworkEP = IPAddress.Parse(data[0] + "." + data[1] + "." + data[2] + ".255");
+                    cSubNet = data[0].ToString() + "." + data[1].ToString() + "." + data[2].ToString();
+                }
+            }
+        }
+
+        public string SubNet
+        { get { return cSubNet; } }
+
         public string EthernetIP()
         {
-            string Adr;
+            string Adr = "";
             IPAddress IP;
             string Result;
 
-            Adr = GetLocalIPv4(NetworkInterfaceType.Ethernet);
+            // https://stackoverflow.com/questions/6803073/get-local-ip-address
+            foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (item.NetworkInterfaceType == NetworkInterfaceType.Ethernet && item.OperationalStatus == OperationalStatus.Up)
+                {
+                    foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
+                    {
+                        if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
+                        {
+                            Adr = ip.Address.ToString();
+                        }
+                    }
+                }
+            }
+
             if (IPAddress.TryParse(Adr, out IP))
             {
                 Result = IP.ToString();
@@ -63,7 +92,7 @@ namespace PCBsetup
                 if (byteData.Length != 0)
                 {
                     // ethernet
-                    IPEndPoint EndPt = new IPEndPoint(cEthernetEP, cSendToPort);
+                    IPEndPoint EndPt = new IPEndPoint(cNetworkEP, cSendToPort);
                     sendSocket.BeginSendTo(byteData, 0, byteData.Length, SocketFlags.None, EndPt, new AsyncCallback(SendData), null);
                 }
                 Result = true;
@@ -105,27 +134,6 @@ namespace PCBsetup
                 //mf.Tls.ShowHelp("UDP start error: \n" + e.Message, "Comm", 3000, true);
                 mf.Tls.WriteErrorLog("StartUDPServer: \n" + e.Message);
             }
-        }
-
-        private string GetLocalIPv4(NetworkInterfaceType _type)
-        {
-            // https://stackoverflow.com/questions/6803073/get-local-ip-address
-
-            string output = "";
-            foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
-            {
-                if (item.NetworkInterfaceType == _type && item.OperationalStatus == OperationalStatus.Up)
-                {
-                    foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
-                    {
-                        if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
-                        {
-                            output = ip.Address.ToString();
-                        }
-                    }
-                }
-            }
-            return output;
         }
 
         private void HandleData(int Port, byte[] Data)
@@ -192,21 +200,6 @@ namespace PCBsetup
             catch (Exception ex)
             {
                 mf.Tls.WriteErrorLog(" UDP Send Data" + ex.ToString());
-            }
-        }
-
-        private void SetEndPoints()
-        {
-            try
-            {
-                cEthernetEP = IPAddress.Parse(EthernetIP());
-                byte[] parts = cEthernetEP.GetAddressBytes();
-                string ads = parts[0].ToString() + "." + parts[1].ToString() + "." + parts[2].ToString() + ".255";
-                cEthernetEP = IPAddress.Parse(ads);
-            }
-            catch (Exception ex)
-            {
-                mf.Tls.WriteErrorLog("UDPcomm/SetEndPoints " + ex.Message);
             }
         }
     }
