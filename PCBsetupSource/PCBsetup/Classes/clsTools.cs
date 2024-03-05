@@ -13,7 +13,7 @@ namespace PCBsetup
     {
         private static Hashtable ht;
         private string cAppName = "PCBsetup";
-        private string cAppVersion = "1.1.6";
+        private string cAppVersion = "1.1.7";
         private string cVersionDate = "04-Mar-2024";
 
         private string cESPfirmware = "04-Mar-2024";
