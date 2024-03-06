@@ -368,6 +368,7 @@ namespace PCBsetup.Forms
             Initializing = true;
             LoadSettings();
             LoadCombo();
+            lbModuleIP.Text = mf.Subnet;
             Initializing = false;
         }
     }
