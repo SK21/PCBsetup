@@ -58,7 +58,6 @@ namespace PCBsetup.Forms
                 }
                 else
                 {
-                    mf.UDPmodulesConfig.NetworkEP = cbEthernet.Text;
                     SaveSettings();
                     SetButtons(false);
                     UpdateForm();
@@ -116,6 +115,27 @@ namespace PCBsetup.Forms
             UpdateForm();
         }
 
+        private void btnSendSubnet_Click(object sender, EventArgs e)
+        {
+            PGN32503 SetSubnet = new PGN32503(mf);
+            if (SetSubnet.Send(mf.Subnet))
+            {
+                mf.Tls.ShowHelp("New Subnet address sent.", "Subnet", 10000);
+            }
+            else
+            {
+                mf.Tls.ShowHelp("New Subnet address not sent.", "Subnet", 10000);
+            }
+        }
+
+        private void btnSendSubnet_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            string Message = "Send subnet address to modules.";
+
+            mf.Tls.ShowHelp(Message, "Subnet");
+            hlpevent.Handled = true;
+        }
+
         private void btnSendToModule_Click(object sender, EventArgs e)
         {
             bool Sent;
@@ -165,6 +185,10 @@ namespace PCBsetup.Forms
 
             mf.Tls.ShowHelp(Message);
             hlpevent.Handled = true;
+        }
+
+        private void btnWAS_Click(object sender, EventArgs e)
+        {
         }
 
         private void BuildBoxes()
@@ -312,7 +336,7 @@ namespace PCBsetup.Forms
                         }
                     }
                 }
-                cbEthernet.SelectedIndex = cbEthernet.FindString(SubAddress(mf.UDPmodulesConfig.NetworkEP));
+                cbEthernet.SelectedIndex = cbEthernet.FindString(mf.Subnet);
             }
             catch (Exception ex)
             {
@@ -376,6 +400,9 @@ namespace PCBsetup.Forms
                 {
                     mf.Tls.SaveProperty(CKs[i].Name, CKs[i].Checked.ToString());
                 }
+
+                // subnet
+                mf.Subnet = cbEthernet.Text;
             }
             catch (Exception ex)
             {
@@ -393,12 +420,14 @@ namespace PCBsetup.Forms
                     bntOK.Image = Properties.Resources.Save;
                     btnSendToModule.Enabled = false;
                     if (tabControl1.SelectedIndex < 2) TabEdited[tabControl1.SelectedIndex] = true;
+                    btnSendSubnet.Enabled = false;
                 }
                 else
                 {
                     btnCancel.Enabled = false;
                     bntOK.Image = Properties.Resources.bntOK_Image;
                     btnSendToModule.Enabled = true;
+                    btnSendSubnet.Enabled = true;
                 }
 
                 FormEdited = Edited;
@@ -453,6 +482,10 @@ namespace PCBsetup.Forms
             }
         }
 
+        private void tbTSIMUport_TextChanged(object sender, EventArgs e)
+        {
+        }
+
         private void tbTSPulseCal_HelpRequested(object sender, HelpEventArgs hlpevent)
         {
             string Message = "The number of pulses per second output for monitors to read 1 KMH.";
@@ -466,7 +499,6 @@ namespace PCBsetup.Forms
             Initializing = true;
             LoadSettings();
             LoadCombo();
-            lbModuleIP.Text = mf.UDPmodulesConfig.SubNet;
             Initializing = false;
         }
     }

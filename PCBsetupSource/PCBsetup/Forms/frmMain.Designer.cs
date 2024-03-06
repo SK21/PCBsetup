@@ -61,7 +61,7 @@
             this.SerialMonitorItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(443, 32);
+            this.menuStrip1.Size = new System.Drawing.Size(437, 32);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -195,7 +195,7 @@
             this.groupBox1.Controls.Add(this.PortIndicator1);
             this.groupBox1.Controls.Add(this.btnRescan);
             this.groupBox1.Controls.Add(this.btnConnect1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 35);
+            this.groupBox1.Location = new System.Drawing.Point(12, 111);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(412, 117);
             this.groupBox1.TabIndex = 126;
@@ -213,7 +213,7 @@
             "Nano SwitchBox",
             "Wifi RC",
             "ESP32 Rate"});
-            this.cbModule.Location = new System.Drawing.Point(12, 160);
+            this.cbModule.Location = new System.Drawing.Point(12, 58);
             this.cbModule.Name = "cbModule";
             this.cbModule.Size = new System.Drawing.Size(182, 32);
             this.cbModule.TabIndex = 127;
@@ -224,7 +224,7 @@
             this.btnSettings.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnSettings.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSettings.Location = new System.Drawing.Point(200, 158);
+            this.btnSettings.Location = new System.Drawing.Point(200, 56);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(105, 37);
             this.btnSettings.TabIndex = 128;
@@ -238,7 +238,7 @@
             this.btnFirmware.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btnFirmware.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnFirmware.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFirmware.Location = new System.Drawing.Point(319, 158);
+            this.btnFirmware.Location = new System.Drawing.Point(319, 56);
             this.btnFirmware.Name = "btnFirmware";
             this.btnFirmware.Size = new System.Drawing.Size(105, 37);
             this.btnFirmware.TabIndex = 129;
@@ -250,7 +250,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(443, 208);
+            this.ClientSize = new System.Drawing.Size(437, 239);
             this.Controls.Add(this.btnFirmware);
             this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.cbModule);

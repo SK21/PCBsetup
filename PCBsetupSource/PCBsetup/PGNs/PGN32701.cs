@@ -76,7 +76,7 @@ namespace PCBsetup
             if (!Result)
             {
                 // send ethernet
-                Result = cf.mf.UDPmodulesConfig.SendUDPMessage(cData);
+                Result = cf.mf.Tls.UDP_BroadcastPGN(cData);
             }
 
             return Result;

@@ -5,7 +5,11 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
+using System.Net;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace PCBsetup
 {
@@ -13,16 +17,18 @@ namespace PCBsetup
     {
         private static Hashtable ht;
         private string cAppName = "PCBsetup";
-        private string cAppVersion = "1.1.7";
-        private string cVersionDate = "04-Mar-2024";
-
+        private string cAppVersion = "1.1.8";
         private string cESPfirmware = "04-Mar-2024";
-        private string cNanoFirmware = "04-Mar-2024"; // rate
+        private string cNanoFirmware = "04-Mar-2024";
+
+        // rate
         private string cPropertiesFile = "";
+
         private string cSettingsDir = "";
         private string cSwitchboxFirmware = "04-Mar-2024";
-        private string cTeensyAutoSteerFirmware = "24-Feb-2024";
+        private string cTeensyAutoSteerFirmware = "05-Mar-2024";
         private string cTeensyRateVersion = "04-Mar-2024";
+        private string cVersionDate = "05-Mar-2024";
         private string cWifiRCfirmware = "14-Feb-2023";
         private frmMain mf;
 
@@ -372,6 +378,54 @@ namespace PCBsetup
         public string TeensyRateVersion()
         {
             return cTeensyRateVersion;
+        }
+
+        public bool UDP_BroadcastPGN(byte[] Data)
+        {
+            // send UDP
+            // based on AGIO/FormUDP
+            bool Result = false;
+
+            try
+            {
+                IPEndPoint epModuleSet = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 28888);
+
+                //loop thru all interfaces
+                foreach (var nic in NetworkInterface.GetAllNetworkInterfaces())
+                {
+                    if (nic.Supports(NetworkInterfaceComponent.IPv4) && nic.OperationalStatus == OperationalStatus.Up)
+                    {
+                        foreach (var info in nic.GetIPProperties().UnicastAddresses)
+                        {
+                            // Only InterNetwork and not loopback which have a subnetmask
+                            if (info.Address.AddressFamily == AddressFamily.InterNetwork &&
+                                !IPAddress.IsLoopback(info.Address) &&
+                                info.IPv4Mask != null)
+                            {
+                                Socket scanSocket;
+                                if (nic.OperationalStatus == OperationalStatus.Up
+                                    && info.IPv4Mask != null)
+                                {
+                                    scanSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+                                    scanSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, true);
+                                    scanSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+                                    scanSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.DontRoute, true);
+                                    scanSocket.Bind(new IPEndPoint(info.Address, 9578));
+                                    scanSocket.SendTo(Data, 0, Data.Length, SocketFlags.None, epModuleSet);
+                                    scanSocket.Dispose();
+                                }
+                            }
+                        }
+                    }
+                }
+                Result = true;
+            }
+            catch (Exception ex)
+            {
+                WriteErrorLog("clsTools/UDP_BroadcastPGN: " + ex.Message);
+            }
+
+            return Result;
         }
 
         public string VersionDate()

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace PCBsetup
 {
     public class PGN32300
-    {  
+    {
         //      Steering PCB config
         //0     HeaderLo    44
         //1     HeaderHi    126
@@ -83,7 +83,7 @@ namespace PCBsetup
             if (!Result)
             {
                 // send ethernet
-                Result = cf.mf.UDPmodulesConfig.SendUDPMessage(cData);
+                Result = cf.mf.Tls.UDP_BroadcastPGN(cData);
             }
 
             return Result;

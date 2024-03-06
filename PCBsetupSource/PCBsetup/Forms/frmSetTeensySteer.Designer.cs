@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSetTeensySteer));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.ckTSZeroWas = new System.Windows.Forms.CheckBox();
             this.ckTSSwapRoll = new System.Windows.Forms.CheckBox();
             this.ckTSInvertRoll = new System.Windows.Forms.CheckBox();
             this.ckTSuse4_20 = new System.Windows.Forms.CheckBox();
@@ -98,12 +97,13 @@
             this.lbModuleIP = new System.Windows.Forms.Label();
             this.lbSubnet = new System.Windows.Forms.Label();
             this.cbEthernet = new System.Windows.Forms.ComboBox();
-            this.btnRescan = new System.Windows.Forms.Button();
+            this.ckTSZeroWas = new System.Windows.Forms.CheckBox();
             this.btnLoadDefaults = new System.Windows.Forms.Button();
             this.btnSendToModule = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.bntOK = new System.Windows.Forms.Button();
-            this.label25 = new System.Windows.Forms.Label();
+            this.btnSendSubnet = new System.Windows.Forms.Button();
+            this.btnRescan = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -146,26 +146,12 @@
             this.tabPage1.Text = "Config ";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // ckTSZeroWas
-            // 
-            this.ckTSZeroWas.Appearance = System.Windows.Forms.Appearance.Button;
-            this.ckTSZeroWas.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ckTSZeroWas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ckTSZeroWas.Location = new System.Drawing.Point(424, 431);
-            this.ckTSZeroWas.Name = "ckTSZeroWas";
-            this.ckTSZeroWas.Size = new System.Drawing.Size(92, 69);
-            this.ckTSZeroWas.TabIndex = 54;
-            this.ckTSZeroWas.Text = "Zero WAS";
-            this.ckTSZeroWas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.ckTSZeroWas.UseVisualStyleBackColor = true;
-            this.ckTSZeroWas.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.ckTSZeroWas_HelpRequested);
-            // 
             // ckTSSwapRoll
             // 
             this.ckTSSwapRoll.Appearance = System.Windows.Forms.Appearance.Button;
             this.ckTSSwapRoll.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ckTSSwapRoll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ckTSSwapRoll.Location = new System.Drawing.Point(12, 431);
+            this.ckTSSwapRoll.Location = new System.Drawing.Point(6, 404);
             this.ckTSSwapRoll.Name = "ckTSSwapRoll";
             this.ckTSSwapRoll.Size = new System.Drawing.Size(92, 69);
             this.ckTSSwapRoll.TabIndex = 53;
@@ -179,7 +165,7 @@
             this.ckTSInvertRoll.Appearance = System.Windows.Forms.Appearance.Button;
             this.ckTSInvertRoll.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ckTSInvertRoll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ckTSInvertRoll.Location = new System.Drawing.Point(115, 431);
+            this.ckTSInvertRoll.Location = new System.Drawing.Point(110, 404);
             this.ckTSInvertRoll.Name = "ckTSInvertRoll";
             this.ckTSInvertRoll.Size = new System.Drawing.Size(92, 69);
             this.ckTSInvertRoll.TabIndex = 52;
@@ -192,7 +178,7 @@
             this.ckTSuse4_20.Appearance = System.Windows.Forms.Appearance.Button;
             this.ckTSuse4_20.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ckTSuse4_20.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ckTSuse4_20.Location = new System.Drawing.Point(218, 431);
+            this.ckTSuse4_20.Location = new System.Drawing.Point(214, 404);
             this.ckTSuse4_20.Name = "ckTSuse4_20";
             this.ckTSuse4_20.Size = new System.Drawing.Size(92, 69);
             this.ckTSuse4_20.TabIndex = 51;
@@ -203,7 +189,7 @@
             // 
             // tbTSPulseCal
             // 
-            this.tbTSPulseCal.Location = new System.Drawing.Point(343, 236);
+            this.tbTSPulseCal.Location = new System.Drawing.Point(259, 243);
             this.tbTSPulseCal.Name = "tbTSPulseCal";
             this.tbTSPulseCal.Size = new System.Drawing.Size(71, 29);
             this.tbTSPulseCal.TabIndex = 8;
@@ -213,7 +199,7 @@
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(86, 238);
+            this.label32.Location = new System.Drawing.Point(83, 246);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(146, 24);
             this.label32.TabIndex = 49;
@@ -226,7 +212,7 @@
             this.cbTSreceiver.Items.AddRange(new object[] {
             "None",
             "SimpleRTK2B"});
-            this.cbTSreceiver.Location = new System.Drawing.Point(226, 82);
+            this.cbTSreceiver.Location = new System.Drawing.Point(259, 90);
             this.cbTSreceiver.Name = "cbTSreceiver";
             this.cbTSreceiver.Size = new System.Drawing.Size(187, 32);
             this.cbTSreceiver.TabIndex = 0;
@@ -236,7 +222,7 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(85, 85);
+            this.label26.Location = new System.Drawing.Point(82, 93);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(121, 24);
             this.label26.TabIndex = 42;
@@ -245,7 +231,7 @@
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(86, 291);
+            this.label28.Location = new System.Drawing.Point(83, 299);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(122, 24);
             this.label28.TabIndex = 41;
@@ -261,7 +247,7 @@
             "PCA9555  8 relays",
             "PCA9555  16 relays",
             "MCP23017"});
-            this.cbTSRelayControl.Location = new System.Drawing.Point(227, 287);
+            this.cbTSRelayControl.Location = new System.Drawing.Point(259, 296);
             this.cbTSRelayControl.Name = "cbTSRelayControl";
             this.cbTSRelayControl.Size = new System.Drawing.Size(187, 32);
             this.cbTSRelayControl.TabIndex = 9;
@@ -269,16 +255,17 @@
             // 
             // tbTSIMUport
             // 
-            this.tbTSIMUport.Location = new System.Drawing.Point(342, 187);
+            this.tbTSIMUport.Location = new System.Drawing.Point(259, 192);
             this.tbTSIMUport.Name = "tbTSIMUport";
             this.tbTSIMUport.Size = new System.Drawing.Size(71, 29);
             this.tbTSIMUport.TabIndex = 2;
             this.tbTSIMUport.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbTSIMUport.TextChanged += new System.EventHandler(this.tbTSIMUport_TextChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(85, 189);
+            this.label2.Location = new System.Drawing.Point(82, 197);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(129, 24);
             this.label2.TabIndex = 22;
@@ -286,7 +273,7 @@
             // 
             // tbTSReceiverPort
             // 
-            this.tbTSReceiverPort.Location = new System.Drawing.Point(342, 136);
+            this.tbTSReceiverPort.Location = new System.Drawing.Point(259, 141);
             this.tbTSReceiverPort.Name = "tbTSReceiverPort";
             this.tbTSReceiverPort.Size = new System.Drawing.Size(71, 29);
             this.tbTSReceiverPort.TabIndex = 1;
@@ -295,7 +282,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(85, 138);
+            this.label1.Location = new System.Drawing.Point(82, 146);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(171, 24);
             this.label1.TabIndex = 20;
@@ -306,7 +293,7 @@
             this.ckTSRelayOn.Appearance = System.Windows.Forms.Appearance.Button;
             this.ckTSRelayOn.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ckTSRelayOn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ckTSRelayOn.Location = new System.Drawing.Point(321, 431);
+            this.ckTSRelayOn.Location = new System.Drawing.Point(318, 404);
             this.ckTSRelayOn.Name = "ckTSRelayOn";
             this.ckTSRelayOn.Size = new System.Drawing.Size(92, 69);
             this.ckTSRelayOn.TabIndex = 17;
@@ -764,7 +751,7 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.label25);
+            this.tabPage3.Controls.Add(this.btnSendSubnet);
             this.tabPage3.Controls.Add(this.lbIP);
             this.tabPage3.Controls.Add(this.lbModuleIP);
             this.tabPage3.Controls.Add(this.lbSubnet);
@@ -815,20 +802,19 @@
             this.cbEthernet.TabIndex = 220;
             this.cbEthernet.SelectedIndexChanged += new System.EventHandler(this.cbEthernet_SelectedIndexChanged);
             // 
-            // btnRescan
+            // ckTSZeroWas
             // 
-            this.btnRescan.BackColor = System.Drawing.Color.Transparent;
-            this.btnRescan.FlatAppearance.BorderSize = 0;
-            this.btnRescan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRescan.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRescan.Image = global::PCBsetup.Properties.Resources.Update;
-            this.btnRescan.Location = new System.Drawing.Point(209, 262);
-            this.btnRescan.Name = "btnRescan";
-            this.btnRescan.Size = new System.Drawing.Size(72, 72);
-            this.btnRescan.TabIndex = 218;
-            this.btnRescan.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.btnRescan.UseVisualStyleBackColor = false;
-            this.btnRescan.Click += new System.EventHandler(this.btnRescan_Click);
+            this.ckTSZeroWas.Appearance = System.Windows.Forms.Appearance.Button;
+            this.ckTSZeroWas.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.ckTSZeroWas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ckTSZeroWas.Location = new System.Drawing.Point(422, 404);
+            this.ckTSZeroWas.Name = "ckTSZeroWas";
+            this.ckTSZeroWas.Size = new System.Drawing.Size(92, 69);
+            this.ckTSZeroWas.TabIndex = 54;
+            this.ckTSZeroWas.Text = "Zero WAS";
+            this.ckTSZeroWas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ckTSZeroWas.UseVisualStyleBackColor = true;
+            this.ckTSZeroWas.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.ckTSZeroWas_HelpRequested);
             // 
             // btnLoadDefaults
             // 
@@ -887,14 +873,34 @@
             this.bntOK.UseVisualStyleBackColor = false;
             this.bntOK.Click += new System.EventHandler(this.bntOK_Click);
             // 
-            // label25
+            // btnSendSubnet
             // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(84, 122);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(364, 24);
-            this.label25.TabIndex = 224;
-            this.label25.Text = "Module subnet to send Teensy settings to.";
+            this.btnSendSubnet.BackColor = System.Drawing.Color.Transparent;
+            this.btnSendSubnet.FlatAppearance.BorderSize = 0;
+            this.btnSendSubnet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSendSubnet.Image = global::PCBsetup.Properties.Resources.Update4;
+            this.btnSendSubnet.Location = new System.Drawing.Point(162, 261);
+            this.btnSendSubnet.Name = "btnSendSubnet";
+            this.btnSendSubnet.Size = new System.Drawing.Size(72, 72);
+            this.btnSendSubnet.TabIndex = 225;
+            this.btnSendSubnet.UseVisualStyleBackColor = false;
+            this.btnSendSubnet.Click += new System.EventHandler(this.btnSendSubnet_Click);
+            this.btnSendSubnet.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnSendSubnet_HelpRequested);
+            // 
+            // btnRescan
+            // 
+            this.btnRescan.BackColor = System.Drawing.Color.Transparent;
+            this.btnRescan.FlatAppearance.BorderSize = 0;
+            this.btnRescan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRescan.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRescan.Image = global::PCBsetup.Properties.Resources.Update;
+            this.btnRescan.Location = new System.Drawing.Point(253, 261);
+            this.btnRescan.Name = "btnRescan";
+            this.btnRescan.Size = new System.Drawing.Size(72, 72);
+            this.btnRescan.TabIndex = 218;
+            this.btnRescan.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.btnRescan.UseVisualStyleBackColor = false;
+            this.btnRescan.Click += new System.EventHandler(this.btnRescan_Click);
             // 
             // frmSetTeensySteer
             // 
@@ -992,7 +998,6 @@
         private System.Windows.Forms.CheckBox ckTSuse4_20;
         private System.Windows.Forms.TextBox tbTSPulseCal;
         private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.CheckBox ckTSZeroWas;
         private System.Windows.Forms.TextBox tbTSspeedPulse;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Button btnLoadDefaults;
@@ -1005,6 +1010,7 @@
         private System.Windows.Forms.Label lbSubnet;
         private System.Windows.Forms.ComboBox cbEthernet;
         private System.Windows.Forms.Button btnRescan;
-        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Button btnSendSubnet;
+        private System.Windows.Forms.CheckBox ckTSZeroWas;
     }
 }

@@ -40,7 +40,7 @@ namespace PCBsetup.Forms
             mf.Tls.LoadFormData(this);
 
             lbAppVersion.Text = mf.Tls.AppVersion() + "    " + mf.Tls.VersionDate();
-            lbIP.Text = mf.UDPmodulesConfig.EthernetIP();
+            lbIP.Text = mf.Subnet;
             SetDayMode();
         }
 

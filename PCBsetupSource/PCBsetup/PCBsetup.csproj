@@ -192,7 +192,6 @@
     <Compile Include="Classes\clsTextBoxes.cs" />
     <Compile Include="Classes\clsTools.cs" />
     <Compile Include="Classes\SerialComm.cs" />
-    <Compile Include="Classes\UDPcomm.cs" />
     <Compile Include="Forms\FormNumeric.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -266,6 +265,7 @@
     </Compile>
     <Compile Include="PGNs\PGN32300.cs" />
     <Compile Include="PGNs\PGN32301.cs" />
+    <Compile Include="PGNs\PGN32503.cs" />
     <Compile Include="PGNs\PGN32701.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -369,6 +369,7 @@
     <Content Include="configurator-icon-19.ico" />
     <Content Include="Forms\Keypad.dll" />
     <Content Include="Forms\RepeatButtonControl.dll" />
+    <None Include="Resources\Update4.png" />
     <None Include="Resources\Start_Icon_64.png" />
     <None Include="Resources\Pause.png" />
     <None Include="Resources\PCB.png" />

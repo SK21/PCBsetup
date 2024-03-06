@@ -77,6 +77,20 @@
             this.label21 = new System.Windows.Forms.Label();
             this.tbWorkSwitch = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btnSendSubnet = new System.Windows.Forms.Button();
+            this.lbIP = new System.Windows.Forms.Label();
+            this.lbModuleIP = new System.Windows.Forms.Label();
+            this.lbSubnet = new System.Windows.Forms.Label();
+            this.cbEthernet = new System.Windows.Forms.ComboBox();
+            this.btnRescan = new System.Windows.Forms.Button();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnLoadDefaults
@@ -85,9 +99,9 @@
             this.btnLoadDefaults.FlatAppearance.BorderSize = 0;
             this.btnLoadDefaults.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoadDefaults.Image = global::PCBsetup.Properties.Resources.VehFileLoad;
-            this.btnLoadDefaults.Location = new System.Drawing.Point(15, 468);
+            this.btnLoadDefaults.Location = new System.Drawing.Point(12, 403);
             this.btnLoadDefaults.Name = "btnLoadDefaults";
-            this.btnLoadDefaults.Size = new System.Drawing.Size(115, 72);
+            this.btnLoadDefaults.Size = new System.Drawing.Size(76, 72);
             this.btnLoadDefaults.TabIndex = 23;
             this.btnLoadDefaults.UseVisualStyleBackColor = false;
             this.btnLoadDefaults.Click += new System.EventHandler(this.btnLoadDefaults_Click);
@@ -99,9 +113,9 @@
             this.btnSendToModule.FlatAppearance.BorderSize = 0;
             this.btnSendToModule.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSendToModule.Image = global::PCBsetup.Properties.Resources.UpArrow64;
-            this.btnSendToModule.Location = new System.Drawing.Point(150, 468);
+            this.btnSendToModule.Location = new System.Drawing.Point(117, 403);
             this.btnSendToModule.Name = "btnSendToModule";
-            this.btnSendToModule.Size = new System.Drawing.Size(115, 72);
+            this.btnSendToModule.Size = new System.Drawing.Size(76, 72);
             this.btnSendToModule.TabIndex = 22;
             this.btnSendToModule.UseVisualStyleBackColor = false;
             this.btnSendToModule.Click += new System.EventHandler(this.btnSendToModule_Click);
@@ -114,9 +128,9 @@
             this.btnCancel.FlatAppearance.BorderSize = 0;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Image = global::PCBsetup.Properties.Resources.Cancel64;
-            this.btnCancel.Location = new System.Drawing.Point(285, 468);
+            this.btnCancel.Location = new System.Drawing.Point(222, 403);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(115, 72);
+            this.btnCancel.Size = new System.Drawing.Size(76, 72);
             this.btnCancel.TabIndex = 21;
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.btnCancel.UseVisualStyleBackColor = false;
@@ -128,9 +142,9 @@
             this.bntOK.FlatAppearance.BorderSize = 0;
             this.bntOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntOK.Image = global::PCBsetup.Properties.Resources.bntOK_Image;
-            this.bntOK.Location = new System.Drawing.Point(420, 468);
+            this.bntOK.Location = new System.Drawing.Point(327, 403);
             this.bntOK.Name = "bntOK";
-            this.bntOK.Size = new System.Drawing.Size(115, 72);
+            this.bntOK.Size = new System.Drawing.Size(76, 72);
             this.bntOK.TabIndex = 20;
             this.bntOK.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.bntOK.UseVisualStyleBackColor = false;
@@ -138,7 +152,7 @@
             // 
             // tbMasterOn
             // 
-            this.tbMasterOn.Location = new System.Drawing.Point(184, 63);
+            this.tbMasterOn.Location = new System.Drawing.Point(213, 89);
             this.tbMasterOn.Name = "tbMasterOn";
             this.tbMasterOn.Size = new System.Drawing.Size(58, 29);
             this.tbMasterOn.TabIndex = 27;
@@ -148,7 +162,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(58, 65);
+            this.label2.Location = new System.Drawing.Point(87, 91);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(97, 24);
             this.label2.TabIndex = 26;
@@ -157,7 +171,7 @@
             // 
             // tbAuto
             // 
-            this.tbAuto.Location = new System.Drawing.Point(184, 23);
+            this.tbAuto.Location = new System.Drawing.Point(213, 49);
             this.tbAuto.Name = "tbAuto";
             this.tbAuto.Size = new System.Drawing.Size(58, 29);
             this.tbAuto.TabIndex = 25;
@@ -167,7 +181,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(58, 25);
+            this.label1.Location = new System.Drawing.Point(87, 51);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 24);
             this.label1.TabIndex = 24;
@@ -176,7 +190,7 @@
             // 
             // tbRateUp
             // 
-            this.tbRateUp.Location = new System.Drawing.Point(184, 143);
+            this.tbRateUp.Location = new System.Drawing.Point(213, 169);
             this.tbRateUp.Name = "tbRateUp";
             this.tbRateUp.Size = new System.Drawing.Size(58, 29);
             this.tbRateUp.TabIndex = 31;
@@ -186,7 +200,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(58, 145);
+            this.label3.Location = new System.Drawing.Point(87, 171);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(77, 24);
             this.label3.TabIndex = 30;
@@ -195,7 +209,7 @@
             // 
             // tbMasterOff
             // 
-            this.tbMasterOff.Location = new System.Drawing.Point(184, 103);
+            this.tbMasterOff.Location = new System.Drawing.Point(213, 129);
             this.tbMasterOff.Name = "tbMasterOff";
             this.tbMasterOff.Size = new System.Drawing.Size(58, 29);
             this.tbMasterOff.TabIndex = 29;
@@ -205,7 +219,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(58, 105);
+            this.label4.Location = new System.Drawing.Point(87, 131);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(94, 24);
             this.label4.TabIndex = 28;
@@ -214,7 +228,7 @@
             // 
             // tbSW2
             // 
-            this.tbSW2.Location = new System.Drawing.Point(184, 303);
+            this.tbSW2.Location = new System.Drawing.Point(118, 61);
             this.tbSW2.Name = "tbSW2";
             this.tbSW2.Size = new System.Drawing.Size(58, 29);
             this.tbSW2.TabIndex = 35;
@@ -224,7 +238,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(58, 305);
+            this.label5.Location = new System.Drawing.Point(21, 64);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(80, 24);
             this.label5.TabIndex = 34;
@@ -233,7 +247,7 @@
             // 
             // tbSW1
             // 
-            this.tbSW1.Location = new System.Drawing.Point(184, 263);
+            this.tbSW1.Location = new System.Drawing.Point(118, 21);
             this.tbSW1.Name = "tbSW1";
             this.tbSW1.Size = new System.Drawing.Size(58, 29);
             this.tbSW1.TabIndex = 33;
@@ -243,7 +257,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(58, 265);
+            this.label6.Location = new System.Drawing.Point(21, 24);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(80, 24);
             this.label6.TabIndex = 32;
@@ -252,7 +266,7 @@
             // 
             // tbSW4
             // 
-            this.tbSW4.Location = new System.Drawing.Point(184, 383);
+            this.tbSW4.Location = new System.Drawing.Point(118, 141);
             this.tbSW4.Name = "tbSW4";
             this.tbSW4.Size = new System.Drawing.Size(58, 29);
             this.tbSW4.TabIndex = 39;
@@ -262,7 +276,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(58, 385);
+            this.label7.Location = new System.Drawing.Point(21, 144);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(80, 24);
             this.label7.TabIndex = 38;
@@ -271,7 +285,7 @@
             // 
             // tbSW3
             // 
-            this.tbSW3.Location = new System.Drawing.Point(184, 343);
+            this.tbSW3.Location = new System.Drawing.Point(118, 101);
             this.tbSW3.Name = "tbSW3";
             this.tbSW3.Size = new System.Drawing.Size(58, 29);
             this.tbSW3.TabIndex = 37;
@@ -281,7 +295,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(58, 345);
+            this.label8.Location = new System.Drawing.Point(21, 104);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(80, 24);
             this.label8.TabIndex = 36;
@@ -290,7 +304,7 @@
             // 
             // tbRateDown
             // 
-            this.tbRateDown.Location = new System.Drawing.Point(184, 183);
+            this.tbRateDown.Location = new System.Drawing.Point(213, 209);
             this.tbRateDown.Name = "tbRateDown";
             this.tbRateDown.Size = new System.Drawing.Size(58, 29);
             this.tbRateDown.TabIndex = 41;
@@ -300,7 +314,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(58, 185);
+            this.label9.Location = new System.Drawing.Point(87, 211);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(102, 24);
             this.label9.TabIndex = 40;
@@ -309,7 +323,7 @@
             // 
             // tbSW16
             // 
-            this.tbSW16.Location = new System.Drawing.Point(436, 420);
+            this.tbSW16.Location = new System.Drawing.Point(304, 299);
             this.tbSW16.Name = "tbSW16";
             this.tbSW16.Size = new System.Drawing.Size(58, 29);
             this.tbSW16.TabIndex = 52;
@@ -319,7 +333,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(339, 422);
+            this.label10.Location = new System.Drawing.Point(207, 301);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(90, 24);
             this.label10.TabIndex = 51;
@@ -328,7 +342,7 @@
             // 
             // tbSW15
             // 
-            this.tbSW15.Location = new System.Drawing.Point(436, 383);
+            this.tbSW15.Location = new System.Drawing.Point(304, 262);
             this.tbSW15.Name = "tbSW15";
             this.tbSW15.Size = new System.Drawing.Size(58, 29);
             this.tbSW15.TabIndex = 50;
@@ -338,7 +352,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(339, 385);
+            this.label11.Location = new System.Drawing.Point(207, 264);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(90, 24);
             this.label11.TabIndex = 49;
@@ -347,7 +361,7 @@
             // 
             // tbSW14
             // 
-            this.tbSW14.Location = new System.Drawing.Point(436, 343);
+            this.tbSW14.Location = new System.Drawing.Point(304, 222);
             this.tbSW14.Name = "tbSW14";
             this.tbSW14.Size = new System.Drawing.Size(58, 29);
             this.tbSW14.TabIndex = 48;
@@ -357,7 +371,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(339, 345);
+            this.label12.Location = new System.Drawing.Point(207, 224);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(90, 24);
             this.label12.TabIndex = 47;
@@ -366,7 +380,7 @@
             // 
             // tbSW5
             // 
-            this.tbSW5.Location = new System.Drawing.Point(184, 420);
+            this.tbSW5.Location = new System.Drawing.Point(118, 178);
             this.tbSW5.Name = "tbSW5";
             this.tbSW5.Size = new System.Drawing.Size(58, 29);
             this.tbSW5.TabIndex = 46;
@@ -376,7 +390,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(58, 422);
+            this.label13.Location = new System.Drawing.Point(21, 181);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(80, 24);
             this.label13.TabIndex = 45;
@@ -385,7 +399,7 @@
             // 
             // tbSW13
             // 
-            this.tbSW13.Location = new System.Drawing.Point(436, 303);
+            this.tbSW13.Location = new System.Drawing.Point(304, 182);
             this.tbSW13.Name = "tbSW13";
             this.tbSW13.Size = new System.Drawing.Size(58, 29);
             this.tbSW13.TabIndex = 68;
@@ -395,7 +409,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(339, 305);
+            this.label14.Location = new System.Drawing.Point(207, 184);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(90, 24);
             this.label14.TabIndex = 67;
@@ -404,7 +418,7 @@
             // 
             // tbSW12
             // 
-            this.tbSW12.Location = new System.Drawing.Point(436, 263);
+            this.tbSW12.Location = new System.Drawing.Point(304, 142);
             this.tbSW12.Name = "tbSW12";
             this.tbSW12.Size = new System.Drawing.Size(58, 29);
             this.tbSW12.TabIndex = 66;
@@ -414,7 +428,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(339, 265);
+            this.label15.Location = new System.Drawing.Point(207, 144);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(90, 24);
             this.label15.TabIndex = 65;
@@ -423,7 +437,7 @@
             // 
             // tbSW11
             // 
-            this.tbSW11.Location = new System.Drawing.Point(436, 223);
+            this.tbSW11.Location = new System.Drawing.Point(304, 102);
             this.tbSW11.Name = "tbSW11";
             this.tbSW11.Size = new System.Drawing.Size(58, 29);
             this.tbSW11.TabIndex = 64;
@@ -433,7 +447,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(339, 225);
+            this.label16.Location = new System.Drawing.Point(207, 104);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(90, 24);
             this.label16.TabIndex = 63;
@@ -442,7 +456,7 @@
             // 
             // tbSW10
             // 
-            this.tbSW10.Location = new System.Drawing.Point(436, 183);
+            this.tbSW10.Location = new System.Drawing.Point(304, 62);
             this.tbSW10.Name = "tbSW10";
             this.tbSW10.Size = new System.Drawing.Size(58, 29);
             this.tbSW10.TabIndex = 62;
@@ -452,7 +466,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(339, 185);
+            this.label17.Location = new System.Drawing.Point(207, 64);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(90, 24);
             this.label17.TabIndex = 61;
@@ -461,7 +475,7 @@
             // 
             // tbSW9
             // 
-            this.tbSW9.Location = new System.Drawing.Point(436, 143);
+            this.tbSW9.Location = new System.Drawing.Point(304, 22);
             this.tbSW9.Name = "tbSW9";
             this.tbSW9.Size = new System.Drawing.Size(58, 29);
             this.tbSW9.TabIndex = 60;
@@ -471,7 +485,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(339, 145);
+            this.label18.Location = new System.Drawing.Point(207, 24);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(80, 24);
             this.label18.TabIndex = 59;
@@ -480,7 +494,7 @@
             // 
             // tbSW8
             // 
-            this.tbSW8.Location = new System.Drawing.Point(436, 103);
+            this.tbSW8.Location = new System.Drawing.Point(118, 299);
             this.tbSW8.Name = "tbSW8";
             this.tbSW8.Size = new System.Drawing.Size(58, 29);
             this.tbSW8.TabIndex = 58;
@@ -490,7 +504,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(339, 105);
+            this.label19.Location = new System.Drawing.Point(21, 301);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(80, 24);
             this.label19.TabIndex = 57;
@@ -499,7 +513,7 @@
             // 
             // tbSW7
             // 
-            this.tbSW7.Location = new System.Drawing.Point(436, 63);
+            this.tbSW7.Location = new System.Drawing.Point(118, 259);
             this.tbSW7.Name = "tbSW7";
             this.tbSW7.Size = new System.Drawing.Size(58, 29);
             this.tbSW7.TabIndex = 56;
@@ -509,7 +523,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(339, 65);
+            this.label20.Location = new System.Drawing.Point(21, 261);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(80, 24);
             this.label20.TabIndex = 55;
@@ -518,7 +532,7 @@
             // 
             // tbSW6
             // 
-            this.tbSW6.Location = new System.Drawing.Point(436, 23);
+            this.tbSW6.Location = new System.Drawing.Point(118, 219);
             this.tbSW6.Name = "tbSW6";
             this.tbSW6.Size = new System.Drawing.Size(58, 29);
             this.tbSW6.TabIndex = 54;
@@ -528,7 +542,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(339, 25);
+            this.label21.Location = new System.Drawing.Point(21, 221);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(80, 24);
             this.label21.TabIndex = 53;
@@ -537,7 +551,7 @@
             // 
             // tbWorkSwitch
             // 
-            this.tbWorkSwitch.Location = new System.Drawing.Point(184, 223);
+            this.tbWorkSwitch.Location = new System.Drawing.Point(213, 249);
             this.tbWorkSwitch.Name = "tbWorkSwitch";
             this.tbWorkSwitch.Size = new System.Drawing.Size(58, 29);
             this.tbWorkSwitch.TabIndex = 70;
@@ -547,62 +561,176 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(58, 225);
+            this.label22.Location = new System.Drawing.Point(87, 251);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(114, 24);
             this.label22.TabIndex = 69;
             this.label22.Text = "Work Switch";
             this.label22.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.Pins_HelpRequested);
             // 
-            // frmSwitchboxSettings
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(391, 385);
+            this.tabControl1.TabIndex = 71;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.tbRateUp);
+            this.tabPage1.Controls.Add(this.tbWorkSwitch);
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.label22);
+            this.tabPage1.Controls.Add(this.tbAuto);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.tbMasterOn);
+            this.tabPage1.Controls.Add(this.label4);
+            this.tabPage1.Controls.Add(this.tbMasterOff);
+            this.tabPage1.Controls.Add(this.label3);
+            this.tabPage1.Controls.Add(this.label9);
+            this.tabPage1.Controls.Add(this.tbRateDown);
+            this.tabPage1.Location = new System.Drawing.Point(4, 33);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(383, 348);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Config ";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.tbSW9);
+            this.tabPage2.Controls.Add(this.tbSW8);
+            this.tabPage2.Controls.Add(this.tbSW13);
+            this.tabPage2.Controls.Add(this.label19);
+            this.tabPage2.Controls.Add(this.label12);
+            this.tabPage2.Controls.Add(this.tbSW7);
+            this.tabPage2.Controls.Add(this.label14);
+            this.tabPage2.Controls.Add(this.label20);
+            this.tabPage2.Controls.Add(this.tbSW14);
+            this.tabPage2.Controls.Add(this.tbSW6);
+            this.tabPage2.Controls.Add(this.label21);
+            this.tabPage2.Controls.Add(this.tbSW12);
+            this.tabPage2.Controls.Add(this.label11);
+            this.tabPage2.Controls.Add(this.tbSW5);
+            this.tabPage2.Controls.Add(this.label15);
+            this.tabPage2.Controls.Add(this.label13);
+            this.tabPage2.Controls.Add(this.tbSW15);
+            this.tabPage2.Controls.Add(this.tbSW4);
+            this.tabPage2.Controls.Add(this.tbSW11);
+            this.tabPage2.Controls.Add(this.label7);
+            this.tabPage2.Controls.Add(this.label10);
+            this.tabPage2.Controls.Add(this.tbSW3);
+            this.tabPage2.Controls.Add(this.label16);
+            this.tabPage2.Controls.Add(this.label8);
+            this.tabPage2.Controls.Add(this.tbSW16);
+            this.tabPage2.Controls.Add(this.tbSW2);
+            this.tabPage2.Controls.Add(this.tbSW10);
+            this.tabPage2.Controls.Add(this.label5);
+            this.tabPage2.Controls.Add(this.label18);
+            this.tabPage2.Controls.Add(this.tbSW1);
+            this.tabPage2.Controls.Add(this.label6);
+            this.tabPage2.Controls.Add(this.label17);
+            this.tabPage2.Location = new System.Drawing.Point(4, 33);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(383, 348);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Section Switches";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.btnSendSubnet);
+            this.tabPage3.Controls.Add(this.lbIP);
+            this.tabPage3.Controls.Add(this.lbModuleIP);
+            this.tabPage3.Controls.Add(this.lbSubnet);
+            this.tabPage3.Controls.Add(this.cbEthernet);
+            this.tabPage3.Controls.Add(this.btnRescan);
+            this.tabPage3.Location = new System.Drawing.Point(4, 33);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(383, 348);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Network";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // btnSendSubnet
+            // 
+            this.btnSendSubnet.BackColor = System.Drawing.Color.Transparent;
+            this.btnSendSubnet.FlatAppearance.BorderSize = 0;
+            this.btnSendSubnet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSendSubnet.Image = global::PCBsetup.Properties.Resources.Update4;
+            this.btnSendSubnet.Location = new System.Drawing.Point(99, 182);
+            this.btnSendSubnet.Name = "btnSendSubnet";
+            this.btnSendSubnet.Size = new System.Drawing.Size(72, 72);
+            this.btnSendSubnet.TabIndex = 225;
+            this.btnSendSubnet.UseVisualStyleBackColor = false;
+            this.btnSendSubnet.Click += new System.EventHandler(this.btnSendSubnet_Click);
+            this.btnSendSubnet.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnSendSubnet_HelpRequested);
+            // 
+            // lbIP
+            // 
+            this.lbIP.AutoSize = true;
+            this.lbIP.Location = new System.Drawing.Point(21, 130);
+            this.lbIP.Name = "lbIP";
+            this.lbIP.Size = new System.Drawing.Size(76, 24);
+            this.lbIP.TabIndex = 223;
+            this.lbIP.Text = "Local IP";
+            // 
+            // lbModuleIP
+            // 
+            this.lbModuleIP.Location = new System.Drawing.Point(186, 87);
+            this.lbModuleIP.Name = "lbModuleIP";
+            this.lbModuleIP.Size = new System.Drawing.Size(161, 24);
+            this.lbModuleIP.TabIndex = 222;
+            this.lbModuleIP.Text = "192.168.100.100";
+            this.lbModuleIP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lbSubnet
+            // 
+            this.lbSubnet.AutoSize = true;
+            this.lbSubnet.Location = new System.Drawing.Point(21, 87);
+            this.lbSubnet.Name = "lbSubnet";
+            this.lbSubnet.Size = new System.Drawing.Size(149, 24);
+            this.lbSubnet.TabIndex = 221;
+            this.lbSubnet.Text = "Selected Subnet";
+            // 
+            // cbEthernet
+            // 
+            this.cbEthernet.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbEthernet.FormattingEnabled = true;
+            this.cbEthernet.Location = new System.Drawing.Point(190, 127);
+            this.cbEthernet.Name = "cbEthernet";
+            this.cbEthernet.Size = new System.Drawing.Size(157, 32);
+            this.cbEthernet.TabIndex = 220;
+            this.cbEthernet.SelectedIndexChanged += new System.EventHandler(this.cbEthernet_SelectedIndexChanged);
+            // 
+            // btnRescan
+            // 
+            this.btnRescan.BackColor = System.Drawing.Color.Transparent;
+            this.btnRescan.FlatAppearance.BorderSize = 0;
+            this.btnRescan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRescan.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRescan.Image = global::PCBsetup.Properties.Resources.Update;
+            this.btnRescan.Location = new System.Drawing.Point(190, 182);
+            this.btnRescan.Name = "btnRescan";
+            this.btnRescan.Size = new System.Drawing.Size(72, 72);
+            this.btnRescan.TabIndex = 218;
+            this.btnRescan.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.btnRescan.UseVisualStyleBackColor = false;
+            this.btnRescan.Click += new System.EventHandler(this.btnRescan_Click);
+            // 
+            // frmSetNanoSwitchbox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(547, 555);
-            this.Controls.Add(this.tbWorkSwitch);
-            this.Controls.Add(this.label22);
-            this.Controls.Add(this.tbSW13);
-            this.Controls.Add(this.label14);
-            this.Controls.Add(this.tbSW12);
-            this.Controls.Add(this.label15);
-            this.Controls.Add(this.tbSW11);
-            this.Controls.Add(this.label16);
-            this.Controls.Add(this.tbSW10);
-            this.Controls.Add(this.label17);
-            this.Controls.Add(this.tbSW9);
-            this.Controls.Add(this.label18);
-            this.Controls.Add(this.tbSW8);
-            this.Controls.Add(this.label19);
-            this.Controls.Add(this.tbSW7);
-            this.Controls.Add(this.label20);
-            this.Controls.Add(this.tbSW6);
-            this.Controls.Add(this.label21);
-            this.Controls.Add(this.tbSW16);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.tbSW15);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.tbSW14);
-            this.Controls.Add(this.label12);
-            this.Controls.Add(this.tbSW5);
-            this.Controls.Add(this.label13);
-            this.Controls.Add(this.tbRateDown);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.tbSW4);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.tbSW3);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.tbSW2);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.tbSW1);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.tbRateUp);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.tbMasterOff);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.tbMasterOn);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.tbAuto);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(418, 482);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnLoadDefaults);
             this.Controls.Add(this.btnSendToModule);
             this.Controls.Add(this.btnCancel);
@@ -614,13 +742,19 @@
             this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmSwitchboxSettings";
+            this.Name = "frmSetNanoSwitchbox";
             this.ShowInTaskbar = false;
             this.Text = "Nano Switchbox Settings";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmSwitchboxSettings_FormClosed);
             this.Load += new System.EventHandler(this.frmSwitchboxSettings_Load);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -674,5 +808,15 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.TextBox tbWorkSwitch;
         private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Button btnSendSubnet;
+        private System.Windows.Forms.Label lbIP;
+        private System.Windows.Forms.Label lbModuleIP;
+        private System.Windows.Forms.Label lbSubnet;
+        private System.Windows.Forms.ComboBox cbEthernet;
+        private System.Windows.Forms.Button btnRescan;
     }
 }

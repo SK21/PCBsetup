@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Management;
+using System.Net;
 using System.Windows.Forms;
 
 namespace PCBsetup.Forms
@@ -20,9 +21,9 @@ namespace PCBsetup.Forms
     {
         public SerialComm CommPort;
         public clsTools Tls;
-        public UDPComm UDPmodulesConfig;
         private byte cModule = 0;
         private string cSelectedPortName;
+        private string cSubnet = "192.168.1.1";
         private int PortID = 1;
 
         public frmMain()
@@ -30,12 +31,24 @@ namespace PCBsetup.Forms
             InitializeComponent();
             Tls = new clsTools(this);
             CommPort = new SerialComm(this, PortID);
-            UDPmodulesConfig = new UDPComm(this, 29999, 28888, 1482);     // pcb config
             CommPort.ModuleConnected += CommPort_ModuleConnected;
         }
 
         public byte ModuleSelected
         { get { return cModule; } }
+
+        public string Subnet
+        {
+            get { return cSubnet; }
+            set
+            {
+                if (IPAddress.TryParse(value, out IPAddress IP))
+                {
+                    cSubnet = IP.ToString();
+                    Tls.SaveProperty("SubNet", cSubnet);
+                }
+            }
+        }
 
         public bool OpenComm()
         {
@@ -194,8 +207,6 @@ namespace PCBsetup.Forms
             LoadSettings();
             SetDayMode();
 
-            // ethernet
-            UDPmodulesConfig.StartUDPServer();
             SetButtons();
         }
 
@@ -254,6 +265,9 @@ namespace PCBsetup.Forms
                 // module
                 byte.TryParse(Tls.LoadProperty("Module"), out cModule);
                 cbModule.SelectedIndex = cModule;
+
+                // ethernet
+                if (IPAddress.TryParse(Tls.LoadProperty("SubNet"), out IPAddress IP)) cSubnet = IP.ToString();
             }
             catch (Exception ex)
             {
