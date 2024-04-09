@@ -5,11 +5,10 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using System.Net;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace PCBsetup
 {
@@ -17,18 +16,15 @@ namespace PCBsetup
     {
         private static Hashtable ht;
         private string cAppName = "PCBsetup";
-        private string cAppVersion = "1.1.10";
-        private string cESPfirmware = "31-Mar-2024";
-        private string cNanoFirmware = "31-Mar-2024";
-
-        // rate
+        private string cAppVersion = "1.1.11";
+        private string cESPfirmware = "08-Apr-2024";
+        private string cNanoFirmware = "08-Apr-2024";
         private string cPropertiesFile = "";
-
         private string cSettingsDir = "";
         private string cSwitchboxFirmware = "04-Mar-2024";
         private string cTeensyAutoSteerFirmware = "05-Mar-2024";
-        private string cTeensyRateVersion = "31-Mar-2024";
-        private string cVersionDate = "31-Mar-2024";
+        private string cTeensyRateVersion = "08-Apr-2024";
+        private string cVersionDate = "08-Apr-2024";
         private string cWifiRCfirmware = "14-Feb-2023";
         private frmMain mf;
 
