@@ -6,6 +6,8 @@ using System.IO.Ports;
 using System.Linq;
 using System.Management;
 using System.Net;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Windows.Forms;
 
 namespace PCBsetup.Forms
@@ -50,6 +52,8 @@ namespace PCBsetup.Forms
                 }
             }
         }
+
+        public int ConnectionType { get { return tbType.SelectedIndex; } }
 
         public bool OpenComm()
         {
@@ -121,10 +125,49 @@ namespace PCBsetup.Forms
             }
         }
 
+        private void btnFirmware_Click_1(object sender, EventArgs e)
+        {
+            switch (cModule)
+            {
+                case 0:
+                    // Teensy AutoSteer
+                    Form tmp = new frmFWTeensyNetwork(this, 0);
+                    tmp.ShowDialog();
+                    break;
+
+                case 1:
+                    // Teensy Rate
+                    Form tmp1 = new frmFWTeensyNetwork(this, 1);
+                    tmp1.ShowDialog();
+                    break;
+            }
+        }
+
         private void btnRescan_Click(object sender, EventArgs e)
         {
             LoadPortsCombo();
             UpdateForm();
+        }
+
+        private void btnSendSubnet_Click(object sender, EventArgs e)
+        {
+            PGN32503 SetSubnet = new PGN32503(this);
+            if (SetSubnet.Send(Subnet))
+            {
+                Tls.ShowHelp("New Subnet address sent.", "Subnet", 10000);
+            }
+            else
+            {
+                Tls.ShowHelp("New Subnet address not sent.", "Subnet", 10000);
+            }
+        }
+
+        private void btnSendSubnet_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            string Message = "Send subnet address to modules.";
+
+            Tls.ShowHelp(Message, "Subnet");
+            hlpevent.Handled = true;
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
@@ -166,6 +209,17 @@ namespace PCBsetup.Forms
             {
                 fs.Focus();
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            UpdateForm();
+        }
+
+        private void cbEthernet_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Subnet = cbEthernet.Text;
+            UpdateForm(false);
         }
 
         private void cbModule_SelectedIndexChanged(object sender, EventArgs e)
@@ -226,10 +280,31 @@ namespace PCBsetup.Forms
             SetButtons();
         }
 
-        private void GroupBoxPaint(object sender, PaintEventArgs e)
+        private void LoadCombo()
         {
-            GroupBox box = sender as GroupBox;
-            Tls.DrawGroupBox(box, e.Graphics, this.BackColor, Color.Black, Color.Blue);
+            // https://stackoverflow.com/questions/6803073/get-local-ip-address
+            try
+            {
+                cbEthernet.Items.Clear();
+                foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
+                {
+                    if ((item.NetworkInterfaceType == NetworkInterfaceType.Ethernet || item.NetworkInterfaceType == NetworkInterfaceType.Wireless80211) && item.OperationalStatus == OperationalStatus.Up)
+                    {
+                        foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
+                        {
+                            if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
+                            {
+                                cbEthernet.Items.Add(ip.Address.ToString());
+                            }
+                        }
+                    }
+                }
+                cbEthernet.SelectedIndex = cbEthernet.FindString(Subnet);
+            }
+            catch (Exception ex)
+            {
+                Tls.WriteErrorLog("frmModuleConfig/LoadCombo " + ex.Message);
+            }
         }
 
         private void LoadPortsCombo()
@@ -355,22 +430,26 @@ namespace PCBsetup.Forms
             {
                 case 0:
                     btnSettings.Enabled = true;
-                    btnOTA.Enabled = true;
+                    btnSettingsNetwork.Enabled = true;
+                    btnFirmwareNetwork.Enabled = true;
                     break;
 
                 case 1:
                     btnSettings.Enabled = false;
-                    btnOTA.Enabled = true;
+                    btnSettingsNetwork.Enabled = false;
+                    btnFirmwareNetwork.Enabled = true;
                     break;
 
                 case 3:
                     btnSettings.Enabled = true;
-                    btnOTA.Enabled = false;
+                    btnSettingsNetwork.Enabled = true;
+                    btnFirmwareNetwork.Enabled = false;
                     break;
 
                 default:
                     btnSettings.Enabled = false;
-                    btnOTA.Enabled = false;
+                    btnSettingsNetwork.Enabled = false;
+                    btnFirmwareNetwork.Enabled = false;
                     break;
             }
         }
@@ -387,6 +466,11 @@ namespace PCBsetup.Forms
                 {
                     c.ForeColor = Color.Black;
                 }
+
+                for (int i = 0; i < tbType.TabCount; i++)
+                {
+                    tbType.TabPages[i].BackColor = Properties.Settings.Default.DayColour;
+                }
             }
             else
             {
@@ -394,6 +478,11 @@ namespace PCBsetup.Forms
                 foreach (Control c in this.Controls)
                 {
                     c.ForeColor = Color.White;
+                }
+
+                for (int i = 0; i < tbType.TabCount; i++)
+                {
+                    tbType.TabPages[i].BackColor = Properties.Settings.Default.NightColour;
                 }
             }
         }
@@ -406,7 +495,7 @@ namespace PCBsetup.Forms
             return tmp;
         }
 
-        private void UpdateForm()
+        private void UpdateForm(bool UpdateCombo = true)
         {
             if (CommPort.IsOpen())
             {
@@ -427,24 +516,8 @@ namespace PCBsetup.Forms
             {
                 ModuleIndicator.Image = Properties.Resources.Off;
             }
-        }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            switch (cModule)
-            {
-                case 0:
-                    // Teensy AutoSteer
-                    Form tmp = new frmFWTeensyNetwork(this, 0);
-                    tmp.ShowDialog();
-                    break;
-
-                case 1:
-                    // Teensy Rate
-                    Form tmp1 = new frmFWTeensyNetwork(this, 1);
-                    tmp1.ShowDialog();
-                    break;
-            }
+            if (UpdateCombo) LoadCombo();
         }
     }
 }

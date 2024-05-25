@@ -40,8 +40,6 @@
             this.tbID = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lbCount = new System.Windows.Forms.Label();
-            this.lbIP = new System.Windows.Forms.Label();
-            this.cbEthernet = new System.Windows.Forms.ComboBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.ckOverwrite = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
@@ -53,7 +51,7 @@
             this.btnBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBrowse.Image = global::PCBsetup.Properties.Resources.btnBrowse_Image;
             this.btnBrowse.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnBrowse.Location = new System.Drawing.Point(12, 280);
+            this.btnBrowse.Location = new System.Drawing.Point(12, 157);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(76, 72);
             this.btnBrowse.TabIndex = 9;
@@ -68,7 +66,7 @@
             this.btnDefault.FlatAppearance.BorderSize = 0;
             this.btnDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDefault.Image = global::PCBsetup.Properties.Resources.VehFileLoad;
-            this.btnDefault.Location = new System.Drawing.Point(116, 289);
+            this.btnDefault.Location = new System.Drawing.Point(116, 166);
             this.btnDefault.Name = "btnDefault";
             this.btnDefault.Size = new System.Drawing.Size(76, 72);
             this.btnDefault.TabIndex = 7;
@@ -82,7 +80,7 @@
             this.btnUpload.FlatAppearance.BorderSize = 0;
             this.btnUpload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpload.Image = global::PCBsetup.Properties.Resources.UpArrow64;
-            this.btnUpload.Location = new System.Drawing.Point(220, 289);
+            this.btnUpload.Location = new System.Drawing.Point(220, 166);
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.Size = new System.Drawing.Size(76, 72);
             this.btnUpload.TabIndex = 5;
@@ -96,7 +94,7 @@
             this.bntOK.FlatAppearance.BorderSize = 0;
             this.bntOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntOK.Image = global::PCBsetup.Properties.Resources.bntOK_Image;
-            this.bntOK.Location = new System.Drawing.Point(428, 289);
+            this.bntOK.Location = new System.Drawing.Point(428, 166);
             this.bntOK.Name = "bntOK";
             this.bntOK.Size = new System.Drawing.Size(76, 72);
             this.bntOK.TabIndex = 6;
@@ -106,7 +104,7 @@
             // 
             // tbHexfile
             // 
-            this.tbHexfile.Location = new System.Drawing.Point(12, 246);
+            this.tbHexfile.Location = new System.Drawing.Point(12, 123);
             this.tbHexfile.Name = "tbHexfile";
             this.tbHexfile.Size = new System.Drawing.Size(492, 29);
             this.tbHexfile.TabIndex = 11;
@@ -114,7 +112,7 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(162, 195);
+            this.progressBar.Location = new System.Drawing.Point(162, 72);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(115, 20);
             this.progressBar.TabIndex = 10;
@@ -122,7 +120,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(64, 193);
+            this.label2.Location = new System.Drawing.Point(64, 70);
             this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 24);
@@ -132,7 +130,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(110, 14);
+            this.label1.Location = new System.Drawing.Point(16, 14);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(96, 24);
@@ -141,7 +139,7 @@
             // 
             // tbID
             // 
-            this.tbID.Location = new System.Drawing.Point(231, 12);
+            this.tbID.Location = new System.Drawing.Point(121, 12);
             this.tbID.Name = "tbID";
             this.tbID.Size = new System.Drawing.Size(55, 29);
             this.tbID.TabIndex = 13;
@@ -152,7 +150,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(303, 193);
+            this.label3.Location = new System.Drawing.Point(303, 70);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(55, 24);
@@ -162,31 +160,12 @@
             // lbCount
             // 
             this.lbCount.AutoSize = true;
-            this.lbCount.Location = new System.Drawing.Point(370, 193);
+            this.lbCount.Location = new System.Drawing.Point(370, 70);
             this.lbCount.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lbCount.Name = "lbCount";
             this.lbCount.Size = new System.Drawing.Size(20, 24);
             this.lbCount.TabIndex = 15;
             this.lbCount.Text = "0";
-            // 
-            // lbIP
-            // 
-            this.lbIP.AutoSize = true;
-            this.lbIP.Location = new System.Drawing.Point(110, 61);
-            this.lbIP.Name = "lbIP";
-            this.lbIP.Size = new System.Drawing.Size(76, 24);
-            this.lbIP.TabIndex = 219;
-            this.lbIP.Text = "Local IP";
-            // 
-            // cbEthernet
-            // 
-            this.cbEthernet.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbEthernet.FormattingEnabled = true;
-            this.cbEthernet.Location = new System.Drawing.Point(231, 57);
-            this.cbEthernet.Name = "cbEthernet";
-            this.cbEthernet.Size = new System.Drawing.Size(157, 32);
-            this.cbEthernet.TabIndex = 218;
-            this.cbEthernet.SelectedIndexChanged += new System.EventHandler(this.cbEthernet_SelectedIndexChanged);
             // 
             // btnCancel
             // 
@@ -195,7 +174,7 @@
             this.btnCancel.FlatAppearance.BorderSize = 0;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Image = global::PCBsetup.Properties.Resources.Cancel64;
-            this.btnCancel.Location = new System.Drawing.Point(324, 289);
+            this.btnCancel.Location = new System.Drawing.Point(324, 166);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(76, 72);
             this.btnCancel.TabIndex = 220;
@@ -208,9 +187,9 @@
             this.ckOverwrite.Appearance = System.Windows.Forms.Appearance.Button;
             this.ckOverwrite.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ckOverwrite.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ckOverwrite.Location = new System.Drawing.Point(110, 114);
+            this.ckOverwrite.Location = new System.Drawing.Point(259, 7);
             this.ckOverwrite.Name = "ckOverwrite";
-            this.ckOverwrite.Size = new System.Drawing.Size(278, 40);
+            this.ckOverwrite.Size = new System.Drawing.Size(245, 40);
             this.ckOverwrite.TabIndex = 221;
             this.ckOverwrite.Text = "Overwrite Module  Type";
             this.ckOverwrite.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -220,11 +199,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(518, 368);
+            this.ClientSize = new System.Drawing.Size(518, 246);
             this.Controls.Add(this.ckOverwrite);
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.lbIP);
-            this.Controls.Add(this.cbEthernet);
             this.Controls.Add(this.lbCount);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.tbID);
@@ -265,8 +242,6 @@
         private System.Windows.Forms.TextBox tbID;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lbCount;
-        private System.Windows.Forms.Label lbIP;
-        private System.Windows.Forms.ComboBox cbEthernet;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.CheckBox ckOverwrite;
     }

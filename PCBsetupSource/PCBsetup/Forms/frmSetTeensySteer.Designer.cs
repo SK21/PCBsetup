@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSetTeensySteer));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.ckTSZeroWas = new System.Windows.Forms.CheckBox();
             this.ckTSSwapRoll = new System.Windows.Forms.CheckBox();
             this.ckTSInvertRoll = new System.Windows.Forms.CheckBox();
             this.ckTSuse4_20 = new System.Windows.Forms.CheckBox();
@@ -92,29 +93,19 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tbTSDir = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.lbIP = new System.Windows.Forms.Label();
-            this.lbModuleIP = new System.Windows.Forms.Label();
-            this.lbSubnet = new System.Windows.Forms.Label();
-            this.cbEthernet = new System.Windows.Forms.ComboBox();
-            this.ckTSZeroWas = new System.Windows.Forms.CheckBox();
             this.btnLoadDefaults = new System.Windows.Forms.Button();
             this.btnSendToModule = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.bntOK = new System.Windows.Forms.Button();
-            this.btnSendSubnet = new System.Windows.Forms.Button();
-            this.btnRescan = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -145,6 +136,20 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Config ";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // ckTSZeroWas
+            // 
+            this.ckTSZeroWas.Appearance = System.Windows.Forms.Appearance.Button;
+            this.ckTSZeroWas.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.ckTSZeroWas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ckTSZeroWas.Location = new System.Drawing.Point(422, 404);
+            this.ckTSZeroWas.Name = "ckTSZeroWas";
+            this.ckTSZeroWas.Size = new System.Drawing.Size(92, 69);
+            this.ckTSZeroWas.TabIndex = 54;
+            this.ckTSZeroWas.Text = "Zero WAS";
+            this.ckTSZeroWas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ckTSZeroWas.UseVisualStyleBackColor = true;
+            this.ckTSZeroWas.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.ckTSZeroWas_HelpRequested);
             // 
             // ckTSSwapRoll
             // 
@@ -749,73 +754,6 @@
             this.label4.TabIndex = 24;
             this.label4.Text = "Motor Dir";
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.btnSendSubnet);
-            this.tabPage3.Controls.Add(this.lbIP);
-            this.tabPage3.Controls.Add(this.lbModuleIP);
-            this.tabPage3.Controls.Add(this.lbSubnet);
-            this.tabPage3.Controls.Add(this.cbEthernet);
-            this.tabPage3.Controls.Add(this.btnRescan);
-            this.tabPage3.Location = new System.Drawing.Point(4, 33);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(522, 506);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Network";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // lbIP
-            // 
-            this.lbIP.AutoSize = true;
-            this.lbIP.Location = new System.Drawing.Point(84, 209);
-            this.lbIP.Name = "lbIP";
-            this.lbIP.Size = new System.Drawing.Size(76, 24);
-            this.lbIP.TabIndex = 223;
-            this.lbIP.Text = "Local IP";
-            // 
-            // lbModuleIP
-            // 
-            this.lbModuleIP.Location = new System.Drawing.Point(249, 166);
-            this.lbModuleIP.Name = "lbModuleIP";
-            this.lbModuleIP.Size = new System.Drawing.Size(161, 24);
-            this.lbModuleIP.TabIndex = 222;
-            this.lbModuleIP.Text = "192.168.100.100";
-            this.lbModuleIP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lbSubnet
-            // 
-            this.lbSubnet.AutoSize = true;
-            this.lbSubnet.Location = new System.Drawing.Point(84, 166);
-            this.lbSubnet.Name = "lbSubnet";
-            this.lbSubnet.Size = new System.Drawing.Size(149, 24);
-            this.lbSubnet.TabIndex = 221;
-            this.lbSubnet.Text = "Selected Subnet";
-            // 
-            // cbEthernet
-            // 
-            this.cbEthernet.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbEthernet.FormattingEnabled = true;
-            this.cbEthernet.Location = new System.Drawing.Point(253, 206);
-            this.cbEthernet.Name = "cbEthernet";
-            this.cbEthernet.Size = new System.Drawing.Size(157, 32);
-            this.cbEthernet.TabIndex = 220;
-            this.cbEthernet.SelectedIndexChanged += new System.EventHandler(this.cbEthernet_SelectedIndexChanged);
-            // 
-            // ckTSZeroWas
-            // 
-            this.ckTSZeroWas.Appearance = System.Windows.Forms.Appearance.Button;
-            this.ckTSZeroWas.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ckTSZeroWas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ckTSZeroWas.Location = new System.Drawing.Point(422, 404);
-            this.ckTSZeroWas.Name = "ckTSZeroWas";
-            this.ckTSZeroWas.Size = new System.Drawing.Size(92, 69);
-            this.ckTSZeroWas.TabIndex = 54;
-            this.ckTSZeroWas.Text = "Zero WAS";
-            this.ckTSZeroWas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.ckTSZeroWas.UseVisualStyleBackColor = true;
-            this.ckTSZeroWas.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.ckTSZeroWas_HelpRequested);
-            // 
             // btnLoadDefaults
             // 
             this.btnLoadDefaults.BackColor = System.Drawing.Color.Transparent;
@@ -873,35 +811,6 @@
             this.bntOK.UseVisualStyleBackColor = false;
             this.bntOK.Click += new System.EventHandler(this.bntOK_Click);
             // 
-            // btnSendSubnet
-            // 
-            this.btnSendSubnet.BackColor = System.Drawing.Color.Transparent;
-            this.btnSendSubnet.FlatAppearance.BorderSize = 0;
-            this.btnSendSubnet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSendSubnet.Image = global::PCBsetup.Properties.Resources.Update4;
-            this.btnSendSubnet.Location = new System.Drawing.Point(162, 261);
-            this.btnSendSubnet.Name = "btnSendSubnet";
-            this.btnSendSubnet.Size = new System.Drawing.Size(72, 72);
-            this.btnSendSubnet.TabIndex = 225;
-            this.btnSendSubnet.UseVisualStyleBackColor = false;
-            this.btnSendSubnet.Click += new System.EventHandler(this.btnSendSubnet_Click);
-            this.btnSendSubnet.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnSendSubnet_HelpRequested);
-            // 
-            // btnRescan
-            // 
-            this.btnRescan.BackColor = System.Drawing.Color.Transparent;
-            this.btnRescan.FlatAppearance.BorderSize = 0;
-            this.btnRescan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRescan.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRescan.Image = global::PCBsetup.Properties.Resources.Update;
-            this.btnRescan.Location = new System.Drawing.Point(253, 261);
-            this.btnRescan.Name = "btnRescan";
-            this.btnRescan.Size = new System.Drawing.Size(72, 72);
-            this.btnRescan.TabIndex = 218;
-            this.btnRescan.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.btnRescan.UseVisualStyleBackColor = false;
-            this.btnRescan.Click += new System.EventHandler(this.btnRescan_Click);
-            // 
             // frmSetTeensySteer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -929,8 +838,6 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1004,13 +911,6 @@
         private System.Windows.Forms.Button btnSendToModule;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button bntOK;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.Label lbIP;
-        private System.Windows.Forms.Label lbModuleIP;
-        private System.Windows.Forms.Label lbSubnet;
-        private System.Windows.Forms.ComboBox cbEthernet;
-        private System.Windows.Forms.Button btnRescan;
-        private System.Windows.Forms.Button btnSendSubnet;
         private System.Windows.Forms.CheckBox ckTSZeroWas;
     }
 }

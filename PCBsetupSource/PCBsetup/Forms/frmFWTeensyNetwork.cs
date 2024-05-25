@@ -36,7 +36,6 @@ namespace PCBsetup.Forms
         private frmMain mf;
         private byte ModuleID = 0;
         private byte ModuleType = 0;          // 0 - Teensy AutoSteer, 1 - Teensy Rate
-        private int ProgressCount;
         private int TotalLines = 0;
         private bool UseDefault = false;
 
@@ -80,7 +79,6 @@ namespace PCBsetup.Forms
             if (FormEdited)
             {
                 // save
-                UDPmodules.NetworkEP = cbEthernet.Text;
                 mf.Tls.SaveProperty(IDname, tbID.Text);
                 SetButtons(false);
                 UpdateForm();
@@ -217,10 +215,6 @@ namespace PCBsetup.Forms
             }
         }
 
-        private void cbEthernet_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            SetButtons(true);
-        }
 
         private void frmFWTeensyNetwork_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -256,41 +250,17 @@ namespace PCBsetup.Forms
 
             if (int.TryParse(mf.Tls.LoadProperty(IDname), out int ID)) ModuleID = (byte)ID;
 
-            UDPmodules.StartUDPServer();
+                       UDPmodules.NetworkEP = mf.Subnet;
+ UDPmodules.StartUDPServer();
             if (!UDPmodules.IsUDPSendConnected)
             {
                 mf.Tls.ShowHelp("UDPnetwork failed to start.", "", 3000, true, true);
             }
 
+
             UpdateForm();
         }
 
-        private void LoadCombo()
-        {
-            // https://stackoverflow.com/questions/6803073/get-local-ip-address
-            try
-            {
-                cbEthernet.Items.Clear();
-                foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
-                {
-                    if ((item.NetworkInterfaceType == NetworkInterfaceType.Ethernet || item.NetworkInterfaceType == NetworkInterfaceType.Wireless80211) && item.OperationalStatus == OperationalStatus.Up)
-                    {
-                        foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
-                        {
-                            if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
-                            {
-                                cbEthernet.Items.Add(ip.Address.ToString());
-                            }
-                        }
-                    }
-                }
-                cbEthernet.SelectedIndex = cbEthernet.FindString(SubAddress(UDPmodules.NetworkEP));
-            }
-            catch (Exception ex)
-            {
-                mf.Tls.WriteErrorLog("frmModuleConfig/LoadCombo " + ex.Message);
-            }
-        }
 
         private void SetButtons(bool Edited)
         {
@@ -356,7 +326,6 @@ namespace PCBsetup.Forms
         private void UpdateForm()
         {
             Initializing = true;
-            LoadCombo();
             tbID.Text = ModuleID.ToString();
             Initializing = false;
         }

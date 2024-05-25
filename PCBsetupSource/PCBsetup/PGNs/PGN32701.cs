@@ -63,20 +63,24 @@ namespace PCBsetup
 
             cData[24] = cf.mf.Tls.CRC(cData, 23);
 
-            try
+            switch (cf.mf.ConnectionType)
             {
-                // send serial
-                Result = cf.mf.CommPort.Send(cData);
-            }
-            catch (Exception ex)
-            {
-                cf.mf.Tls.WriteErrorLog("PGN32701/send serial: " + ex.Message);
-            }
+                case 0:
+                    // send ethernet
+                    Result = cf.mf.Tls.UDP_BroadcastPGN(cData);
+                    break;
 
-            if (!Result)
-            {
-                // send ethernet
-                Result = cf.mf.Tls.UDP_BroadcastPGN(cData);
+                case 1:
+                    // send serial
+                    try
+                    {
+                        Result = cf.mf.CommPort.Send(cData);
+                    }
+                    catch (Exception ex)
+                    {
+                        cf.mf.Tls.WriteErrorLog("PGN32300/send serial: " + ex.Message);
+                    }
+                    break;
             }
 
             return Result;

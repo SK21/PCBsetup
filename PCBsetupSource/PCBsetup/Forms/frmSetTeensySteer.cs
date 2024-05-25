@@ -110,32 +110,6 @@ namespace PCBsetup.Forms
             hlpevent.Handled = true;
         }
 
-        private void btnRescan_Click(object sender, EventArgs e)
-        {
-            UpdateForm();
-        }
-
-        private void btnSendSubnet_Click(object sender, EventArgs e)
-        {
-            PGN32503 SetSubnet = new PGN32503(mf);
-            if (SetSubnet.Send(mf.Subnet))
-            {
-                mf.Tls.ShowHelp("New Subnet address sent.", "Subnet", 10000);
-            }
-            else
-            {
-                mf.Tls.ShowHelp("New Subnet address not sent.", "Subnet", 10000);
-            }
-        }
-
-        private void btnSendSubnet_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            string Message = "Send subnet address to modules.";
-
-            mf.Tls.ShowHelp(Message, "Subnet");
-            hlpevent.Handled = true;
-        }
-
         private void btnSendToModule_Click(object sender, EventArgs e)
         {
             bool Sent;
@@ -187,10 +161,6 @@ namespace PCBsetup.Forms
             hlpevent.Handled = true;
         }
 
-        private void btnWAS_Click(object sender, EventArgs e)
-        {
-        }
-
         private void BuildBoxes()
         {
             int StartID = Boxes.Add(this.Text, tbTSReceiverPort, 8, 1);
@@ -231,11 +201,6 @@ namespace PCBsetup.Forms
                 Boxes.Item(i).TB.TextChanged += tb_TextChanged;
                 Boxes.Item(i).TB.Validating += tb_Validating;
             }
-        }
-
-        private void cbEthernet_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            SetButtons(true);
         }
 
         private void cbTSreceiver_HelpRequested(object sender, HelpEventArgs hlpevent)
@@ -317,33 +282,6 @@ namespace PCBsetup.Forms
             }
         }
 
-        private void LoadCombo()
-        {
-            // https://stackoverflow.com/questions/6803073/get-local-ip-address
-            try
-            {
-                cbEthernet.Items.Clear();
-                foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
-                {
-                    if ((item.NetworkInterfaceType == NetworkInterfaceType.Ethernet || item.NetworkInterfaceType == NetworkInterfaceType.Wireless80211) && item.OperationalStatus == OperationalStatus.Up)
-                    {
-                        foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
-                        {
-                            if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
-                            {
-                                cbEthernet.Items.Add(ip.Address.ToString());
-                            }
-                        }
-                    }
-                }
-                cbEthernet.SelectedIndex = cbEthernet.FindString(mf.Subnet);
-            }
-            catch (Exception ex)
-            {
-                mf.Tls.WriteErrorLog("frmModuleConfig/LoadCombo " + ex.Message);
-            }
-        }
-
         private void LoadSettings()
         {
             try
@@ -400,9 +338,6 @@ namespace PCBsetup.Forms
                 {
                     mf.Tls.SaveProperty(CKs[i].Name, CKs[i].Checked.ToString());
                 }
-
-                // subnet
-                mf.Subnet = cbEthernet.Text;
             }
             catch (Exception ex)
             {
@@ -420,32 +355,16 @@ namespace PCBsetup.Forms
                     bntOK.Image = Properties.Resources.Save;
                     btnSendToModule.Enabled = false;
                     if (tabControl1.SelectedIndex < 2) TabEdited[tabControl1.SelectedIndex] = true;
-                    btnSendSubnet.Enabled = false;
                 }
                 else
                 {
                     btnCancel.Enabled = false;
                     bntOK.Image = Properties.Resources.bntOK_Image;
                     btnSendToModule.Enabled = true;
-                    btnSendSubnet.Enabled = true;
                 }
 
                 FormEdited = Edited;
             }
-        }
-
-        private string SubAddress(string Address)
-        {
-            IPAddress IP;
-            string[] data;
-            string Result = "";
-
-            if (IPAddress.TryParse(Address, out IP))
-            {
-                data = Address.Split('.');
-                Result = data[0] + "." + data[1] + "." + data[2] + ".";
-            }
-            return Result;
         }
 
         private void tb_Enter(object sender, EventArgs e)
@@ -498,8 +417,6 @@ namespace PCBsetup.Forms
         {
             Initializing = true;
             LoadSettings();
-            LoadCombo();
-            lbModuleIP.Text = mf.Subnet;
             Initializing = false;
         }
     }

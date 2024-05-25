@@ -80,17 +80,9 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.btnSendSubnet = new System.Windows.Forms.Button();
-            this.lbIP = new System.Windows.Forms.Label();
-            this.lbModuleIP = new System.Windows.Forms.Label();
-            this.lbSubnet = new System.Windows.Forms.Label();
-            this.cbEthernet = new System.Windows.Forms.ComboBox();
-            this.btnRescan = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnLoadDefaults
@@ -572,7 +564,6 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -643,88 +634,6 @@
             this.tabPage2.Text = "Section Switches";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.btnSendSubnet);
-            this.tabPage3.Controls.Add(this.lbIP);
-            this.tabPage3.Controls.Add(this.lbModuleIP);
-            this.tabPage3.Controls.Add(this.lbSubnet);
-            this.tabPage3.Controls.Add(this.cbEthernet);
-            this.tabPage3.Controls.Add(this.btnRescan);
-            this.tabPage3.Location = new System.Drawing.Point(4, 33);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(383, 348);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Network";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // btnSendSubnet
-            // 
-            this.btnSendSubnet.BackColor = System.Drawing.Color.Transparent;
-            this.btnSendSubnet.FlatAppearance.BorderSize = 0;
-            this.btnSendSubnet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSendSubnet.Image = global::PCBsetup.Properties.Resources.Update4;
-            this.btnSendSubnet.Location = new System.Drawing.Point(99, 182);
-            this.btnSendSubnet.Name = "btnSendSubnet";
-            this.btnSendSubnet.Size = new System.Drawing.Size(72, 72);
-            this.btnSendSubnet.TabIndex = 225;
-            this.btnSendSubnet.UseVisualStyleBackColor = false;
-            this.btnSendSubnet.Click += new System.EventHandler(this.btnSendSubnet_Click);
-            this.btnSendSubnet.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnSendSubnet_HelpRequested);
-            // 
-            // lbIP
-            // 
-            this.lbIP.AutoSize = true;
-            this.lbIP.Location = new System.Drawing.Point(21, 130);
-            this.lbIP.Name = "lbIP";
-            this.lbIP.Size = new System.Drawing.Size(76, 24);
-            this.lbIP.TabIndex = 223;
-            this.lbIP.Text = "Local IP";
-            // 
-            // lbModuleIP
-            // 
-            this.lbModuleIP.Location = new System.Drawing.Point(186, 87);
-            this.lbModuleIP.Name = "lbModuleIP";
-            this.lbModuleIP.Size = new System.Drawing.Size(161, 24);
-            this.lbModuleIP.TabIndex = 222;
-            this.lbModuleIP.Text = "192.168.100.100";
-            this.lbModuleIP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lbSubnet
-            // 
-            this.lbSubnet.AutoSize = true;
-            this.lbSubnet.Location = new System.Drawing.Point(21, 87);
-            this.lbSubnet.Name = "lbSubnet";
-            this.lbSubnet.Size = new System.Drawing.Size(149, 24);
-            this.lbSubnet.TabIndex = 221;
-            this.lbSubnet.Text = "Selected Subnet";
-            // 
-            // cbEthernet
-            // 
-            this.cbEthernet.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbEthernet.FormattingEnabled = true;
-            this.cbEthernet.Location = new System.Drawing.Point(190, 127);
-            this.cbEthernet.Name = "cbEthernet";
-            this.cbEthernet.Size = new System.Drawing.Size(157, 32);
-            this.cbEthernet.TabIndex = 220;
-            this.cbEthernet.SelectedIndexChanged += new System.EventHandler(this.cbEthernet_SelectedIndexChanged);
-            // 
-            // btnRescan
-            // 
-            this.btnRescan.BackColor = System.Drawing.Color.Transparent;
-            this.btnRescan.FlatAppearance.BorderSize = 0;
-            this.btnRescan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRescan.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRescan.Image = global::PCBsetup.Properties.Resources.Update;
-            this.btnRescan.Location = new System.Drawing.Point(190, 182);
-            this.btnRescan.Name = "btnRescan";
-            this.btnRescan.Size = new System.Drawing.Size(72, 72);
-            this.btnRescan.TabIndex = 218;
-            this.btnRescan.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.btnRescan.UseVisualStyleBackColor = false;
-            this.btnRescan.Click += new System.EventHandler(this.btnRescan_Click);
-            // 
             // frmSetNanoSwitchbox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -752,8 +661,6 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -811,12 +718,5 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.Button btnSendSubnet;
-        private System.Windows.Forms.Label lbIP;
-        private System.Windows.Forms.Label lbModuleIP;
-        private System.Windows.Forms.Label lbSubnet;
-        private System.Windows.Forms.ComboBox cbEthernet;
-        private System.Windows.Forms.Button btnRescan;
     }
 }
