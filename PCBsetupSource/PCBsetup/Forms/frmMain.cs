@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.IO.Ports;
@@ -150,6 +151,21 @@ namespace PCBsetup.Forms
 
             Tls.ShowHelp(Message, "Settings");
             hlpevent.Handled = true;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form fs = Application.OpenForms["frmMonitor"];
+
+            if (fs == null)
+            {
+                Form frm = new frmMonitor(this);
+                frm.Show();
+            }
+            else
+            {
+                fs.Focus();
+            }
         }
 
         private void cbModule_SelectedIndexChanged(object sender, EventArgs e)
@@ -333,32 +349,28 @@ namespace PCBsetup.Forms
             }
         }
 
-        private void SerialMonitorItem_Click(object sender, EventArgs e)
-        {
-            Form fs = Application.OpenForms["frmMonitor"];
-
-            if (fs == null)
-            {
-                Form frm = new frmMonitor(this);
-                frm.Show();
-            }
-            else
-            {
-                fs.Focus();
-            }
-        }
-
         private void SetButtons()
         {
             switch (cbModule.SelectedIndex)
             {
                 case 0:
+                    btnSettings.Enabled = true;
+                    btnOTA.Enabled = true;
+                    break;
+
+                case 1:
+                    btnSettings.Enabled = false;
+                    btnOTA.Enabled = true;
+                    break;
+
                 case 3:
                     btnSettings.Enabled = true;
+                    btnOTA.Enabled = false;
                     break;
 
                 default:
                     btnSettings.Enabled = false;
+                    btnOTA.Enabled = false;
                     break;
             }
         }
@@ -414,6 +426,24 @@ namespace PCBsetup.Forms
             else
             {
                 ModuleIndicator.Image = Properties.Resources.Off;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            switch (cModule)
+            {
+                case 0:
+                    // Teensy AutoSteer
+                    Form tmp = new frmFWTeensyNetwork(this, 0);
+                    tmp.ShowDialog();
+                    break;
+
+                case 1:
+                    // Teensy Rate
+                    Form tmp1 = new frmFWTeensyNetwork(this, 1);
+                    tmp1.ShowDialog();
+                    break;
             }
         }
     }

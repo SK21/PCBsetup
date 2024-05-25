@@ -192,6 +192,7 @@
     <Compile Include="Classes\clsTextBoxes.cs" />
     <Compile Include="Classes\clsTools.cs" />
     <Compile Include="Classes\SerialComm.cs" />
+    <Compile Include="Classes\UDPcomm.cs" />
     <Compile Include="Forms\FormNumeric.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -209,6 +210,12 @@
     </Compile>
     <Compile Include="Forms\frmFWESP8266.Designer.cs">
       <DependentUpon>frmFWESP8266.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmFWTeensyNetwork.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmFWTeensyNetwork.Designer.cs">
+      <DependentUpon>frmFWTeensyNetwork.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmFWTeensySteer.cs">
       <SubType>Form</SubType>
@@ -267,6 +274,7 @@
     <Compile Include="PGNs\PGN32301.cs" />
     <Compile Include="PGNs\PGN32503.cs" />
     <Compile Include="PGNs\PGN32701.cs" />
+    <Compile Include="PGNs\PGN32703.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\FormNumeric.resx">
@@ -278,6 +286,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmFWESP8266.resx">
       <DependentUpon>frmFWESP8266.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmFWTeensyNetwork.resx">
+      <DependentUpon>frmFWTeensyNetwork.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmFWTeensySteer.resx">
       <DependentUpon>frmFWTeensySteer.cs</DependentUpon>
