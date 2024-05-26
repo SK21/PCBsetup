@@ -8,7 +8,9 @@ using System.Management;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace PCBsetup.Forms
 {
@@ -22,12 +24,14 @@ namespace PCBsetup.Forms
 
     public partial class frmMain : Form
     {
+        public UDPComm UDPmodules;
         public SerialComm CommPort;
         public clsTools Tls;
         private byte cModule = 0;
         private string cSelectedPortName;
         private string cSubnet = "192.168.1.1";
         private int PortID = 1;
+        public frmFWTeensyNetwork TN;
 
         public frmMain()
         {
@@ -35,6 +39,7 @@ namespace PCBsetup.Forms
             Tls = new clsTools(this);
             CommPort = new SerialComm(this, PortID);
             CommPort.ModuleConnected += CommPort_ModuleConnected;
+            UDPmodules = new UDPComm(this, 29999, 28888, 9250, "UDPmodules");                   // arduino
         }
 
         public byte ModuleSelected
@@ -131,14 +136,14 @@ namespace PCBsetup.Forms
             {
                 case 0:
                     // Teensy AutoSteer
-                    Form tmp = new frmFWTeensyNetwork(this, 0);
-                    tmp.ShowDialog();
+                    TN = new frmFWTeensyNetwork(this, 0);
+                    TN.ShowDialog();
                     break;
 
                 case 1:
                     // Teensy Rate
-                    Form tmp1 = new frmFWTeensyNetwork(this, 1);
-                    tmp1.ShowDialog();
+                    TN = new frmFWTeensyNetwork(this, 1);
+                    TN.ShowDialog();
                     break;
             }
         }
@@ -263,6 +268,7 @@ namespace PCBsetup.Forms
             {
                 Tls.SaveFormData(this);
             }
+            UDPmodules.Close();
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -276,8 +282,14 @@ namespace PCBsetup.Forms
             Tls.LoadFormData(this);
             LoadSettings();
             SetDayMode();
-
             SetButtons();
+
+            UDPmodules.NetworkEP = Subnet;
+            UDPmodules.StartUDPServer();
+            if (!UDPmodules.IsUDPSendConnected)
+            {
+                Tls.ShowHelp("UDPnetwork failed to start.", "", 3000, true, true);
+            }
         }
 
         private void LoadCombo()

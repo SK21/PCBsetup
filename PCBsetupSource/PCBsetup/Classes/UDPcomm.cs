@@ -12,7 +12,6 @@ namespace PCBsetup
     public class UDPComm
     {
         private readonly frmMain mf;
-        private readonly frmFWTeensyNetwork TN;
         private byte[] buffer = new byte[1024];
         private string cConnectionName;
         private bool cIsUDPSendConnected;
@@ -26,10 +25,9 @@ namespace PCBsetup
         private Socket recvSocket;
         private Socket sendSocket;
 
-        public UDPComm(frmFWTeensyNetwork CallingForm, int ReceivePort, int SendToPort, int SendFromPort, string ConnectionName, string DestinationEndPoint = "")
+        public UDPComm(frmMain CallingForm, int ReceivePort, int SendToPort, int SendFromPort, string ConnectionName, string DestinationEndPoint = "")
         {
-            mf = CallingForm.MF;
-            TN = CallingForm;
+            mf = CallingForm;
             cReceivePort = ReceivePort;
             cSendToPort = SendToPort;
             cSendFromPort = SendFromPort;
@@ -141,7 +139,7 @@ namespace PCBsetup
         {
             try
             {
-                if (Data.Length > 8) TN.CheckLines(Data);
+                if (Data.Length > 8) mf.TN.CheckLines(Data);
             }
             catch (Exception ex)
             {

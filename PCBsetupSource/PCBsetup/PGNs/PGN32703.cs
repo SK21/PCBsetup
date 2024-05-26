@@ -28,9 +28,8 @@ namespace PCBsetup
             cData[1] = 127;
         }
 
-        public bool Send(byte ModuleID, byte ModuleType, bool Overwrite = false)
+        public void Send(byte ModuleID, byte ModuleType, bool Overwrite = false)
         {
-            bool Result = false;
             cData[2] = ModuleID;
             cData[3] = ModuleType;
             if (Overwrite)
@@ -42,8 +41,7 @@ namespace PCBsetup
                 cData[4] = 0;
             }
             cData[5] = mf.Tls.CRC(cData, 5);
-            Result = mf.Tls.UDP_BroadcastPGN(cData);
-            return Result;
+            mf.UDPmodules.SendUDPMessage(cData);
         }
     }
 }

@@ -28,7 +28,6 @@ namespace PCBsetup.Forms
         //  :00 0000 01 FF
         //******************************************************************************
 
-        public UDPComm UDPmodules;
         private bool FormEdited = false;
         private Dictionary<string, byte> hexindex = new Dictionary<string, byte>();
         private string IDname;
@@ -44,7 +43,6 @@ namespace PCBsetup.Forms
             InitializeComponent();
             mf = CallingForm;
             ModuleType = ID;
-            UDPmodules = new UDPComm(this, 29999, 28888, 9250, "UDPmodules");                   // arduino
         }
 
         public frmMain MF
@@ -57,11 +55,11 @@ namespace PCBsetup.Forms
                 int lines = data[5] | (data[6] << 8) | (data[7] << 16) | (data[8] << 24);
                 if (TotalLines == lines)
                 {
-                    UDPmodules.SendUDPMessage(new byte[] { 0x3a, 0x00, 0x00, 0x00, 0x06, 0xFA });
+                    mf.UDPmodules.SendUDPMessage(new byte[] { 0x3a, 0x00, 0x00, 0x00, 0x06, 0xFA });
                 }
                 else
                 {
-                    UDPmodules.SendUDPMessage(new byte[] { 0x3a, 0x00, 0x00, 0x00, 0x07, 0xF9 });
+                    mf.UDPmodules.SendUDPMessage(new byte[] { 0x3a, 0x00, 0x00, 0x00, 0x07, 0xF9 });
                 }
             }
         }
@@ -197,7 +195,7 @@ namespace PCBsetup.Forms
                                 Application.DoEvents();
 
                                 UpdateProgress(idx * 100 / ExpectedLines);
-                                UDPmodules.SendUDPMessage(StrToByteArray(line));
+                                mf.UDPmodules.SendUDPMessage(StrToByteArray(line));
 
                                 if (reader.EndOfStream)
                                 {
@@ -222,7 +220,6 @@ namespace PCBsetup.Forms
             {
                 mf.Tls.SaveFormData(this);
             }
-            UDPmodules.Close();
         }
 
         private void frmFWTeensyNetwork_Load(object sender, EventArgs e)
@@ -249,14 +246,6 @@ namespace PCBsetup.Forms
             }
 
             if (int.TryParse(mf.Tls.LoadProperty(IDname), out int ID)) ModuleID = (byte)ID;
-
-                       UDPmodules.NetworkEP = mf.Subnet;
- UDPmodules.StartUDPServer();
-            if (!UDPmodules.IsUDPSendConnected)
-            {
-                mf.Tls.ShowHelp("UDPnetwork failed to start.", "", 3000, true, true);
-            }
-
 
             UpdateForm();
         }

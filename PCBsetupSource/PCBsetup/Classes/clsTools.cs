@@ -16,7 +16,7 @@ namespace PCBsetup
     {
         private static Hashtable ht;
         private string cAppName = "PCBsetup";
-        private string cAppVersion = "1.1.14";
+        private string cAppVersion = "1.2.0";
         private string cESPfirmware = "28-Apr-2024";
         private string cNanoFirmware = "27-Apr-2024";
         private string cPropertiesFile = "";
@@ -24,7 +24,7 @@ namespace PCBsetup
         private string cSwitchboxFirmware = "20-Apr-2024";
         private string cTeensyAutoSteerFirmware = "22-Apr-2024";
         private string cTeensyRateVersion = "27-Apr-2024";
-        private string cVersionDate = "28-Apr-2024";
+        private string cVersionDate = "26-May-2024";
         private string cWifiRCfirmware = "14-Feb-2023";
         private frmMain mf;
 

@@ -67,7 +67,8 @@ namespace PCBsetup
             {
                 case 0:
                     // send ethernet
-                    Result = cf.mf.Tls.UDP_BroadcastPGN(cData);
+                    cf.mf.UDPmodules.SendUDPMessage(cData);
+                    Result = true;
                     break;
 
                 case 1:
