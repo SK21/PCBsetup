@@ -274,7 +274,7 @@
     <Compile Include="PGNs\PGN32301.cs" />
     <Compile Include="PGNs\PGN32503.cs" />
     <Compile Include="PGNs\PGN32701.cs" />
-    <Compile Include="PGNs\PGN32703.cs" />
+    <Compile Include="PGNs\PGN32800.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\FormNumeric.resx">

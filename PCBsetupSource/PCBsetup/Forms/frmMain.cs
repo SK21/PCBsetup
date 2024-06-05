@@ -25,6 +25,7 @@ namespace PCBsetup.Forms
     public partial class frmMain : Form
     {
         public UDPComm UDPmodules;
+        public UDPComm UDPupdate;
         public SerialComm CommPort;
         public clsTools Tls;
         private byte cModule = 0;
@@ -39,7 +40,8 @@ namespace PCBsetup.Forms
             Tls = new clsTools(this);
             CommPort = new SerialComm(this, PortID);
             CommPort.ModuleConnected += CommPort_ModuleConnected;
-            UDPmodules = new UDPComm(this, 29999, 28888, 9250, "UDPmodules");                   // arduino
+            UDPmodules = new UDPComm(this, 29500, 28888, 9250, "UDPmodules");
+            UDPupdate = new UDPComm(this, 29000, 29100, 9350, "UDPupdate");
         }
 
         public byte ModuleSelected
@@ -269,6 +271,7 @@ namespace PCBsetup.Forms
                 Tls.SaveFormData(this);
             }
             UDPmodules.Close();
+            UDPupdate.Close();
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -288,7 +291,14 @@ namespace PCBsetup.Forms
             UDPmodules.StartUDPServer();
             if (!UDPmodules.IsUDPSendConnected)
             {
-                Tls.ShowHelp("UDPnetwork failed to start.", "", 3000, true, true);
+                Tls.ShowHelp("UDPmodules failed to start.", "", 3000, true, true);
+            }
+
+            UDPupdate.NetworkEP = Subnet;
+            UDPupdate.StartUDPServer();
+            if (!UDPupdate.IsUDPSendConnected)
+            {
+                Tls.ShowHelp("UDPupdate failed to start.", "", 3000, true, true);
             }
         }
 

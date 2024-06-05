@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFWTeensyNetwork));
             this.btnBrowse = new System.Windows.Forms.Button();
             this.btnDefault = new System.Windows.Forms.Button();
@@ -42,6 +43,7 @@
             this.lbCount = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.ckOverwrite = new System.Windows.Forms.CheckBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // btnBrowse
@@ -195,6 +197,11 @@
             this.ckOverwrite.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.ckOverwrite.UseVisualStyleBackColor = true;
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 4000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // frmFWTeensyNetwork
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -244,5 +251,6 @@
         private System.Windows.Forms.Label lbCount;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.CheckBox ckOverwrite;
+        private System.Windows.Forms.Timer timer1;
     }
 }

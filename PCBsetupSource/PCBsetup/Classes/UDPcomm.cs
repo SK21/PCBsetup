@@ -25,7 +25,8 @@ namespace PCBsetup
         private Socket recvSocket;
         private Socket sendSocket;
 
-        public UDPComm(frmMain CallingForm, int ReceivePort, int SendToPort, int SendFromPort, string ConnectionName, string DestinationEndPoint = "")
+        public UDPComm(frmMain CallingForm, int ReceivePort, int SendToPort, int SendFromPort,
+            string ConnectionName, string DestinationEndPoint = "")
         {
             mf = CallingForm;
             cReceivePort = ReceivePort;
@@ -62,8 +63,16 @@ namespace PCBsetup
 
         public void Close()
         {
-            recvSocket.Close();
-            sendSocket.Close();
+            try
+            {
+                recvSocket.Close();
+                sendSocket.Close();
+            }
+            catch (Exception ex)
+            {
+                mf.Tls.WriteErrorLog("UDPcomm: " + ex.Message);
+                throw;
+            }
         }
 
         public string Log()
@@ -103,6 +112,7 @@ namespace PCBsetup
 
                 // initialize the receive socket
                 recvSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+                //recvSocket.Bind(new IPEndPoint(cSourceIP, cReceivePort));
                 recvSocket.Bind(new IPEndPoint(IPAddress.Any, cReceivePort));
 
                 // initialize the send socket
@@ -140,6 +150,20 @@ namespace PCBsetup
             try
             {
                 if (Data.Length > 8) mf.TN.CheckLines(Data);
+                if (Data.Length >1)
+                {
+                    int PGN = Data[0] + Data[1] * 256;
+                    switch (PGN)
+                    {
+                        case 32801:
+                            if (mf.Tls.GoodCRC(Data)) mf.TN.CheckLines(Data);
+                            break;
+
+                        case 32802:
+                            if (mf.Tls.GoodCRC(Data)) mf.TN.DoUpdate(Data);
+                            break;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -215,5 +239,6 @@ namespace PCBsetup
                 mf.Tls.WriteErrorLog("UDPcomm/SetEP " + ex.Message);
             }
         }
+
     }
 }

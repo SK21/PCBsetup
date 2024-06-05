@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace PCBsetup
 {
-    public class PGN32703
+    public class PGN32800
     {
-        // PGN32703, firmware update mode for Teensy 4.1
-        //0		headerLo		191
-        //1		headerHi		127
+        // PGN32800, firmware update mode for Teensy 4.1
+        //0		headerLo		32
+        //1		headerHi		128
         //2		Module ID
         //3		Module Type		0-4
         //4     Command
@@ -21,11 +21,11 @@ namespace PCBsetup
         private byte[] cData = new byte[6];
         private frmMain mf;
 
-        public PGN32703(frmMain CalledFrom)
+        public PGN32800(frmMain CalledFrom)
         {
             mf = CalledFrom;
-            cData[0] = 191;
-            cData[1] = 127;
+            cData[0] = 32;
+            cData[1] = 128;
         }
 
         public void Send(byte ModuleID, byte ModuleType, bool Overwrite = false)
@@ -41,7 +41,7 @@ namespace PCBsetup
                 cData[4] = 0;
             }
             cData[5] = mf.Tls.CRC(cData, 5);
-            mf.UDPmodules.SendUDPMessage(cData);
+            mf.UDPupdate.SendUDPMessage(cData);
         }
     }
 }

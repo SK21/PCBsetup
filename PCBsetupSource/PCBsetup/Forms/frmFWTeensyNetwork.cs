@@ -45,23 +45,110 @@ namespace PCBsetup.Forms
             ModuleType = ID;
         }
 
-        public frmMain MF
-        { get { return mf; } }
 
         public void CheckLines(byte[] data)
         {
-            if (data.Length == 9 && data[0] == 0x4f && data[1] == 0x54 && data[2] == 0x41 && data[3] == 0x55 && data[4] == 0x70)
+            int lines = data[2] | (data[3] << 8) | (data[4] << 16) | (data[5] << 24);
+            if (TotalLines == lines)
             {
-                int lines = data[5] | (data[6] << 8) | (data[7] << 16) | (data[8] << 24);
-                if (TotalLines == lines)
+                mf.UDPupdate.SendUDPMessage(new byte[] { 0x3a, 0x00, 0x00, 0x00, 0x06, 0xFA });
+            }
+            else
+            {
+                mf.UDPupdate.SendUDPMessage(new byte[] { 0x3a, 0x00, 0x00, 0x00, 0x07, 0xF9 });
+            }
+        }
+
+        public void DoUpdate(byte[] data)
+        {
+            try
+            {
+                if (data[2] == ModuleID && data[3] == 100)
                 {
-                    mf.UDPmodules.SendUDPMessage(new byte[] { 0x3a, 0x00, 0x00, 0x00, 0x06, 0xFA });
-                }
-                else
-                {
-                    mf.UDPmodules.SendUDPMessage(new byte[] { 0x3a, 0x00, 0x00, 0x00, 0x07, 0xF9 });
+                    string filename = "";
+                    timer1.Enabled = false;
+
+                    if (UseDefault)
+                    {
+                        filename = Path.GetTempFileName();
+                        switch (ModuleType)
+                        {
+                            case 1:
+                                // rate
+                                File.WriteAllBytes(filename, PCBsetup.Properties.Resources.RCteensy_ino);
+                                break;
+
+                            default:
+                                // autosteer
+                                File.WriteAllBytes(filename, PCBsetup.Properties.Resources.AutoSteerTeensyRVC_ino);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        filename = tbHexfile.Text;
+                    }
+
+                    if (File.Exists(filename))
+                    {
+                        progressBar.Value = 0;
+                        int ExpectedLines = (int)new FileInfo(filename).Length / 45;
+
+                        hexindex.Clear();
+                        for (int i = 0; i <= 255; i++) hexindex.Add(i.ToString("X2"), (byte)i);
+                        hexindex.Add("::", 0x3a);
+                        TotalLines = 0;
+                        using (StreamReader reader = new StreamReader(filename))
+                        {
+                            string line;
+                            //read all the lines
+                            DateTime prev = DateTime.Now;
+                            DateTime start = DateTime.Now;
+                            TimeSpan aa = new TimeSpan(TimeSpan.TicksPerMillisecond * 10);
+                            int idx = 0;
+                            while (true)
+                            {
+                                if (DateTime.Now - prev > aa)
+                                {
+                                    prev = DateTime.Now;
+                                    line = "";
+                                    for (int i = 0; i < 11; i++)
+                                    {
+                                        if (!reader.EndOfStream)
+                                        {
+                                            line += ":" + reader.ReadLine();
+                                            idx++;
+                                        }
+                                    }
+                                    lbCount.Text = idx.ToString();
+                                    Application.DoEvents();
+
+                                    UpdateProgress(idx * 100 / ExpectedLines);
+                                    mf.UDPupdate.SendUDPMessage(StrToByteArray(line));
+
+                                    if (reader.EndOfStream)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                            TotalLines = idx;
+                        }
+                    }
                 }
             }
+
+            catch (Exception ex)
+            {
+                mf.Tls.WriteErrorLog(this.Text + "/DoUpdate " + ex.Message);
+            }
+            SetButtonUpload(true);
+        }
+        void SetButtonUpload(bool Enabled)
+        {
+            btnUpload.Enabled = Enabled;
+            btnDefault.Enabled= Enabled;
+            btnBrowse.Enabled= Enabled;
         }
 
         public byte[] StrToByteArray(string str)
@@ -113,6 +200,7 @@ namespace PCBsetup.Forms
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            btnUpload.Enabled = true;
         }
 
         private void btnDefault_Click(object sender, EventArgs e)
@@ -133,79 +221,10 @@ namespace PCBsetup.Forms
         {
             try
             {
-                string filename = "";
-
-                PGN32703 BeginUpdate = new PGN32703(mf);
-                BeginUpdate.Send(ModuleID, ModuleType,ckOverwrite.Checked);
-                Thread.Sleep(1000);
-
-                if (UseDefault)
-                {
-                    filename = Path.GetTempFileName();
-                    switch (ModuleType)
-                    {
-                        case 1:
-                            // rate
-                            File.WriteAllBytes(filename, PCBsetup.Properties.Resources.RCteensy_ino);
-                            break;
-
-                        default:
-                            // autosteer
-                            File.WriteAllBytes(filename, PCBsetup.Properties.Resources.AutoSteerTeensyRVC_ino);
-                            break;
-                    }
-                }
-                else
-                {
-                    filename = tbHexfile.Text;
-                }
-
-                if (File.Exists(filename))
-                {
-                    progressBar.Value = 0;
-                    int ExpectedLines = (int)new FileInfo(filename).Length / 45;
-
-                    hexindex.Clear();
-                    for (int i = 0; i <= 255; i++) hexindex.Add(i.ToString("X2"), (byte)i);
-                    hexindex.Add("::", 0x3a);
-                    TotalLines = 0;
-                    using (StreamReader reader = new StreamReader(filename))
-                    {
-                        string line;
-                        //read all the lines
-                        DateTime prev = DateTime.Now;
-                        DateTime start = DateTime.Now;
-                        TimeSpan aa = new TimeSpan(TimeSpan.TicksPerMillisecond * 10);
-                        int idx = 0;
-                        while (true)
-                        {
-                            if (DateTime.Now - prev > aa)
-                            {
-                                prev = DateTime.Now;
-                                line = "";
-                                for (int i = 0; i < 11; i++)
-                                {
-                                    if (!reader.EndOfStream)
-                                    {
-                                        line += ":" + reader.ReadLine();
-                                        idx++;
-                                    }
-                                }
-                                lbCount.Text = idx.ToString();
-                                Application.DoEvents();
-
-                                UpdateProgress(idx * 100 / ExpectedLines);
-                                mf.UDPmodules.SendUDPMessage(StrToByteArray(line));
-
-                                if (reader.EndOfStream)
-                                {
-                                    break;
-                                }
-                            }
-                        }
-                        TotalLines = idx;
-                    }
-                }
+                PGN32800 BeginUpdate = new PGN32800(mf);
+                BeginUpdate.Send(ModuleID, ModuleType, ckOverwrite.Checked);
+                timer1.Enabled = true;
+                SetButtonUpload(false);
             }
             catch (Exception ex)
             {
@@ -325,6 +344,13 @@ namespace PCBsetup.Forms
             if (ProgressPercent < 0) ProgressPercent = 0;
 
             progressBar.BeginInvoke(new Action(() => progressBar.Value = ProgressPercent));
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            mf.Tls.ShowHelp("Could not connect to the module. Check connection or subnet.");
+            timer1.Enabled = false;
+            SetButtonUpload(true);
         }
     }
 }
