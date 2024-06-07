@@ -86,9 +86,9 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(363, 236);
+            this.textBox1.Size = new System.Drawing.Size(363, 91);
             this.textBox1.TabIndex = 6;
-            this.textBox1.Text = resources.GetString("textBox1.Text");
+            this.textBox1.Text = "PCBsetup is used to upload firmware and settings data to pcbs. \r\n\r\n";
             // 
             // bntOK
             // 
@@ -96,7 +96,7 @@
             this.bntOK.FlatAppearance.BorderSize = 0;
             this.bntOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntOK.Image = global::PCBsetup.Properties.Resources.bntOK_Image;
-            this.bntOK.Location = new System.Drawing.Point(303, 319);
+            this.bntOK.Location = new System.Drawing.Point(303, 174);
             this.bntOK.Name = "bntOK";
             this.bntOK.Size = new System.Drawing.Size(72, 72);
             this.bntOK.TabIndex = 3;
@@ -108,7 +108,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(387, 388);
+            this.ClientSize = new System.Drawing.Size(387, 248);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.lbIPdes);
             this.Controls.Add(this.bntOK);
