@@ -134,6 +134,7 @@ namespace PCBsetup.Forms
                             }
                             TotalLines = idx;
                         }
+                        mf.Tls.ShowHelp("Wait about 1 minute for the new firmware to be installed. You may need to resend the subnet after the 1 minute. Watch on the rate app for a connection.");
                     }
                 }
             }
