@@ -61,7 +61,7 @@ namespace PCBsetup
 
             cData[23] = (byte)cf.Boxes.Value("tbWorkSwitch");
 
-            cData[24] = cf.mf.Tls.CRC(cData, 23);
+            cData[24] = cf.mf.Tls.CRC(cData, 24);
 
             switch (cf.mf.ConnectionType)
             {
