@@ -33,6 +33,7 @@ namespace PCBsetup.Forms
         private string cSubnet = "192.168.1.1";
         private int PortID = 1;
         public frmFWTeensyNetwork TN;
+        public PGN32303 SteerInfo;
 
         public frmMain()
         {
@@ -42,6 +43,7 @@ namespace PCBsetup.Forms
             CommPort.ModuleConnected += CommPort_ModuleConnected;
             UDPmodules = new UDPComm(this, 29500, 28888, 9250, "UDPmodules");
             UDPupdate = new UDPComm(this, 29000, 29100, 9350, "UDPupdate");
+            SteerInfo = new PGN32303(this);
         }
 
         public byte ModuleSelected
@@ -454,24 +456,28 @@ namespace PCBsetup.Forms
                     btnSettings.Enabled = true;
                     btnSettingsNetwork.Enabled = true;
                     btnFirmwareNetwork.Enabled = true;
+                    btnDiag.Enabled = true;
                     break;
 
                 case 1:
                     btnSettings.Enabled = false;
                     btnSettingsNetwork.Enabled = false;
                     btnFirmwareNetwork.Enabled = true;
+                    btnDiag.Enabled = false;
                     break;
 
                 case 3:
                     btnSettings.Enabled = true;
                     btnSettingsNetwork.Enabled = true;
                     btnFirmwareNetwork.Enabled = false;
+                    btnDiag.Enabled = false;
                     break;
 
                 default:
                     btnSettings.Enabled = false;
                     btnSettingsNetwork.Enabled = false;
                     btnFirmwareNetwork.Enabled = false;
+                    btnDiag.Enabled = false;
                     break;
             }
         }
@@ -540,6 +546,20 @@ namespace PCBsetup.Forms
             }
 
             if (UpdateCombo) LoadCombo();
+        }
+
+        private void btnDiag_Click(object sender, EventArgs e)
+        {
+            Form tmp = Application.OpenForms["frmDiag"];
+            if (tmp == null)
+            {
+                Form tmp2 = new frmDiag(this);
+                tmp2.Show();
+            }
+            else
+            {
+                tmp.Focus();
+            }
         }
     }
 }

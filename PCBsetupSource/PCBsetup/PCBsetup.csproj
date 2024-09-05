@@ -205,6 +205,12 @@
     <Compile Include="Forms\frmAbout.Designer.cs">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmDiag.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDiag.Designer.cs">
+      <DependentUpon>frmDiag.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmFWESP8266.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -272,6 +278,8 @@
     </Compile>
     <Compile Include="PGNs\PGN32300.cs" />
     <Compile Include="PGNs\PGN32301.cs" />
+    <Compile Include="PGNs\PGN32302.cs" />
+    <Compile Include="PGNs\PGN32303.cs" />
     <Compile Include="PGNs\PGN32503.cs" />
     <Compile Include="PGNs\PGN32701.cs" />
     <Compile Include="PGNs\PGN32800.cs" />
@@ -283,6 +291,9 @@
     <EmbeddedResource Include="Forms\frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmDiag.resx">
+      <DependentUpon>frmDiag.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmFWESP8266.resx">
       <DependentUpon>frmFWESP8266.cs</DependentUpon>

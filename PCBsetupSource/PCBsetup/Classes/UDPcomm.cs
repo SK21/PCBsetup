@@ -149,20 +149,38 @@ namespace PCBsetup
         {
             try
             {
-                if (Data.Length > 8) mf.TN.CheckLines(Data);
-                if (Data.Length >1)
+                switch (cReceivePort)
                 {
-                    int PGN = Data[0] + Data[1] * 256;
-                    switch (PGN)
-                    {
-                        case 32801:
-                            if (mf.Tls.GoodCRC(Data)) mf.TN.CheckLines(Data);
-                            break;
+                    case 29500:
+                        if (Data.Length > 1)
+                        {
+                            int PGN = Data[0] + Data[1] * 256;
+                            switch (PGN)
+                            {
+                                case 32303:
+                                    mf.SteerInfo.ParseByteData(Data);
+                                    break;
+                            }
+                        }
+                        break;
 
-                        case 32802:
-                            if (mf.Tls.GoodCRC(Data)) mf.TN.DoUpdate(Data);
-                            break;
-                    }
+                    default:
+                        if (Data.Length > 8) mf.TN.CheckLines(Data);
+                        if (Data.Length > 1)
+                        {
+                            int PGN = Data[0] + Data[1] * 256;
+                            switch (PGN)
+                            {
+                                case 32801:
+                                    if (mf.Tls.GoodCRC(Data)) mf.TN.CheckLines(Data);
+                                    break;
+
+                                case 32802:
+                                    if (mf.Tls.GoodCRC(Data)) mf.TN.DoUpdate(Data);
+                                    break;
+                            }
+                        }
+                        break;
                 }
             }
             catch (Exception ex)
