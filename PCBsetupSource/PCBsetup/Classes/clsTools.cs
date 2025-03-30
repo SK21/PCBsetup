@@ -23,7 +23,7 @@ namespace PCBsetup
         private string cSettingsDir = "";
         private string cSwitchboxFirmware = "23-Nov-2024";
         private string cTeensyAutoSteerFirmware = "04-Jun-2024";
-        private string cTeensyRateVersion = "8-Dec-2024";
+        private string cTeensyRateVersion = "29-Mar-2025";
         private string cVersionDate = "8-Dec-2024";
         private string cWifiRCfirmware = "23-Nov-2024";
         private frmMain mf;
