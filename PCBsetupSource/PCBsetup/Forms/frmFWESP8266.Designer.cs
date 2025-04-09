@@ -109,7 +109,7 @@
             this.bntOK.UseVisualStyleBackColor = false;
             this.bntOK.Click += new System.EventHandler(this.bntOK_Click);
             // 
-            // frmD1rate
+            // frmFWESP8266
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -127,9 +127,9 @@
             this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmD1rate";
+            this.Name = "frmFWESP8266";
             this.ShowInTaskbar = false;
-            this.Text = "Wifi AOG";
+            this.Text = "ESP Rate";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmD1rate_FormClosed);
             this.Load += new System.EventHandler(this.frmD1rate_Load);
             this.ResumeLayout(false);

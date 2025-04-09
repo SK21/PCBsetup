@@ -10,8 +10,6 @@ namespace PCBsetup.Forms
         // https://nerdiy.de/en/howto-esp8266-mit-dem-esptool-bin-dateien-unter-windows-flashen/
 
         private frmMain mf;
-        private string NewBin;
-        private string PathName;
         private bool UserSelectedFile = true;
 
         public frmFWESP8266(frmMain CallingForm)
@@ -57,72 +55,116 @@ namespace PCBsetup.Forms
 
         private void btnUpload_Click(object sender, EventArgs e)
         {
-            string cmd = "";
+            string NewFileBinary = "";
+            string PathName;
+            string UploadTool = "";
             string arg = "";
             string BootLoader = "BootLoader.tmp";
             string Partitions = "Partitions.tmp";
-            string BootApp = "BootApp.tmp";
             try
             {
                 SetButtons(true);
 
-                NewBin = Path.GetTempFileName();
-                PathName = Path.GetDirectoryName(NewBin);
+                NewFileBinary = Path.GetTempFileName();
+                PathName = Path.GetDirectoryName(NewFileBinary);
 
                 if (mf.ModuleSelected == 4)
                 {
                     // esp8266
                     if (UserSelectedFile)
                     {
-                        File.Copy(tbHexfile.Text, NewBin, true);
+                        File.Copy(tbHexfile.Text, NewFileBinary, true);
                     }
                     else
                     {
-                        File.WriteAllBytes(NewBin, PCBsetup.Properties.Resources.WifiRC_ino);
+                        File.WriteAllBytes(NewFileBinary, PCBsetup.Properties.Resources.WifiRC_ino);
                     }
-                    arg = "--port " + mf.SelectedPortName() + " --baud " + "460800" + " write_flash 0x0 " + NewBin;
+                    arg = "--port " + mf.SelectedPortName() + " --baud " + "460800" + " write_flash 0x0 " + NewFileBinary;
                 }
                 else
                 {
                     // esp32
+                    BootLoader = PathName + "\\" + BootLoader;
+                    Partitions = PathName + "\\" + Partitions;
                     if (UserSelectedFile)
                     {
-                        //File.Copy(tbHexfile.Text, NewBin, true);
+                        File.Copy(tbHexfile.Text, NewFileBinary, true);
+
+                        string SourceFile = tbHexfile.Text.Replace(".bin", ".bootloader.bin");
+                        File.Copy(SourceFile, BootLoader, true);
+
+                        SourceFile = tbHexfile.Text.Replace(".bin", ".partitions.bin");
+                        File.Copy(SourceFile, Partitions, true);
                     }
                     else
                     {
-                        BootLoader = PathName + "\\" + BootLoader;
-                        Partitions = PathName + "\\" + Partitions;
-                        BootApp = PathName + "\\" + BootApp;
                         File.WriteAllBytes(BootLoader, PCBsetup.Properties.Resources.RC_ESP32_ino_bootloader);
                         File.WriteAllBytes(Partitions, PCBsetup.Properties.Resources.RC_ESP32_ino_partitions);
-                        File.WriteAllBytes(BootApp, PCBsetup.Properties.Resources.boot_app0);
-                        File.WriteAllBytes(NewBin, PCBsetup.Properties.Resources.RC_ESP32_ino);
+                        File.WriteAllBytes(NewFileBinary, PCBsetup.Properties.Resources.RC_ESP32_ino);
                     }
                     arg = "--chip esp32 --port " + mf.SelectedPortName() + " --baud " + "460800"
                         + " --before default_reset --after hard_reset write_flash -z --flash_mode dio"
-                        + " 0x1000 " + BootLoader + " 0x8000 " + Partitions +  " 0x10000 " + NewBin;
+                        + " 0x1000 " + BootLoader + " 0x8000 " + Partitions + " 0x10000 " + NewFileBinary;
                 }
 
                 File.WriteAllBytes(PathName + "//esptool.exe", PCBsetup.Properties.Resources.esptool);
                 Process myProcess = null;
-                cmd = PathName + "//esptool.exe";
-                myProcess = Process.Start(cmd, arg);
-                while (!myProcess.WaitForExit(1000)) ;
-                if (myProcess.ExitCode != 0)
+                UploadTool = PathName + "//esptool.exe";
+                myProcess = Process.Start(UploadTool, arg);
+
+                int MaxTime = 120000;   // 2 minutes
+                DateTime StartTime = DateTime.Now;
+                bool TimedOut = false;
+
+                while (!myProcess.WaitForExit(1000))
                 {
-                    mf.Tls.ShowHelp("Flash failed with arg" + arg, "Wifi Rate", 10000, true);
+                    if ((DateTime.Now - StartTime).TotalMilliseconds > MaxTime)
+                    {
+                        // Timeout reached: kill the process and exit the wait loop.
+                        myProcess.Kill();
+                        TimedOut = true;
+                        break;
+                    }
+                }
+
+                if (TimedOut)
+                {
+                    mf.Tls.ShowHelp("Flash process timed out and was aborted.", "ESP Rate", 10000, true);
+                }
+                else if (myProcess.ExitCode != 0)
+                {
+                    mf.Tls.ShowHelp("Flash failed with arguments: " + arg, "ESP Rate", 10000, true);
                 }
                 else
                 {
-                    mf.Tls.ShowHelp("Flash complete.", "Wifi Rate", 5000);
+                    mf.Tls.ShowHelp("Flash complete.", "ESP Rate", 5000);
                 }
             }
             catch (Exception ex)
             {
-                mf.Tls.ShowHelp(ex.Message, "Wifi Rate", 15000, true);
+                mf.Tls.ShowHelp(ex.Message, "ESP Rate", 15000, true);
             }
-            SetButtons(false);
+            finally
+            {
+                SetButtons(false);
+
+                // Clean up temporary files
+                string[] tempFiles = new string[] { NewFileBinary, UploadTool, BootLoader, Partitions };
+                foreach (var file in tempFiles)
+                {
+                    if (!string.IsNullOrEmpty(file) && File.Exists(file))
+                    {
+                        try
+                        {
+                            File.Delete(file);
+                        }
+                        catch
+                        {
+                            // Optionally, log the error or notify that deletion failed.
+                        }
+                    }
+                }
+            }
         }
 
         private void btnUpload_HelpRequested(object sender, HelpEventArgs hlpevent)
