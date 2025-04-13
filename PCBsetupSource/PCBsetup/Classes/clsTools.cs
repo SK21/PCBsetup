@@ -21,7 +21,7 @@ namespace PCBsetup
         private string cNanoFirmware = "8-Apr-2025";
         private string cPropertiesFile = "";
         private string cSettingsDir = "";
-        private string cSwitchboxFirmware = "29-Dec-2024";
+        private string cSwitchboxFirmware = "12-Apr-2025";
         private string cTeensyAutoSteerFirmware = "10-Mar-2025";
         private string cTeensyRateVersion = "8-Apr-2025";
         private string cVersionDate = "12-Apr-2025";
