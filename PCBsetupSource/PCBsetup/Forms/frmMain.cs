@@ -24,15 +24,15 @@ namespace PCBsetup.Forms
 
     public partial class frmMain : Form
     {
-        public UDPComm UDPmodules;
-        public UDPComm UDPupdate;
         public SerialComm CommPort;
         public clsTools Tls;
+        public frmFWTeensyNetwork TN;
+        public UDPComm UDPmodules;
+        public UDPComm UDPupdate;
         private byte cModule = 0;
         private string cSelectedPortName;
         private string cSubnet = "192.168.1.1";
         private int PortID = 1;
-        public frmFWTeensyNetwork TN;
 
         public frmMain()
         {
@@ -43,6 +43,9 @@ namespace PCBsetup.Forms
             UDPmodules = new UDPComm(this, 29500, 28888, 9250, "UDPmodules");
             UDPupdate = new UDPComm(this, 29000, 29100, 9350, "UDPupdate");
         }
+
+        public int ConnectionType
+        { get { return tbType.SelectedIndex; } }
 
         public byte ModuleSelected
         { get { return cModule; } }
@@ -59,8 +62,6 @@ namespace PCBsetup.Forms
                 }
             }
         }
-
-        public int ConnectionType { get { return tbType.SelectedIndex; } }
 
         public bool OpenComm()
         {
@@ -193,14 +194,6 @@ namespace PCBsetup.Forms
                     tmp3.ShowDialog();
                     break;
             }
-        }
-
-        private void btnSettings_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            string Message = "Rate settings are done in the Rate Controller app.";
-
-            Tls.ShowHelp(Message, "Settings");
-            hlpevent.Handled = true;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -451,25 +444,21 @@ namespace PCBsetup.Forms
             switch (cbModule.SelectedIndex)
             {
                 case 0:
-                    btnSettings.Enabled = true;
                     btnSettingsNetwork.Enabled = true;
                     btnFirmwareNetwork.Enabled = true;
                     break;
 
                 case 1:
-                    btnSettings.Enabled = false;
                     btnSettingsNetwork.Enabled = false;
                     btnFirmwareNetwork.Enabled = true;
                     break;
 
                 case 3:
-                    btnSettings.Enabled = true;
                     btnSettingsNetwork.Enabled = true;
                     btnFirmwareNetwork.Enabled = false;
                     break;
 
                 default:
-                    btnSettings.Enabled = false;
                     btnSettingsNetwork.Enabled = false;
                     btnFirmwareNetwork.Enabled = false;
                     break;

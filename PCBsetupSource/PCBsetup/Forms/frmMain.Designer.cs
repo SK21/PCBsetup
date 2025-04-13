@@ -43,21 +43,20 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbType = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.btnFirmwareNetwork = new System.Windows.Forms.Button();
-            this.btnSettingsNetwork = new System.Windows.Forms.Button();
             this.btnSendSubnet = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.cbEthernet = new System.Windows.Forms.ComboBox();
             this.button3 = new System.Windows.Forms.Button();
+            this.btnSettingsNetwork = new System.Windows.Forms.Button();
+            this.btnFirmwareNetwork = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnRescanSerial = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.btnFirmware = new System.Windows.Forms.Button();
-            this.btnSettings = new System.Windows.Forms.Button();
             this.cboPort1 = new System.Windows.Forms.ComboBox();
             this.ModuleIndicator = new System.Windows.Forms.Label();
             this.PortIndicator1 = new System.Windows.Forms.Label();
             this.btnConnect1 = new System.Windows.Forms.Button();
-            this.btnRescanSerial = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tbType.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -183,50 +182,6 @@
             this.tabPage1.Text = "Ethernet";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.btnRescanSerial);
-            this.tabPage2.Controls.Add(this.button2);
-            this.tabPage2.Controls.Add(this.btnFirmware);
-            this.tabPage2.Controls.Add(this.btnSettings);
-            this.tabPage2.Controls.Add(this.cboPort1);
-            this.tabPage2.Controls.Add(this.ModuleIndicator);
-            this.tabPage2.Controls.Add(this.PortIndicator1);
-            this.tabPage2.Controls.Add(this.btnConnect1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 33);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(411, 189);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Serial/USB";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // btnFirmwareNetwork
-            // 
-            this.btnFirmwareNetwork.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.btnFirmwareNetwork.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnFirmwareNetwork.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFirmwareNetwork.Location = new System.Drawing.Point(189, 81);
-            this.btnFirmwareNetwork.Name = "btnFirmwareNetwork";
-            this.btnFirmwareNetwork.Size = new System.Drawing.Size(95, 72);
-            this.btnFirmwareNetwork.TabIndex = 131;
-            this.btnFirmwareNetwork.Text = "Firmware";
-            this.btnFirmwareNetwork.UseVisualStyleBackColor = false;
-            this.btnFirmwareNetwork.Click += new System.EventHandler(this.btnFirmware_Click_1);
-            // 
-            // btnSettingsNetwork
-            // 
-            this.btnSettingsNetwork.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.btnSettingsNetwork.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnSettingsNetwork.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSettingsNetwork.Location = new System.Drawing.Point(297, 81);
-            this.btnSettingsNetwork.Name = "btnSettingsNetwork";
-            this.btnSettingsNetwork.Size = new System.Drawing.Size(95, 72);
-            this.btnSettingsNetwork.TabIndex = 132;
-            this.btnSettingsNetwork.Text = "Settings";
-            this.btnSettingsNetwork.UseVisualStyleBackColor = false;
-            this.btnSettingsNetwork.Click += new System.EventHandler(this.btnSettings_Click);
-            // 
             // btnSendSubnet
             // 
             this.btnSendSubnet.BackColor = System.Drawing.Color.Transparent;
@@ -276,6 +231,65 @@
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // btnSettingsNetwork
+            // 
+            this.btnSettingsNetwork.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnSettingsNetwork.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnSettingsNetwork.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSettingsNetwork.Location = new System.Drawing.Point(297, 81);
+            this.btnSettingsNetwork.Name = "btnSettingsNetwork";
+            this.btnSettingsNetwork.Size = new System.Drawing.Size(95, 72);
+            this.btnSettingsNetwork.TabIndex = 132;
+            this.btnSettingsNetwork.Text = "Settings";
+            this.btnSettingsNetwork.UseVisualStyleBackColor = false;
+            this.btnSettingsNetwork.Click += new System.EventHandler(this.btnSettings_Click);
+            // 
+            // btnFirmwareNetwork
+            // 
+            this.btnFirmwareNetwork.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnFirmwareNetwork.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnFirmwareNetwork.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFirmwareNetwork.Location = new System.Drawing.Point(189, 81);
+            this.btnFirmwareNetwork.Name = "btnFirmwareNetwork";
+            this.btnFirmwareNetwork.Size = new System.Drawing.Size(95, 72);
+            this.btnFirmwareNetwork.TabIndex = 131;
+            this.btnFirmwareNetwork.Text = "Firmware";
+            this.btnFirmwareNetwork.UseVisualStyleBackColor = false;
+            this.btnFirmwareNetwork.Click += new System.EventHandler(this.btnFirmware_Click_1);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.btnRescanSerial);
+            this.tabPage2.Controls.Add(this.button2);
+            this.tabPage2.Controls.Add(this.btnFirmware);
+            this.tabPage2.Controls.Add(this.cboPort1);
+            this.tabPage2.Controls.Add(this.ModuleIndicator);
+            this.tabPage2.Controls.Add(this.PortIndicator1);
+            this.tabPage2.Controls.Add(this.btnConnect1);
+            this.tabPage2.Location = new System.Drawing.Point(4, 33);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(411, 189);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Serial/USB";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // btnRescanSerial
+            // 
+            this.btnRescanSerial.BackColor = System.Drawing.Color.Transparent;
+            this.btnRescanSerial.FlatAppearance.BorderSize = 0;
+            this.btnRescanSerial.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGreen;
+            this.btnRescanSerial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRescanSerial.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRescanSerial.Image = global::PCBsetup.Properties.Resources.Update;
+            this.btnRescanSerial.Location = new System.Drawing.Point(167, 111);
+            this.btnRescanSerial.Name = "btnRescanSerial";
+            this.btnRescanSerial.Size = new System.Drawing.Size(72, 72);
+            this.btnRescanSerial.TabIndex = 227;
+            this.btnRescanSerial.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.btnRescanSerial.UseVisualStyleBackColor = false;
+            this.btnRescanSerial.Click += new System.EventHandler(this.btnRescan_Click);
+            // 
             // button2
             // 
             this.button2.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -294,27 +308,13 @@
             this.btnFirmware.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btnFirmware.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnFirmware.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFirmware.Location = new System.Drawing.Point(194, 111);
+            this.btnFirmware.Location = new System.Drawing.Point(296, 111);
             this.btnFirmware.Name = "btnFirmware";
             this.btnFirmware.Size = new System.Drawing.Size(95, 72);
             this.btnFirmware.TabIndex = 139;
             this.btnFirmware.Text = "Firmware";
             this.btnFirmware.UseVisualStyleBackColor = false;
             this.btnFirmware.Click += new System.EventHandler(this.btnFirmware_Click);
-            // 
-            // btnSettings
-            // 
-            this.btnSettings.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnSettings.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSettings.Location = new System.Drawing.Point(295, 111);
-            this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(95, 72);
-            this.btnSettings.TabIndex = 138;
-            this.btnSettings.Text = "Settings";
-            this.btnSettings.UseVisualStyleBackColor = false;
-            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
-            this.btnSettings.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnSettings_HelpRequested);
             // 
             // cboPort1
             // 
@@ -364,22 +364,6 @@
             this.btnConnect1.Text = "Connect";
             this.btnConnect1.UseVisualStyleBackColor = false;
             this.btnConnect1.Click += new System.EventHandler(this.btnConnect1_Click_1);
-            // 
-            // btnRescanSerial
-            // 
-            this.btnRescanSerial.BackColor = System.Drawing.Color.Transparent;
-            this.btnRescanSerial.FlatAppearance.BorderSize = 0;
-            this.btnRescanSerial.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGreen;
-            this.btnRescanSerial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRescanSerial.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRescanSerial.Image = global::PCBsetup.Properties.Resources.Update;
-            this.btnRescanSerial.Location = new System.Drawing.Point(116, 111);
-            this.btnRescanSerial.Name = "btnRescanSerial";
-            this.btnRescanSerial.Size = new System.Drawing.Size(72, 72);
-            this.btnRescanSerial.TabIndex = 227;
-            this.btnRescanSerial.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.btnRescanSerial.UseVisualStyleBackColor = false;
-            this.btnRescanSerial.Click += new System.EventHandler(this.btnRescan_Click);
             // 
             // frmMain
             // 
@@ -437,7 +421,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnFirmware;
-        private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.ComboBox cboPort1;
         private System.Windows.Forms.Label ModuleIndicator;
         private System.Windows.Forms.Label PortIndicator1;
