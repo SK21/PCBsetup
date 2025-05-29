@@ -16,15 +16,15 @@ namespace PCBsetup
     {
         private static Hashtable ht;
         private string cAppName = "PCBsetup";
-        private string cAppVersion = "1.4.3";
-        private string cESPfirmware = "23-Apr-2025";
-        private string cNanoFirmware = "23-Apr-2025";
+        private string cAppVersion = "1.4.4";
+        private string cESPfirmware = "29-May-2025";
+        private string cNanoFirmware = "29-May-2025";
         private string cPropertiesFile = "";
         private string cSettingsDir = "";
         private string cSwitchboxFirmware = "12-Apr-2025";
         private string cTeensyAutoSteerFirmware = "10-Mar-2025";
-        private string cTeensyRateVersion = "23-Apr-2025";
-        private string cVersionDate = "23-Apr-2025";
+        private string cTeensyRateVersion = "29-May-2025";
+        private string cVersionDate = "29-May-2025";
         private string cWifiRCfirmware = "23-Nov-2024";
         private frmMain mf;
 
