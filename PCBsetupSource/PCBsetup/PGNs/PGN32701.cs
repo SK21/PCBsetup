@@ -66,12 +66,6 @@ namespace PCBsetup
             switch (cf.mf.ConnectionType)
             {
                 case 0:
-                    // send ethernet
-                    cf.mf.UDPmodules.SendUDPMessage(cData);
-                    Result = true;
-                    break;
-
-                case 1:
                     // send serial
                     try
                     {
@@ -81,6 +75,12 @@ namespace PCBsetup
                     {
                         cf.mf.Tls.WriteErrorLog("PGN32300/send serial: " + ex.Message);
                     }
+                    break;
+
+                case 1:
+                    // send ethernet
+                    cf.mf.UDPmodules.SendUDPMessage(cData);
+                    Result = true;
                     break;
             }
 

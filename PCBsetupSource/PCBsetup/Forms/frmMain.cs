@@ -446,21 +446,25 @@ namespace PCBsetup.Forms
                 case 0:
                     btnSettingsNetwork.Enabled = true;
                     btnFirmwareNetwork.Enabled = true;
+                    btnSettings.Enabled = false;
                     break;
 
                 case 1:
                     btnSettingsNetwork.Enabled = false;
                     btnFirmwareNetwork.Enabled = true;
+                    btnSettings.Enabled = false;
                     break;
 
                 case 3:
                     btnSettingsNetwork.Enabled = true;
                     btnFirmwareNetwork.Enabled = false;
+                    btnSettings.Enabled = true;
                     break;
 
                 default:
                     btnSettingsNetwork.Enabled = false;
                     btnFirmwareNetwork.Enabled = false;
+                    btnSettings.Enabled = false;
                     break;
             }
         }

@@ -57,6 +57,7 @@
             this.ModuleIndicator = new System.Windows.Forms.Label();
             this.PortIndicator1 = new System.Windows.Forms.Label();
             this.btnConnect1 = new System.Windows.Forms.Button();
+            this.btnSettings = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tbType.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -158,8 +159,8 @@
             // 
             // tbType
             // 
-            this.tbType.Controls.Add(this.tabPage1);
             this.tbType.Controls.Add(this.tabPage2);
+            this.tbType.Controls.Add(this.tabPage1);
             this.tbType.Location = new System.Drawing.Point(16, 104);
             this.tbType.Name = "tbType";
             this.tbType.SelectedIndex = 0;
@@ -259,6 +260,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.btnSettings);
             this.tabPage2.Controls.Add(this.btnRescanSerial);
             this.tabPage2.Controls.Add(this.button2);
             this.tabPage2.Controls.Add(this.btnFirmware);
@@ -282,7 +284,7 @@
             this.btnRescanSerial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRescanSerial.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRescanSerial.Image = global::PCBsetup.Properties.Resources.Update;
-            this.btnRescanSerial.Location = new System.Drawing.Point(167, 111);
+            this.btnRescanSerial.Location = new System.Drawing.Point(116, 111);
             this.btnRescanSerial.Name = "btnRescanSerial";
             this.btnRescanSerial.Size = new System.Drawing.Size(72, 72);
             this.btnRescanSerial.TabIndex = 227;
@@ -308,7 +310,7 @@
             this.btnFirmware.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btnFirmware.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnFirmware.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFirmware.Location = new System.Drawing.Point(296, 111);
+            this.btnFirmware.Location = new System.Drawing.Point(194, 111);
             this.btnFirmware.Name = "btnFirmware";
             this.btnFirmware.Size = new System.Drawing.Size(95, 72);
             this.btnFirmware.TabIndex = 139;
@@ -364,6 +366,19 @@
             this.btnConnect1.Text = "Connect";
             this.btnConnect1.UseVisualStyleBackColor = false;
             this.btnConnect1.Click += new System.EventHandler(this.btnConnect1_Click_1);
+            // 
+            // btnSettings
+            // 
+            this.btnSettings.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnSettings.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSettings.Location = new System.Drawing.Point(295, 111);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(95, 72);
+            this.btnSettings.TabIndex = 228;
+            this.btnSettings.Text = "Settings";
+            this.btnSettings.UseVisualStyleBackColor = false;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
             // frmMain
             // 
@@ -426,5 +441,6 @@
         private System.Windows.Forms.Label PortIndicator1;
         private System.Windows.Forms.Button btnConnect1;
         private System.Windows.Forms.Button btnRescanSerial;
+        private System.Windows.Forms.Button btnSettings;
     }
 }
