@@ -1,6 +1,6 @@
 ﻿namespace PCBsetup.Forms
 {
-    partial class frmFWESP8266
+    partial class frmFWESP32
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFWESP8266));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFWESP32));
             this.tbHexfile = new System.Windows.Forms.TextBox();
             this.btnDefault = new System.Windows.Forms.Button();
             this.lbPort = new System.Windows.Forms.Label();

@@ -47,7 +47,8 @@
             this.btnBrowse.FlatAppearance.BorderSize = 0;
             this.btnBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBrowse.Image = global::PCBsetup.Properties.Resources.btnBrowse_Image;
-            this.btnBrowse.Location = new System.Drawing.Point(26, 178);
+            this.btnBrowse.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnBrowse.Location = new System.Drawing.Point(14, 197);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(115, 72);
             this.btnBrowse.TabIndex = 3;
@@ -61,7 +62,7 @@
             this.btnDefault.FlatAppearance.BorderSize = 0;
             this.btnDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDefault.Image = global::PCBsetup.Properties.Resources.VehFileLoad;
-            this.btnDefault.Location = new System.Drawing.Point(151, 178);
+            this.btnDefault.Location = new System.Drawing.Point(139, 204);
             this.btnDefault.Name = "btnDefault";
             this.btnDefault.Size = new System.Drawing.Size(115, 72);
             this.btnDefault.TabIndex = 2;
@@ -75,7 +76,7 @@
             this.btnUpload.FlatAppearance.BorderSize = 0;
             this.btnUpload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpload.Image = global::PCBsetup.Properties.Resources.UpArrow64;
-            this.btnUpload.Location = new System.Drawing.Point(276, 178);
+            this.btnUpload.Location = new System.Drawing.Point(264, 204);
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.Size = new System.Drawing.Size(115, 72);
             this.btnUpload.TabIndex = 0;
@@ -90,7 +91,7 @@
             this.bntOK.FlatAppearance.BorderSize = 0;
             this.bntOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntOK.Image = global::PCBsetup.Properties.Resources.bntOK_Image;
-            this.bntOK.Location = new System.Drawing.Point(401, 178);
+            this.bntOK.Location = new System.Drawing.Point(399, 204);
             this.bntOK.Name = "bntOK";
             this.bntOK.Size = new System.Drawing.Size(115, 72);
             this.bntOK.TabIndex = 1;
@@ -134,15 +135,15 @@
             // 
             this.lbWarning.Location = new System.Drawing.Point(22, 140);
             this.lbWarning.Name = "lbWarning";
-            this.lbWarning.Size = new System.Drawing.Size(494, 35);
+            this.lbWarning.Size = new System.Drawing.Size(494, 61);
             this.lbWarning.TabIndex = 132;
-            this.lbWarning.Text = "Disconnect Nano from ethernet shield before uploading.";
+            this.lbWarning.Text = "May need to disconnect Nano from ethernet shield before uploading.";
             // 
-            // frmNanoFirmware
+            // frmFWNanoRate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(542, 275);
+            this.ClientSize = new System.Drawing.Size(542, 296);
             this.Controls.Add(this.lbWarning);
             this.Controls.Add(this.ckRtOldBootloader);
             this.Controls.Add(this.btnBrowse);
@@ -158,7 +159,7 @@
             this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmNanoFirmware";
+            this.Name = "frmFWNanoRate";
             this.ShowInTaskbar = false;
             this.Text = "Nano Rate Firmware";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmNanoFirmware_FormClosed);

@@ -55,7 +55,7 @@ namespace PCBsetup.Forms
         private void btnDefault_Click(object sender, EventArgs e)
         {
             UserSelectedFile = false;
-            tbHexfile.Text = "File version date:" + mf.VC.ModuleDate((int)ModuleTypes.Nano_SwitchBox);
+            tbHexfile.Text = "File version date:  " + mf.VC.ModuleDate((int)ModuleTypes.Nano_SwitchBox).ToString("dd-MMM-yyyy");
         }
 
         private void btnUpload_Click(object sender, EventArgs e)
@@ -104,7 +104,7 @@ namespace PCBsetup.Forms
               new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
 
             UserSelectedFile = false;
-            tbHexfile.Text = "File version date:" + mf.VC.ModuleDate((int)ModuleTypes.Nano_SwitchBox);
+            tbHexfile.Text = "File version date:  " + mf.VC.ModuleDate((int)ModuleTypes.Nano_SwitchBox).ToString("dd-MMM-yyyy");
 
             lbWarning.Visible = !ckSWOldBootloader.Checked;
         }

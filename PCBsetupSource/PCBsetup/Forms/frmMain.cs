@@ -1,18 +1,25 @@
 ﻿using PCBsetup.Classes;
 using System;
 using System.Drawing;
-using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Management;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PCBsetup.Forms
 {
+    public enum ModuleTypes
+    {
+        Teensy_AutoSteer,
+        Teensy_Rate,
+        Nano_Rate,
+        Nano_SwitchBox,
+        ESP_Rate
+    }
+
     public enum UploadResult
     {
         Completed,
@@ -24,16 +31,16 @@ namespace PCBsetup.Forms
     public partial class frmMain : Form
     {
         public SerialComm CommPort;
+        public clsDownloader Dlr;
         public clsTools Tls;
         public frmFWTeensyNetwork TN;
         public UDPComm UDPmodules;
         public UDPComm UDPupdate;
+        public clsVersionChecker VC;
         private byte cModule = 0;
         private string cSelectedPortName;
         private string cSubnet = "192.168.1.1";
-        public clsDownloader Dlr;
         private int PortID = 1;
-        public clsVersionChecker VC;
 
         public frmMain()
         {
@@ -98,13 +105,13 @@ namespace PCBsetup.Forms
             {
                 case 0:
                     // Teensy AutoSteer
-                    Form tmp = new frmFWTeensySteer(this, 0);
+                    Form tmp = new frmFWTeensySerial(this, 0);
                     tmp.ShowDialog();
                     break;
 
                 case 1:
                     // Teensy Rate
-                    Form tmp1 = new frmFWTeensySteer(this, 1);
+                    Form tmp1 = new frmFWTeensySerial(this, 1);
                     tmp1.ShowDialog();
                     break;
 
@@ -121,9 +128,8 @@ namespace PCBsetup.Forms
                     break;
 
                 case 4:
-                case 5:
-                    // wifi rate
-                    Form tmp4 = new frmFWESP8266(this);
+                    // esp32 rate
+                    Form tmp4 = new frmFWESP32(this);
                     CommPort.Close();   // needs to be closed for esptool to connect
                     tmp4.ShowDialog();
                     break;
@@ -199,7 +205,7 @@ namespace PCBsetup.Forms
             {
                 await VC.Update();
                 await Dlr.Download();
-                Tls.ShowHelp("Files downloaded.");
+                Tls.ShowHelp("Files downloaded.", "Help", 5000);
             }
             catch (Exception ex)
             {
@@ -300,7 +306,7 @@ namespace PCBsetup.Forms
             {
                 Tls.ShowHelp("UDPupdate failed to start.", "", 3000, true, true);
             }
-            this.Text = "PCBsetup [" + Tls.AppVersion() + " - " + Tls.VersionDate() + "]";
+            this.Text = "PCBsetup [Version " + Tls.AppVersion() + " - " + Tls.VersionDate() + "]";
         }
 
         private void LoadCombo()

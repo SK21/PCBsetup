@@ -12,21 +12,12 @@ using System.Windows.Forms;
 
 namespace PCBsetup
 {
-    public enum ModuleTypes
-    {
-        Teensy_AutoSteer,
-        Teensy_Rate,
-        Nano_Rate,
-        Nano_SwitchBox,
-        ESP_Rate
-    }
-
     public class clsTools
     {
         private static Hashtable ht;
         private string cAppDir;
         private string cAppName = "PCBsetup";
-        private string cAppVersion = "1.5.0";
+        private string cAppVersion = "2.0.0";
         private string cFileName;
         private string cFirmwareDir;
         private string cVersionDate = "17-Jul-2025";
@@ -69,7 +60,7 @@ namespace PCBsetup
         }
         public string HexDir()
         {
-            return cFirmwareDir + "\\HexFiles";
+            return cFirmwareDir + "\\ModulesHex";
         }
 
         public bool GoodCRC(byte[] Data, byte Start = 0)

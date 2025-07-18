@@ -5,14 +5,14 @@ using System.Windows.Forms;
 
 namespace PCBsetup.Forms
 {
-    public partial class frmFWESP8266 : Form
+    public partial class frmFWESP32 : Form
     {
         // https://nerdiy.de/en/howto-esp8266-mit-dem-esptool-bin-dateien-unter-windows-flashen/
 
         private frmMain mf;
         private bool UserSelectedFile = true;
 
-        public frmFWESP8266(frmMain CallingForm)
+        public frmFWESP32(frmMain CallingForm)
         {
             InitializeComponent();
             mf = CallingForm;
@@ -68,44 +68,28 @@ namespace PCBsetup.Forms
                 NewFileBinary = Path.GetTempFileName();
                 PathName = Path.GetDirectoryName(NewFileBinary);
 
-                if (mf.ModuleSelected == 4)
+                // esp32
+                BootLoader = PathName + "\\" + BootLoader;
+                Partitions = PathName + "\\" + Partitions;
+                if (UserSelectedFile)
                 {
-                    // esp8266
-                    if (UserSelectedFile)
-                    {
-                        File.Copy(tbHexfile.Text, NewFileBinary, true);
-                    }
-                    else
-                    {
-                        File.Copy(mf.Tls.HexDir() + "\\WifiRC.ino", NewFileBinary, true);
-                    }
-                    arg = "--port " + mf.SelectedPortName() + " --baud " + "460800" + " write_flash 0x0 " + NewFileBinary;
+                    File.Copy(tbHexfile.Text, NewFileBinary, true);
+
+                    string SourceFile = tbHexfile.Text.Replace(".bin", ".bootloader.bin");
+                    File.Copy(SourceFile, BootLoader, true);
+
+                    SourceFile = tbHexfile.Text.Replace(".bin", ".partitions.bin");
+                    File.Copy(SourceFile, Partitions, true);
                 }
                 else
                 {
-                    // esp32
-                    BootLoader = PathName + "\\" + BootLoader;
-                    Partitions = PathName + "\\" + Partitions;
-                    if (UserSelectedFile)
-                    {
-                        File.Copy(tbHexfile.Text, NewFileBinary, true);
-
-                        string SourceFile = tbHexfile.Text.Replace(".bin", ".bootloader.bin");
-                        File.Copy(SourceFile, BootLoader, true);
-
-                        SourceFile = tbHexfile.Text.Replace(".bin", ".partitions.bin");
-                        File.Copy(SourceFile, Partitions, true);
-                    }
-                    else
-                    {
-                        File.Copy(mf.Tls.HexDir() + "\\ESP32Rate\\RC_ESP32.ino.bootloader.bin", BootLoader, true);
-                        File.Copy(mf.Tls.HexDir() + "\\ESP32Rate\\RC_ESP32.ino.partitions.bin", Partitions, true);
-                        File.Copy(mf.Tls.HexDir() + "\\ESP32Rate\\RC_ESP32.ino.bin", NewFileBinary, true);
-                    }
-                    arg = "--chip esp32 --port " + mf.SelectedPortName() + " --baud " + "460800"
-                        + " --before default_reset --after hard_reset write_flash -z --flash_mode dio"
-                        + " 0x1000 " + BootLoader + " 0x8000 " + Partitions + " 0x10000 " + NewFileBinary;
+                    File.Copy(mf.Tls.HexDir() + "\\ESP32Rate\\RC_ESP32.ino.bootloader.bin", BootLoader, true);
+                    File.Copy(mf.Tls.HexDir() + "\\ESP32Rate\\RC_ESP32.ino.partitions.bin", Partitions, true);
+                    File.Copy(mf.Tls.HexDir() + "\\ESP32Rate\\RC_ESP32.ino.bin", NewFileBinary, true);
                 }
+                arg = "--chip esp32 --port " + mf.SelectedPortName() + " --baud " + "460800"
+                    + " --before default_reset --after hard_reset write_flash -z --flash_mode dio"
+                    + " 0x1000 " + BootLoader + " 0x8000 " + Partitions + " 0x10000 " + NewFileBinary;
 
                 File.WriteAllBytes(PathName + "//esptool.exe", PCBsetup.Properties.Resources.esptool);
                 Process myProcess = null;
@@ -211,17 +195,8 @@ namespace PCBsetup.Forms
         private void UpdateForm()
         {
             lbPort.Text = "Serial Port: " + mf.SelectedPortName();
-
-            if (mf.ModuleSelected == 4)
-            {
-                this.Text = "Wifi RC ESP8266";
-                //tbHexfile.Text = "Default file version date:" + mf.Tls.D1RateFirmware();
-            }
-            else
-            {
-                this.Text = "ESP32 Rate";
-                tbHexfile.Text = "File version date:" + mf.VC.ModuleDate((int)ModuleTypes.ESP_Rate);
-            }
+            this.Text = "ESP32 Rate";
+            tbHexfile.Text = "File version date:  " + mf.VC.ModuleDate((int)ModuleTypes.ESP_Rate).ToString("dd-MMM-yyyy");
         }
     }
 }

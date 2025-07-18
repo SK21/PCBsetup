@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.cbModule = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbType = new System.Windows.Forms.TabControl();
@@ -63,18 +62,17 @@
             "Teensy Rate",
             "Nano Rate",
             "Nano SwitchBox",
-            "Wifi RC",
             "ESP32 Rate"});
-            this.cbModule.Location = new System.Drawing.Point(160, 12);
+            this.cbModule.Location = new System.Drawing.Point(174, 12);
             this.cbModule.Name = "cbModule";
-            this.cbModule.Size = new System.Drawing.Size(225, 32);
+            this.cbModule.Size = new System.Drawing.Size(202, 32);
             this.cbModule.TabIndex = 127;
             this.cbModule.SelectedIndexChanged += new System.EventHandler(this.cbModule_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(51, 15);
+            this.label1.Location = new System.Drawing.Point(65, 15);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(103, 24);
             this.label1.TabIndex = 132;
@@ -88,7 +86,7 @@
             this.tbType.Name = "tbType";
             this.tbType.SelectedIndex = 0;
             this.tbType.Size = new System.Drawing.Size(419, 226);
-            this.tbType.TabIndex = 133;
+            this.tbType.TabIndex = 0;
             // 
             // tabPage2
             // 
@@ -346,7 +344,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ComboBox cbModule;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabControl tbType;

@@ -1,6 +1,6 @@
 ﻿namespace PCBsetup.Forms
 {
-    partial class frmFWTeensySteer
+    partial class frmFWTeensySerial
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFWTeensySteer));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFWTeensySerial));
             this.label1 = new System.Windows.Forms.Label();
             this.lbTeensies = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();

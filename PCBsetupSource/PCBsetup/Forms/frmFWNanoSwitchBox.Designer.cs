@@ -61,7 +61,7 @@
             this.btnBrowse.FlatAppearance.BorderSize = 0;
             this.btnBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBrowse.Image = global::PCBsetup.Properties.Resources.btnBrowse_Image;
-            this.btnBrowse.Location = new System.Drawing.Point(23, 179);
+            this.btnBrowse.Location = new System.Drawing.Point(23, 202);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(115, 72);
             this.btnBrowse.TabIndex = 3;
@@ -75,7 +75,7 @@
             this.btnDefault.FlatAppearance.BorderSize = 0;
             this.btnDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDefault.Image = global::PCBsetup.Properties.Resources.VehFileLoad;
-            this.btnDefault.Location = new System.Drawing.Point(148, 179);
+            this.btnDefault.Location = new System.Drawing.Point(148, 208);
             this.btnDefault.Name = "btnDefault";
             this.btnDefault.Size = new System.Drawing.Size(115, 72);
             this.btnDefault.TabIndex = 2;
@@ -89,7 +89,7 @@
             this.btnUpload.FlatAppearance.BorderSize = 0;
             this.btnUpload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpload.Image = global::PCBsetup.Properties.Resources.UpArrow64;
-            this.btnUpload.Location = new System.Drawing.Point(273, 179);
+            this.btnUpload.Location = new System.Drawing.Point(273, 208);
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.Size = new System.Drawing.Size(115, 72);
             this.btnUpload.TabIndex = 0;
@@ -104,7 +104,7 @@
             this.bntOK.FlatAppearance.BorderSize = 0;
             this.bntOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntOK.Image = global::PCBsetup.Properties.Resources.bntOK_Image;
-            this.bntOK.Location = new System.Drawing.Point(398, 179);
+            this.bntOK.Location = new System.Drawing.Point(398, 208);
             this.bntOK.Name = "bntOK";
             this.bntOK.Size = new System.Drawing.Size(115, 72);
             this.bntOK.TabIndex = 1;
@@ -133,17 +133,17 @@
             // 
             // lbWarning
             // 
-            this.lbWarning.Location = new System.Drawing.Point(21, 141);
+            this.lbWarning.Location = new System.Drawing.Point(23, 144);
             this.lbWarning.Name = "lbWarning";
-            this.lbWarning.Size = new System.Drawing.Size(494, 35);
+            this.lbWarning.Size = new System.Drawing.Size(494, 61);
             this.lbWarning.TabIndex = 133;
-            this.lbWarning.Text = "Disconnect Nano from ethernet shield before uploading.";
+            this.lbWarning.Text = "May need to disconnect Nano from ethernet shield before uploading.";
             // 
-            // frmSwitchboxFirmware
+            // frmFWNanoSwitchBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(542, 266);
+            this.ClientSize = new System.Drawing.Size(542, 308);
             this.Controls.Add(this.lbWarning);
             this.Controls.Add(this.ckSWOldBootloader);
             this.Controls.Add(this.btnBrowse);
@@ -159,7 +159,7 @@
             this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmSwitchboxFirmware";
+            this.Name = "frmFWNanoSwitchBox";
             this.ShowInTaskbar = false;
             this.Text = "Nano Switchbox Firmware";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmSwitchboxFirmware_FormClosed);

@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace PCBsetup.Forms
 {
-    public partial class frmFWTeensySteer : Form
+    public partial class frmFWTeensySerial : Form
     {
         // modified from https://github.com/luni64/TeensySharp/tree/master/src/Examples/07_WinForms%20Uploader
         // requires the NuGet package lunOptics.libTeensySharp
@@ -20,7 +20,7 @@ namespace PCBsetup.Forms
         private TeensyWatcher watcher;
         private byte SoftwareID;    // 0 autosteer, 1 rate
 
-        public frmFWTeensySteer(frmMain CallingForm, byte ID)
+        public frmFWTeensySerial(frmMain CallingForm, byte ID)
         {
             InitializeComponent();
             mf = CallingForm;
@@ -61,10 +61,10 @@ namespace PCBsetup.Forms
             switch (SoftwareID)
             {
                 case 1:
-                    Result = "File version date:" + mf.VC.ModuleDate((int)ModuleTypes.Teensy_Rate);
+                    Result = "File version date:  " + mf.VC.ModuleDate((int)ModuleTypes.Teensy_Rate).ToString("dd-MMM-yyyy");
                     break;
 
-                case 2:
+                default:
                     //Result = "File version date:" + mf.VC.ModuleDate((int)ModuleTypes.Teensy_Rate);
                     break;
             }

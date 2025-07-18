@@ -21,34 +21,46 @@ namespace PCBsetup.Classes
 
         public async Task Download()
         {
-            using (var cts = new CancellationTokenSource(TimeSpan.FromMinutes(2)))
-            {
-                using (var response = await _httpClient
-                           .GetAsync(HexFilesURL, HttpCompletionOption.ResponseHeadersRead, cts.Token))
-                {
-                    response.EnsureSuccessStatusCode();
+            string firmwareDir = mf.Tls.FirmwareDir();
+            string hexDir = mf.Tls.HexDir();
+            string zipPath = Path.Combine(firmwareDir, "ModulesHex.zip");
 
-                    using (var contentStream = await response.Content.ReadAsStreamAsync())
-                    using (var fileStream = new FileStream(
-                               mf.Tls.FirmwareDir(),
-                               FileMode.Create,
-                               FileAccess.Write,
-                               FileShare.None,
-                               bufferSize: 81920,
-                               useAsync: true))
+            try
+            {
+                using (var cts = new CancellationTokenSource(TimeSpan.FromMinutes(2)))
+                {
+                    using (var response = await _httpClient.GetAsync(
+                               HexFilesURL,
+                               HttpCompletionOption.ResponseHeadersRead,
+                               cts.Token))
                     {
-                        await contentStream.CopyToAsync(fileStream, 81920, cts.Token);
+                        response.EnsureSuccessStatusCode();
+
+                        using (var contentStream = await response.Content.ReadAsStreamAsync())
+                        using (var fileStream = new FileStream(
+                                   zipPath,
+                                   FileMode.Create,
+                                   FileAccess.Write,
+                                   FileShare.None,
+                                   bufferSize: 81920,
+                                   useAsync: true))
+                        {
+                            await contentStream.CopyToAsync(fileStream, 81920, cts.Token);
+                        }
                     }
                 }
-            }
 
-            // extract
-            string SourceFile = mf.Tls.FirmwareDir() + "\\ModulesHex.zip";
-            if (Directory.Exists(mf.Tls.HexDir()) && mf.Tls.IsPathSafeToDelete(mf.Tls.HexDir()))
-            {
-                Directory.Delete(mf.Tls.HexDir(), true);
+                if (Directory.Exists(hexDir) && mf.Tls.IsPathSafeToDelete(hexDir)) Directory.Delete(hexDir, recursive: true);
+                ZipFile.ExtractToDirectory(zipPath, firmwareDir);
             }
-            ZipFile.ExtractToDirectory(SourceFile, mf.Tls.HexDir());
+            catch (OperationCanceledException)
+            {
+                mf.Tls.ShowHelp("Download canceled or timed out.");
+            }
+            catch (Exception ex)
+            {
+                mf.Tls.ShowHelp("Failed to update firmware.  " + ex.Message, "Help", 5000, true);
+            }
         }
     }
 }
