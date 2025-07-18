@@ -77,7 +77,7 @@ namespace PCBsetup.Forms
                     }
                     else
                     {
-                        File.WriteAllBytes(NewFileBinary, PCBsetup.Properties.Resources.WifiRC_ino);
+                        File.Copy(mf.Tls.HexDir() + "\\WifiRC.ino", NewFileBinary, true);
                     }
                     arg = "--port " + mf.SelectedPortName() + " --baud " + "460800" + " write_flash 0x0 " + NewFileBinary;
                 }
@@ -98,9 +98,9 @@ namespace PCBsetup.Forms
                     }
                     else
                     {
-                        File.WriteAllBytes(BootLoader, PCBsetup.Properties.Resources.RC_ESP32_ino_bootloader);
-                        File.WriteAllBytes(Partitions, PCBsetup.Properties.Resources.RC_ESP32_ino_partitions);
-                        File.WriteAllBytes(NewFileBinary, PCBsetup.Properties.Resources.RC_ESP32_ino);
+                        File.Copy(mf.Tls.HexDir() + "\\ESP32Rate\\RC_ESP32.ino.bootloader.bin", BootLoader, true);
+                        File.Copy(mf.Tls.HexDir() + "\\ESP32Rate\\RC_ESP32.ino.partitions.bin", Partitions, true);
+                        File.Copy(mf.Tls.HexDir() + "\\ESP32Rate\\RC_ESP32.ino.bin", NewFileBinary, true);
                     }
                     arg = "--chip esp32 --port " + mf.SelectedPortName() + " --baud " + "460800"
                         + " --before default_reset --after hard_reset write_flash -z --flash_mode dio"

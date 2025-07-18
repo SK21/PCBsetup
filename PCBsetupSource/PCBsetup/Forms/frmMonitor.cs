@@ -26,7 +26,7 @@ namespace PCBsetup.Forms
         {
             try
             {
-                File.WriteAllText(mf.Tls.FilesDir() + "\\Serial Log.txt", tbMonitor.Text);
+                File.WriteAllText(mf.Tls.AppDir() + "\\Serial Log.txt", tbMonitor.Text);
                 mf.Tls.ShowHelp("File saved.", "Save", 10000);
             }
             catch (Exception ex)

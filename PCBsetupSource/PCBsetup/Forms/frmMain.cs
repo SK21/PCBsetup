@@ -1,5 +1,5 @@
-﻿using System;
-using System.Diagnostics;
+﻿using PCBsetup.Classes;
+using System;
 using System.Drawing;
 using System.IO;
 using System.IO.Ports;
@@ -8,9 +8,8 @@ using System.Management;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace PCBsetup.Forms
 {
@@ -32,7 +31,9 @@ namespace PCBsetup.Forms
         private byte cModule = 0;
         private string cSelectedPortName;
         private string cSubnet = "192.168.1.1";
+        private clsDownloader Dlr;
         private int PortID = 1;
+        private clsVersionChecker VC;
 
         public frmMain()
         {
@@ -42,6 +43,8 @@ namespace PCBsetup.Forms
             CommPort.ModuleConnected += CommPort_ModuleConnected;
             UDPmodules = new UDPComm(this, 29500, 28888, 9250, "UDPmodules");
             UDPupdate = new UDPComm(this, 29000, 29100, 9350, "UDPupdate");
+            VC = new clsVersionChecker(this);
+            Dlr = new clsDownloader(this);
         }
 
         public int ConnectionType
@@ -74,12 +77,6 @@ namespace PCBsetup.Forms
         public string SelectedPortName()
         {
             return cSelectedPortName;
-        }
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form tmp = new frmAbout(this);
-            tmp.ShowDialog();
         }
 
         private void btnConnect1_Click_1(object sender, EventArgs e)
@@ -196,6 +193,21 @@ namespace PCBsetup.Forms
             }
         }
 
+        private async void btnUpdates_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                await VC.Update();
+                await Dlr.Download();
+                Tls.ShowHelp("Files downloaded.");
+            }
+            catch (Exception ex)
+            {
+                Tls.ShowHelp("Failed to update.  " + ex.Message, "Help", 5000, true);
+                throw;
+            }
+        }
+
         private void button2_Click(object sender, EventArgs e)
         {
             Form fs = Application.OpenForms["frmMonitor"];
@@ -247,11 +259,6 @@ namespace PCBsetup.Forms
             UpdateForm();
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
         private void frmMain_Activated(object sender, EventArgs e)
         {
             UpdateForm();
@@ -293,6 +300,7 @@ namespace PCBsetup.Forms
             {
                 Tls.ShowHelp("UDPupdate failed to start.", "", 3000, true, true);
             }
+            this.Text = "PCBsetup [" + Tls.AppVersion() + " - " + Tls.VersionDate() + "]";
         }
 
         private void LoadCombo()
@@ -389,54 +397,12 @@ namespace PCBsetup.Forms
             hlpevent.Handled = true;
         }
 
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            saveFileDialog1.InitialDirectory = Tls.SettingsDir();
-            saveFileDialog1.Title = "New File";
-            saveFileDialog1.Filter = "Config Files|*.con";
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                if (saveFileDialog1.FileName != "")
-                {
-                    Tls.NewFile(saveFileDialog1.FileName);
-                    LoadSettings();
-                }
-            }
-        }
-
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            openFileDialog1.InitialDirectory = Tls.SettingsDir();
-            openFileDialog1.Filter = "Config Files|*.con";
-            openFileDialog1.FileName = "";
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                Tls.PropertiesFile = openFileDialog1.FileName;
-                LoadSettings();
-            }
-        }
-
         private void PortIndicator1_HelpRequested(object sender, HelpEventArgs hlpevent)
         {
             string Message = "Indicates serial port connected.";
 
             Tls.ShowHelp(Message, this.Text, 3000);
             hlpevent.Handled = true;
-        }
-
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            saveFileDialog1.InitialDirectory = Tls.SettingsDir();
-            saveFileDialog1.Title = "Save As";
-            saveFileDialog1.Filter = "Config Files|*.con";
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                if (saveFileDialog1.FileName != "")
-                {
-                    Tls.SaveFile(saveFileDialog1.FileName);
-                    LoadSettings();
-                }
-            }
         }
 
         private void SetButtons()

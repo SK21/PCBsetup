@@ -12,20 +12,24 @@ using System.Windows.Forms;
 
 namespace PCBsetup
 {
+    public enum ModuleTypes
+    {
+        Teensy_AutoSteer,
+        Teensy_Rate,
+        Nano_Rate,
+        Nano_SwitchBox,
+        ESP_Rate
+    }
+
     public class clsTools
     {
         private static Hashtable ht;
+        private string cAppDir;
         private string cAppName = "PCBsetup";
-        private string cAppVersion = "1.4.5";
-        private string cESPfirmware = "29-May-2025";
-        private string cNanoFirmware = "29-May-2025";
-        private string cPropertiesFile = "";
-        private string cSettingsDir = "";
-        private string cSwitchboxFirmware = "27-Jun-2025";
-        private string cTeensyAutoSteerFirmware = "10-Mar-2025";
-        private string cTeensyRateVersion = "29-May-2025";
-        private string cVersionDate = "27-Jun-2025";
-        private string cWifiRCfirmware = "23-Nov-2024";
+        private string cAppVersion = "1.5.0";
+        private string cFileName;
+        private string cFirmwareDir;
+        private string cVersionDate = "17-Jul-2025";
         private frmMain mf;
 
         public clsTools(frmMain CallingForm)
@@ -34,46 +38,14 @@ namespace PCBsetup
             CheckFolders();
         }
 
-        public string PropertiesFile
+        public string AppDir()
         {
-            get
-            {
-                return cPropertiesFile;
-            }
-            set
-            {
-                if (File.Exists(value))
-                {
-                    OpenFile(value);
-                }
-            }
+            return cAppDir;
         }
 
         public string AppVersion()
         {
             return cAppVersion;
-        }
-
-        public byte BitClear(byte b, int pos)
-        {
-            byte msk = (byte)(1 << pos);
-            msk = (byte)~msk;
-            return (byte)(b & msk);
-        }
-
-        public bool BitRead(byte b, int pos)
-        {
-            return (b >> pos & 1) != 0;
-        }
-
-        public byte BitSet(byte b, int pos)
-        {
-            return (byte)(b | 1 << pos);
-        }
-
-        public byte BuildModSenID(byte ArdID, byte SenID)
-        {
-            return (byte)(ArdID << 4 | SenID & 0b00001111);
         }
 
         public byte CRC(byte[] Data, int Length, byte Start = 0)
@@ -91,72 +63,13 @@ namespace PCBsetup
             return Result;
         }
 
-        public string D1RateFirmware()
+        public string FirmwareDir()
         {
-            return cWifiRCfirmware;
+            return cFirmwareDir;
         }
-
-        public void DelayMilliSeconds(int MS)
+        public string HexDir()
         {
-            if (MS < 300000)    // max 5 minutes
-            {
-                DateTime Start = DateTime.Now;
-                while ((DateTime.Now - Start).TotalMilliseconds < MS)
-                {
-                    // do nothing
-                }
-            }
-        }
-
-        public void DrawGroupBox(GroupBox box, Graphics g, Color BackColor, Color textColor, Color borderColor)
-        {
-            // useage:
-            // point the Groupbox paint event to this sub:
-            //private void GroupBoxPaint(object sender, PaintEventArgs e)
-            //{
-            //    GroupBox box = sender as GroupBox;
-            //    mf.Tls.DrawGroupBox(box, e.Graphics, this.BackColor, Color.Black, Color.Blue);
-            //}
-
-            if (box != null)
-            {
-                Brush textBrush = new SolidBrush(textColor);
-                Brush borderBrush = new SolidBrush(borderColor);
-                Pen borderPen = new Pen(borderBrush);
-                SizeF strSize = g.MeasureString(box.Text, box.Font);
-                Rectangle rect = new Rectangle(box.ClientRectangle.X,
-                                               box.ClientRectangle.Y + (int)(strSize.Height / 2),
-                                               box.ClientRectangle.Width - 1,
-                                               box.ClientRectangle.Height - (int)(strSize.Height / 2) - 1);
-
-                // Clear text and border
-                g.Clear(BackColor);
-
-                // Draw text
-                g.DrawString(box.Text, box.Font, textBrush, box.Padding.Left, 0);
-
-                // Drawing Border
-                //Left
-                g.DrawLine(borderPen, rect.Location, new Point(rect.X, rect.Y + rect.Height));
-                //Right
-                g.DrawLine(borderPen, new Point(rect.X + rect.Width, rect.Y), new Point(rect.X + rect.Width, rect.Y + rect.Height));
-                //Bottom
-                g.DrawLine(borderPen, new Point(rect.X, rect.Y + rect.Height), new Point(rect.X + rect.Width, rect.Y + rect.Height));
-                //Top1
-                g.DrawLine(borderPen, new Point(rect.X, rect.Y), new Point(rect.X + box.Padding.Left, rect.Y));
-                //Top2
-                g.DrawLine(borderPen, new Point(rect.X + box.Padding.Left + (int)strSize.Width, rect.Y), new Point(rect.X + rect.Width, rect.Y));
-            }
-        }
-
-        public string ESP32RateFirmware()
-        {
-            return cESPfirmware;
-        }
-
-        public string FilesDir()
-        {
-            return Properties.Settings.Default.FilesDir;
+            return cFirmwareDir + "\\HexFiles";
         }
 
         public bool GoodCRC(byte[] Data, byte Start = 0)
@@ -165,21 +78,6 @@ namespace PCBsetup
             int Length = Data.Length;
             byte cr = CRC(Data, Length - 1, Start);
             Result = (cr == Data[Length - 1]);
-            return Result;
-        }
-
-        public bool GoodCRC(string[] Data, byte Start = 0)
-        {
-            bool Result = false;
-            byte tmp;
-            int Length = Data.Length;
-            byte[] BD = new byte[Length];
-            for (int i = 0; i < Length; i++)
-            {
-                if (byte.TryParse(Data[i], out tmp)) BD[i] = tmp;
-            }
-            byte cr = CRC(BD, Length - 1, Start);   // exclude existing crc
-            Result = (cr == BD[Length - 1]);
             return Result;
         }
 
@@ -198,6 +96,41 @@ namespace PCBsetup
             }
 
             return IsOn;
+        }
+
+        public bool IsPathSafeToDelete(string candidatePath)
+        {
+            bool result = false;
+            try
+            {
+                string myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                string baseFolder = Path.Combine(myDocuments, "PCBsetup");
+
+                if (!string.IsNullOrEmpty(candidatePath))
+                {
+                    string candidateFullPath = Path.GetFullPath(candidatePath);
+                    string safeBaseFullPath = Path.GetFullPath(baseFolder);
+
+                    // If the candidate is a file, use its parent folder for the containment check.
+                    if (File.Exists(candidateFullPath))
+                    {
+                        candidateFullPath = Path.GetDirectoryName(candidateFullPath);
+                    }
+
+                    // Normalize paths
+                    candidateFullPath = candidateFullPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+                    safeBaseFullPath = safeBaseFullPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+
+                    // Check if the candidate path is within the safe base folder
+                    string safeBaseWithSeparator = safeBaseFullPath + Path.DirectorySeparatorChar;
+                    result = candidateFullPath.StartsWith(safeBaseWithSeparator, StringComparison.OrdinalIgnoreCase);
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteErrorLog("Props/SafeToDelete: " + ex.Message);
+            }
+            return result;
         }
 
         public void LoadFormData(Form Frm)
@@ -220,60 +153,6 @@ namespace PCBsetup
             return Prop;
         }
 
-        public string NanoFirmwareVersion()
-        {
-            return cNanoFirmware;
-        }
-
-        public bool NewFile(string Name)
-        {
-            bool Result = false;
-            try
-            {
-                Name = Path.GetFileName(Name);
-                cPropertiesFile = cSettingsDir + "\\" + Name;
-                if (!File.Exists(cPropertiesFile))
-                {
-                    File.WriteAllBytes(cPropertiesFile, Properties.Resources.Example);
-                    OpenFile(cPropertiesFile);
-                    Result = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                WriteErrorLog("clsTools: NewFile: " + ex.Message);
-            }
-            return Result;
-        }
-
-        public double NoisyData(double CurrentData, double ErrorPercent = 5.0)
-        {
-            try
-            {
-                // error percent is above and below current data
-                var Rand = new Random();
-                int Max = (int)(CurrentData * ErrorPercent * 2.0);
-                double Spd = CurrentData * (1.0 - ErrorPercent / 100.0) + Rand.Next(Max) / 100.0;
-                return Spd;
-            }
-            catch (Exception)
-            {
-                return CurrentData;
-            }
-        }
-
-        public byte ParseModID(byte ID)
-        {
-            // top 4 bits
-            return (byte)(ID >> 4);
-        }
-
-        public byte ParseSenID(byte ID)
-        {
-            // bottom 4 bits
-            return (byte)(ID & 0b00001111);
-        }
-
         public bool PrevInstance()
         {
             string PrsName = Process.GetCurrentProcess().ProcessName;
@@ -285,24 +164,6 @@ namespace PCBsetup
             else
             {
                 return false;
-            }
-        }
-
-        public void SaveFile(string NewFile)
-        {
-            try
-            {
-                NewFile = Path.GetFileName(NewFile);
-                cPropertiesFile = cSettingsDir + "\\" + NewFile;
-                if (!File.Exists(cPropertiesFile)) File.Create(cPropertiesFile).Dispose();
-
-                SaveProperties();
-                Properties.Settings.Default.FileName = NewFile;
-                Properties.Settings.Default.Save();
-            }
-            catch (Exception ex)
-            {
-                WriteErrorLog("clsTools: SaveFile: " + ex.Message);
             }
         }
 
@@ -331,11 +192,6 @@ namespace PCBsetup
             if (Changed) SaveProperties();
         }
 
-        public string SettingsDir()
-        {
-            return cSettingsDir;
-        }
-
         public void ShowHelp(string Message, string Title = "Help",
             int timeInMsec = 30000, bool LogError = false, bool Modal = false)
         {
@@ -350,30 +206,6 @@ namespace PCBsetup
             }
 
             if (LogError) WriteErrorLog(Message);
-        }
-
-        public int StringToInt(string S)
-        {
-            if (decimal.TryParse(S, out decimal tmp))
-            {
-                return (int)tmp;
-            }
-            return 0;
-        }
-
-        public string SwitchboxFirmwareVersion()
-        {
-            return cSwitchboxFirmware;
-        }
-
-        public string TeensyAutoSteerVersion()
-        {
-            return cTeensyAutoSteerFirmware;
-        }
-
-        public string TeensyRateVersion()
-        {
-            return cTeensyRateVersion;
         }
 
         public bool UDP_BroadcastPGN(byte[] Data)
@@ -429,25 +261,11 @@ namespace PCBsetup
             return cVersionDate;
         }
 
-        public void WriteActivityLog(string Message)
-        {
-            try
-            {
-                string FileName = cSettingsDir + "\\Activity Log.txt";
-                TrimFile(FileName);
-                File.AppendAllText(FileName, DateTime.Now.ToString() + "  -  " + Message + "\r\n");
-            }
-            catch (Exception ex)
-            {
-                WriteErrorLog("Tools: WriteActivityLog: " + ex.Message);
-            }
-        }
-
         public void WriteErrorLog(string strErrorText)
         {
             try
             {
-                string FileName = cSettingsDir + "\\Error Log.txt";
+                string FileName = cAppDir + "\\Error Log.txt";
                 TrimFile(FileName);
                 File.AppendAllText(FileName, DateTime.Now.ToString() + "  -  " + strErrorText + "\r\n\r\n");
             }
@@ -461,27 +279,27 @@ namespace PCBsetup
             try
             {
                 // SettingsDir
-                cSettingsDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + cAppName;
-                if (!Directory.Exists(cSettingsDir)) Directory.CreateDirectory(cSettingsDir);
-                if (!File.Exists(cSettingsDir + "\\Example.con")) File.WriteAllBytes(cSettingsDir + "\\Example.con", Properties.Resources.Example);
+                cAppDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + cAppName;
+                if (!Directory.Exists(cAppDir)) Directory.CreateDirectory(cAppDir);
+                cFirmwareDir = cAppDir + "\\Firmware";
+                if (!Directory.Exists(cFirmwareDir)) Directory.CreateDirectory(cFirmwareDir);
 
-                string FilesDir = Properties.Settings.Default.FilesDir;
-                if (!Directory.Exists(FilesDir)) Properties.Settings.Default.FilesDir = cSettingsDir;
-
-                OpenFile(Properties.Settings.Default.FileName);
+                cFileName = cAppDir + "\\Settings.txt";
+                if (!File.Exists(cFileName)) File.Create(cFileName).Dispose();
+                LoadProperties();
             }
             catch (Exception)
             {
             }
         }
 
-        private void LoadProperties(string path)
+        private void LoadProperties()
         {
             // property:  key=value  ex: "LastFile=Main.mdb"
             try
             {
                 ht = new Hashtable();
-                string[] lines = File.ReadAllLines(path);
+                string[] lines = File.ReadAllLines(cFileName);
                 foreach (string line in lines)
                 {
                     if (line.Contains("=") && !string.IsNullOrEmpty(line.Split('=')[0]) && !string.IsNullOrEmpty(line.Split('=')[1]))
@@ -497,27 +315,6 @@ namespace PCBsetup
             }
         }
 
-        private void OpenFile(string NewFile)
-        {
-            try
-            {
-                string PathName = Path.GetDirectoryName(NewFile); // only works if file name present
-                string FileName = Path.GetFileName(NewFile);
-                if (FileName == "") PathName = NewFile;     // no file name present, fix path name
-                if (Directory.Exists(PathName)) Properties.Settings.Default.FilesDir = PathName; // set the new files dir
-
-                cPropertiesFile = Properties.Settings.Default.FilesDir + "\\" + FileName;
-                if (!File.Exists(cPropertiesFile)) File.Create(cPropertiesFile).Dispose();
-                LoadProperties(cPropertiesFile);
-                Properties.Settings.Default.FileName = FileName;
-                Properties.Settings.Default.Save();
-            }
-            catch (Exception ex)
-            {
-                WriteErrorLog("Tools: OpenFile: " + ex.Message);
-            }
-        }
-
         private void SaveProperties()
         {
             try
@@ -529,7 +326,7 @@ namespace PCBsetup
                     i++;
                     NewLines[i] = Pair.Key.ToString() + "=" + Pair.Value.ToString();
                 }
-                if (i > -1) File.WriteAllLines(cPropertiesFile, NewLines);
+                if (i > -1) File.WriteAllLines(cFileName, NewLines);
             }
             catch (Exception)
             {
@@ -560,6 +357,5 @@ namespace PCBsetup
             {
             }
         }
-
     }
 }

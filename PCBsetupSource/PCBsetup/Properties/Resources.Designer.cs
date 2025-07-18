@@ -61,16 +61,6 @@ namespace PCBsetup.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] AutoSteerTeensyRVC_ino {
-            get {
-                object obj = ResourceManager.GetObject("AutoSteerTeensyRVC_ino", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap bntOK_Image {
@@ -141,52 +131,12 @@ namespace PCBsetup.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] esptool {
-            get {
-                object obj = ResourceManager.GetObject("esptool", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Example {
-            get {
-                object obj = ResourceManager.GetObject("Example", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap FileNew {
             get {
                 object obj = ResourceManager.GetObject("FileNew", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] NanoRateNB_ino {
-            get {
-                object obj = ResourceManager.GetObject("NanoRateNB_ino", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] NanoRateOB_ino {
-            get {
-                object obj = ResourceManager.GetObject("NanoRateOB_ino", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         
@@ -231,46 +181,6 @@ namespace PCBsetup.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] RC_ESP32_ino {
-            get {
-                object obj = ResourceManager.GetObject("RC_ESP32_ino", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] RC_ESP32_ino_bootloader {
-            get {
-                object obj = ResourceManager.GetObject("RC_ESP32_ino_bootloader", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] RC_ESP32_ino_partitions {
-            get {
-                object obj = ResourceManager.GetObject("RC_ESP32_ino_partitions", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] RCteensy_ino {
-            get {
-                object obj = ResourceManager.GetObject("RCteensy_ino", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Save {
@@ -287,26 +197,6 @@ namespace PCBsetup.Properties {
             get {
                 object obj = ResourceManager.GetObject("Start", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] SWarduinoNB_ino {
-            get {
-                object obj = ResourceManager.GetObject("SWarduinoNB_ino", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] SWarduinoOB_ino {
-            get {
-                object obj = ResourceManager.GetObject("SWarduinoOB_ino", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         
@@ -347,16 +237,6 @@ namespace PCBsetup.Properties {
             get {
                 object obj = ResourceManager.GetObject("VehFileLoad", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] WifiRC_ino {
-            get {
-                object obj = ResourceManager.GetObject("WifiRC_ino", resourceCulture);
-                return ((byte[])(obj));
             }
         }
     }
