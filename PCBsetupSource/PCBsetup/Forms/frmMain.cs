@@ -309,6 +309,11 @@ namespace PCBsetup.Forms
             this.Text = "PCBsetup [Version " + Tls.AppVersion() + " - " + Tls.VersionDate() + "]";
         }
 
+        private void groupBox1_Paint(object sender, PaintEventArgs e)
+        {
+            Tls.DrawGroupBox((GroupBox)sender, e.Graphics, this.BackColor, Color.Black, Color.Blue);
+        }
+
         private void LoadCombo()
         {
             // https://stackoverflow.com/questions/6803073/get-local-ip-address
@@ -386,6 +391,9 @@ namespace PCBsetup.Forms
 
                 // ethernet
                 if (IPAddress.TryParse(Tls.LoadProperty("SubNet"), out IPAddress IP)) cSubnet = IP.ToString();
+
+                // connection type
+                if (int.TryParse(Tls.LoadProperty("ConnectionType"), out int ConType)) tbType.SelectedIndex = ConType;
             }
             catch (Exception ex)
             {
@@ -503,6 +511,11 @@ namespace PCBsetup.Forms
             }
 
             if (UpdateCombo) LoadCombo();
+        }
+
+        private void tbType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Tls.SaveProperty("ConnectionType", tbType.SelectedIndex.ToString());
         }
     }
 }

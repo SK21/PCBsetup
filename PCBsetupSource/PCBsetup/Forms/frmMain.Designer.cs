@@ -49,9 +49,11 @@
             this.btnSettingsNetwork = new System.Windows.Forms.Button();
             this.btnFirmwareNetwork = new System.Windows.Forms.Button();
             this.btnUpdates = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tbType.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbModule
@@ -82,11 +84,12 @@
             // 
             this.tbType.Controls.Add(this.tabPage2);
             this.tbType.Controls.Add(this.tabPage1);
-            this.tbType.Location = new System.Drawing.Point(13, 63);
+            this.tbType.Location = new System.Drawing.Point(6, 15);
             this.tbType.Name = "tbType";
             this.tbType.SelectedIndex = 0;
             this.tbType.Size = new System.Drawing.Size(419, 226);
             this.tbType.TabIndex = 0;
+            this.tbType.SelectedIndexChanged += new System.EventHandler(this.tbType_SelectedIndexChanged);
             // 
             // tabPage2
             // 
@@ -306,7 +309,7 @@
             this.btnUpdates.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btnUpdates.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnUpdates.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdates.Location = new System.Drawing.Point(125, 307);
+            this.btnUpdates.Location = new System.Drawing.Point(127, 332);
             this.btnUpdates.Name = "btnUpdates";
             this.btnUpdates.Size = new System.Drawing.Size(216, 40);
             this.btnUpdates.TabIndex = 140;
@@ -314,13 +317,23 @@
             this.btnUpdates.UseVisualStyleBackColor = false;
             this.btnUpdates.Click += new System.EventHandler(this.btnUpdates_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.tbType);
+            this.groupBox1.Location = new System.Drawing.Point(12, 65);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(433, 248);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.groupBox1_Paint);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(449, 368);
+            this.ClientSize = new System.Drawing.Size(456, 402);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnUpdates);
-            this.Controls.Add(this.tbType);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbModule);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -338,6 +351,7 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -364,5 +378,6 @@
         private System.Windows.Forms.Button btnRescanSerial;
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Button btnUpdates;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
