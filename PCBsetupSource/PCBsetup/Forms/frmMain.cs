@@ -1,6 +1,7 @@
 ﻿using PCBsetup.Classes;
 using System;
 using System.Drawing;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Management;
@@ -394,6 +395,8 @@ namespace PCBsetup.Forms
 
                 // connection type
                 if (int.TryParse(Tls.LoadProperty("ConnectionType"), out int ConType)) tbType.SelectedIndex = ConType;
+
+                if (!Directory.Exists(Tls.HexDir())) Tls.ShowHelp("No firmware files, check for updates.");
             }
             catch (Exception ex)
             {
@@ -480,6 +483,11 @@ namespace PCBsetup.Forms
             }
         }
 
+        private void tbType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Tls.SaveProperty("ConnectionType", tbType.SelectedIndex.ToString());
+        }
+
         private string TrimPortName(string portName)
         {
             string tmp = portName;
@@ -511,11 +519,6 @@ namespace PCBsetup.Forms
             }
 
             if (UpdateCombo) LoadCombo();
-        }
-
-        private void tbType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Tls.SaveProperty("ConnectionType", tbType.SelectedIndex.ToString());
         }
     }
 }
