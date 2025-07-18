@@ -215,12 +215,12 @@ namespace PCBsetup.Forms
             if (mf.ModuleSelected == 4)
             {
                 this.Text = "Wifi RC ESP8266";
-                tbHexfile.Text = "Default file version date:" + mf.Tls.D1RateFirmware();
+                //tbHexfile.Text = "Default file version date:" + mf.Tls.D1RateFirmware();
             }
             else
             {
                 this.Text = "ESP32 Rate";
-                tbHexfile.Text = "Default file version date:" + mf.Tls.ESP32RateFirmware();
+                tbHexfile.Text = "File version date:" + mf.VC.ModuleDate((int)ModuleTypes.ESP_Rate);
             }
         }
     }

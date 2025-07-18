@@ -55,7 +55,7 @@ namespace PCBsetup.Forms
         private void btnDefault_Click(object sender, EventArgs e)
         {
             UserSelectedFile = false;
-            tbHexfile.Text = "Default file version date:" + mf.Tls.SwitchboxFirmwareVersion();
+            tbHexfile.Text = "File version date:" + mf.VC.ModuleDate((int)ModuleTypes.Nano_SwitchBox);
         }
 
         private void btnUpload_Click(object sender, EventArgs e)
@@ -104,7 +104,7 @@ namespace PCBsetup.Forms
               new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
 
             UserSelectedFile = false;
-            tbHexfile.Text = "Default file version date:" + mf.Tls.SwitchboxFirmwareVersion();
+            tbHexfile.Text = "File version date:" + mf.VC.ModuleDate((int)ModuleTypes.Nano_SwitchBox);
 
             lbWarning.Visible = !ckSWOldBootloader.Checked;
         }
@@ -188,13 +188,13 @@ namespace PCBsetup.Forms
                     {
                         // old bootloader
                         HexFile = Path.GetTempFileName();
-                        File.WriteAllBytes(HexFile, PCBsetup.Properties.Resources.SWarduinoOB_ino);
+                        File.Copy(mf.Tls.HexDir() + "\\SWarduinoOB.ino.hex", HexFile, true);
                     }
                     else 
                     {
                         // new bootloader
                         HexFile = Path.GetTempFileName();
-                        File.WriteAllBytes(HexFile, PCBsetup.Properties.Resources.SWarduinoNB_ino);
+                        File.Copy(mf.Tls.HexDir() + "\\SWarduinoNB.ino.hex", HexFile, true);
                     }
                 }
 

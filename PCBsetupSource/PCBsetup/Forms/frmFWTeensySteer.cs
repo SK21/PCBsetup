@@ -55,6 +55,21 @@ namespace PCBsetup.Forms
                 }
             }
         }
+        private string FileVersion()
+        {
+            string Result = "";
+            switch (SoftwareID)
+            {
+                case 1:
+                    Result = "File version date:" + mf.VC.ModuleDate((int)ModuleTypes.Teensy_Rate);
+                    break;
+
+                case 2:
+                    //Result = "File version date:" + mf.VC.ModuleDate((int)ModuleTypes.Teensy_Rate);
+                    break;
+            }
+            return Result;
+        }
 
         private void btnBrowse_HelpRequested(object sender, HelpEventArgs hlpevent)
         {
@@ -67,7 +82,7 @@ namespace PCBsetup.Forms
         private void btnDefault_Click(object sender, EventArgs e)
         {
             UseDefault = true;
-            tbHexfile.Text = "Default file version date: " + mf.Tls.TeensyAutoSteerVersion();
+            tbHexfile.Text = FileVersion();
         }
 
         private void btnDefault_HelpRequested(object sender, HelpEventArgs hlpevent)
@@ -94,12 +109,12 @@ namespace PCBsetup.Forms
                         {
                             case 1:
                                 // rate
-                                File.WriteAllBytes(filename, PCBsetup.Properties.Resources.RCteensy_ino);
+                                File.Copy(mf.Tls.HexDir() + "\\RCteensy.ino.hex", filename, true);
                                 break;
 
                             default:
                                 // autosteer
-                                File.WriteAllBytes(filename, PCBsetup.Properties.Resources.AutoSteerTeensyRVC_ino);
+                                //File.WriteAllBytes(filename, PCBsetup.Properties.Resources.AutoSteerTeensyRVC_ino);
                                 break;
                         }
                     }
@@ -176,13 +191,13 @@ namespace PCBsetup.Forms
             {
                 case 1:
                     // rate
-                    tbHexfile.Text = "Default file version date: " + mf.Tls.TeensyRateVersion();
+                    tbHexfile.Text = FileVersion();
                     this.Text = "Teensy Rate Firmware";
                     break;
 
                 default:
                     // autosteer
-                    tbHexfile.Text = "Default file version date: " + mf.Tls.TeensyAutoSteerVersion();
+                    tbHexfile.Text = FileVersion();
                     this.Text = "Teensy AutoSteer Firmware";
                     break;
             }

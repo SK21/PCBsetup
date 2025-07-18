@@ -404,6 +404,7 @@
     <Content Include="configurator-icon-19.ico" />
     <Content Include="Forms\Keypad.dll" />
     <Content Include="Forms\RepeatButtonControl.dll" />
+    <None Include="Resources\esptool.exe" />
     <None Include="Resources\Update4.png" />
     <None Include="Resources\Start_Icon_64.png" />
     <None Include="Resources\Pause.png" />
@@ -428,7 +429,6 @@
     <None Include="Resources\DnArrow64.png" />
     <None Include="Resources\DnArrow641.png" />
     <None Include="Resources\bntOK.Image.png" />
-    <None Include="Resources\esptool.exe" />
     <None Include="Resources\PCB.jpg" />
   </ItemGroup>
   <ItemGroup>

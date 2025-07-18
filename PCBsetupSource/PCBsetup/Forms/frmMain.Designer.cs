@@ -65,7 +65,7 @@
             "Nano SwitchBox",
             "Wifi RC",
             "ESP32 Rate"});
-            this.cbModule.Location = new System.Drawing.Point(203, 12);
+            this.cbModule.Location = new System.Drawing.Point(160, 12);
             this.cbModule.Name = "cbModule";
             this.cbModule.Size = new System.Drawing.Size(225, 32);
             this.cbModule.TabIndex = 127;
@@ -74,7 +74,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 15);
+            this.label1.Location = new System.Drawing.Point(51, 15);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(103, 24);
             this.label1.TabIndex = 132;

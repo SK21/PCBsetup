@@ -45,7 +45,6 @@ namespace PCBsetup.Forms
             ModuleType = ID;
         }
 
-
         public void CheckLines(byte[] data)
         {
             int lines = data[2] | (data[3] << 8) | (data[4] << 16) | (data[5] << 24);
@@ -75,12 +74,12 @@ namespace PCBsetup.Forms
                         {
                             case 1:
                                 // rate
-                                File.WriteAllBytes(filename, PCBsetup.Properties.Resources.RCteensy_ino);
+                                File.Copy(mf.Tls.HexDir() + "\\RCteensy.ino.hex", filename, true);
                                 break;
 
                             default:
                                 // autosteer
-                                File.WriteAllBytes(filename, PCBsetup.Properties.Resources.AutoSteerTeensyRVC_ino);
+                                //File.WriteAllBytes(filename, PCBsetup.Properties.Resources.AutoSteerTeensyRVC_ino);
                                 break;
                         }
                     }
@@ -138,18 +137,11 @@ namespace PCBsetup.Forms
                     }
                 }
             }
-
             catch (Exception ex)
             {
                 mf.Tls.WriteErrorLog(this.Text + "/DoUpdate " + ex.Message);
             }
             SetButtonUpload(true);
-        }
-        void SetButtonUpload(bool Enabled)
-        {
-            btnUpload.Enabled = Enabled;
-            btnDefault.Enabled= Enabled;
-            btnBrowse.Enabled= Enabled;
         }
 
         public byte[] StrToByteArray(string str)
@@ -207,7 +199,7 @@ namespace PCBsetup.Forms
         private void btnDefault_Click(object sender, EventArgs e)
         {
             UseDefault = true;
-            tbHexfile.Text = "Default file version date: " + mf.Tls.TeensyAutoSteerVersion();
+            tbHexfile.Text = FileVersion();
         }
 
         private void btnDefault_HelpRequested(object sender, HelpEventArgs hlpevent)
@@ -233,6 +225,21 @@ namespace PCBsetup.Forms
             }
         }
 
+        private string FileVersion()
+        {
+            string Result = "";
+            switch (ModuleType)
+            {
+                case 1:
+                    Result = "File version date:" + mf.VC.ModuleDate((int)ModuleTypes.Teensy_Rate);
+                    break;
+
+                case 2:
+                    //Result = "File version date:" + mf.VC.ModuleDate((int)ModuleTypes.Teensy_Rate);
+                    break;
+            }
+            return Result;
+        }
 
         private void frmFWTeensyNetwork_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -252,14 +259,14 @@ namespace PCBsetup.Forms
             {
                 case 1:
                     // rate
-                    tbHexfile.Text = "Default file version date: " + mf.Tls.TeensyRateVersion();
+                    tbHexfile.Text = FileVersion();
                     this.Text = "Teensy Rate Firmware";
                     IDname = "TeensyRateID";
                     break;
 
                 default:
                     // autosteer
-                    tbHexfile.Text = "Default file version date: " + mf.Tls.TeensyAutoSteerVersion();
+                    tbHexfile.Text = FileVersion();
                     this.Text = "Teensy AutoSteer Firmware";
                     IDname = "TeensySteerID";
                     break;
@@ -269,7 +276,6 @@ namespace PCBsetup.Forms
 
             UpdateForm();
         }
-
 
         private void SetButtons(bool Edited)
         {
@@ -289,18 +295,11 @@ namespace PCBsetup.Forms
             }
         }
 
-        private string SubAddress(string Address)
+        private void SetButtonUpload(bool Enabled)
         {
-            IPAddress IP;
-            string[] data;
-            string Result = "";
-
-            if (IPAddress.TryParse(Address, out IP))
-            {
-                data = Address.Split('.');
-                Result = data[0] + "." + data[1] + "." + data[2] + ".";
-            }
-            return Result;
+            btnUpload.Enabled = Enabled;
+            btnDefault.Enabled = Enabled;
+            btnBrowse.Enabled = Enabled;
         }
 
         private void tbHexfile_HelpRequested(object sender, HelpEventArgs hlpevent)
@@ -332,6 +331,13 @@ namespace PCBsetup.Forms
             SetButtons(true);
         }
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            mf.Tls.ShowHelp("Could not connect to the module. Check connection or subnet.");
+            timer1.Enabled = false;
+            SetButtonUpload(true);
+        }
+
         private void UpdateForm()
         {
             Initializing = true;
@@ -345,13 +351,6 @@ namespace PCBsetup.Forms
             if (ProgressPercent < 0) ProgressPercent = 0;
 
             progressBar.BeginInvoke(new Action(() => progressBar.Value = ProgressPercent));
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            mf.Tls.ShowHelp("Could not connect to the module. Check connection or subnet.");
-            timer1.Enabled = false;
-            SetButtonUpload(true);
         }
     }
 }

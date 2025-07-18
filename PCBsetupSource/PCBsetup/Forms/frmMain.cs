@@ -31,9 +31,9 @@ namespace PCBsetup.Forms
         private byte cModule = 0;
         private string cSelectedPortName;
         private string cSubnet = "192.168.1.1";
-        private clsDownloader Dlr;
+        public clsDownloader Dlr;
         private int PortID = 1;
-        private clsVersionChecker VC;
+        public clsVersionChecker VC;
 
         public frmMain()
         {
@@ -354,8 +354,6 @@ namespace PCBsetup.Forms
         {
             try
             {
-                this.Text = "PCBsetup [" + Path.GetFileNameWithoutExtension(Properties.Settings.Default.FileName) + "]";
-
                 LoadPortsCombo();
 
                 // start comm port
