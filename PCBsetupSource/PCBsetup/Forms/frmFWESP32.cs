@@ -196,7 +196,7 @@ namespace PCBsetup.Forms
         {
             lbPort.Text = "Serial Port: " + mf.SelectedPortName();
             this.Text = "ESP32 Rate";
-            tbHexfile.Text = "File version date:  " + mf.VC.ModuleDate((int)ModuleTypes.ESP_Rate).ToString("dd-MMM-yyyy");
+            tbHexfile.Text = "File version date:  " + mf.VC.Version((int)ModuleTypes.ESP_Rate);
         }
     }
 }

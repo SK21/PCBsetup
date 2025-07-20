@@ -104,7 +104,7 @@
             this.bntOK.Location = new System.Drawing.Point(389, 92);
             this.bntOK.Name = "bntOK";
             this.bntOK.Size = new System.Drawing.Size(115, 72);
-            this.bntOK.TabIndex = 14;
+            this.bntOK.TabIndex = 0;
             this.bntOK.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.bntOK.UseVisualStyleBackColor = false;
             this.bntOK.Click += new System.EventHandler(this.bntOK_Click);

@@ -23,7 +23,7 @@ namespace PCBsetup.Classes
         public clsVersionChecker(frmMain CalledFrom)
         {
             mf = CalledFrom;
-            FileLocation = mf.Tls.FirmwareDir() + "\\versionCache.json";
+            FileLocation = mf.Tls.FirmwareDir() + "\\RateControlVersions.json";
             LoadFromFile(FileLocation);
         }
 
@@ -31,8 +31,8 @@ namespace PCBsetup.Classes
 
         public string RCappLatest => RCapp?.Version ?? "N/A";
 
-        public DateTime ModuleDate(int ModuleID) =>
-            Modules.TryGetValue(ModuleID, out var info) ? info.Date : DateTime.MinValue;
+        public string Version(int ModuleID) =>
+            Modules.TryGetValue(ModuleID, out var info) ? info.Version : "N/A";
 
         public string ModuleDescription(int ModuleID) =>
             Modules.TryGetValue(ModuleID, out var info) ? info.Description : "Unknown";
@@ -81,7 +81,7 @@ namespace PCBsetup.Classes
 
         private class ModuleInfo
         {
-            public DateTime Date { get; set; }
+            public string Version { get; set; }
             public string Description { get; set; }
         }
 

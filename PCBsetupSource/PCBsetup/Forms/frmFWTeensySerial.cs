@@ -61,7 +61,7 @@ namespace PCBsetup.Forms
             switch (SoftwareID)
             {
                 case 1:
-                    Result = "File version date:  " + mf.VC.ModuleDate((int)ModuleTypes.Teensy_Rate).ToString("dd-MMM-yyyy");
+                    Result = "File version date:  " + mf.VC.Version((int)ModuleTypes.Teensy_Rate);
                     break;
 
                 default:
