@@ -220,6 +220,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\clsAutoSteerFirmware.cs" />
     <Compile Include="Classes\clsDownloader.cs" />
     <Compile Include="Classes\clsTextBox.cs" />
     <Compile Include="Classes\clsTextBoxes.cs" />

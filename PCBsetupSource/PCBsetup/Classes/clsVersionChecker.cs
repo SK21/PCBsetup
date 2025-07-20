@@ -44,47 +44,12 @@ namespace PCBsetup.Classes
                 try
                 {
                     string json = await client.GetStringAsync(VersionsURL);
-
-                    var jsonObj = JsonConvert.DeserializeObject<Dictionary<string, JObject>>(json);
-                    if (jsonObj == null)
-                        return;
-
-                    var modulesUpdate = new Dictionary<int, ModuleInfo>();
-                    RCappInfo rcappUpdate = null;
-
-                    foreach (var kvp in jsonObj)
-                    {
-                        if (kvp.Key == "RCapp")
-                        {
-                            rcappUpdate = kvp.Value.ToObject<RCappInfo>();
-                        }
-                        else if (int.TryParse(kvp.Key, out int moduleId))
-                        {
-                            var module = kvp.Value.ToObject<ModuleInfo>();
-                            modulesUpdate[moduleId] = module;
-                        }
-                    }
-
-                    // Apply updates
-                    RCapp = rcappUpdate;
-                    Modules = modulesUpdate;
-
-                    // Build flat structure for saving
-                    var saveObj = new JObject();
-
-                    saveObj["RCapp"] = JObject.FromObject(RCapp);
-
-                    foreach (var kvp in Modules)
-                    {
-                        saveObj[kvp.Key.ToString()] = JObject.FromObject(kvp.Value);
-                    }
-
-                    // Write to file
-                    File.WriteAllText(FileLocation, saveObj.ToString(Formatting.Indented));
+                    File.WriteAllText(FileLocation, json);
+                    LoadFromFile(FileLocation);
                 }
                 catch (Exception ex)
                 {
-                    mf.Tls.ShowHelp("Update failed: " + ex.Message);
+                    mf.Tls.ShowHelp("Version update failed: " + ex.Message);
                 }
             }
         }

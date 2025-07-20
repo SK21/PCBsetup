@@ -31,6 +31,7 @@ namespace PCBsetup.Forms
 
     public partial class frmMain : Form
     {
+        public clsAutoSteerFirmware ASF;
         public SerialComm CommPort;
         public clsDownloader Dlr;
         public clsTools Tls;
@@ -53,6 +54,7 @@ namespace PCBsetup.Forms
             UDPupdate = new UDPComm(this, 29000, 29100, 9350, "UDPupdate");
             VC = new clsVersionChecker(this);
             Dlr = new clsDownloader(this);
+            ASF = new clsAutoSteerFirmware(this);
         }
 
         public int ConnectionType
@@ -206,6 +208,7 @@ namespace PCBsetup.Forms
             {
                 await VC.Update();
                 await Dlr.Download();
+                await ASF.Update();
                 Tls.ShowHelp("Files downloaded.", "Help", 5000);
             }
             catch (Exception ex)
@@ -396,7 +399,7 @@ namespace PCBsetup.Forms
                 // connection type
                 if (int.TryParse(Tls.LoadProperty("ConnectionType"), out int ConType)) tbType.SelectedIndex = ConType;
 
-                if (!Directory.Exists(Tls.HexDir())) Tls.ShowHelp("No firmware files, check for updates.");
+                if (!Directory.Exists(Tls.HexDir())) Tls.ShowHelp("No firmware files, check for updates.", "Help", 5000);
             }
             catch (Exception ex)
             {
