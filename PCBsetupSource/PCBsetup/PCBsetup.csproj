@@ -61,7 +61,7 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>configurator-icon-19.ico</ApplicationIcon>
+    <ApplicationIcon>PCBsetup.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
@@ -352,6 +352,14 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Help\AutoSteerConfig.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Help\AutoSteerConfig.xls" />
+    <None Include="Help\SwitchBoxPins.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Help\SwitchBoxPins.xls" />
     <None Include="packages.config" />
     <None Include="PCBsetup_TemporaryKey.pfx" />
     <None Include="Properties\app.manifest" />
@@ -404,6 +412,11 @@
     <Content Include="configurator-icon-19.ico" />
     <Content Include="Forms\Keypad.dll" />
     <Content Include="Forms\RepeatButtonControl.dll" />
+    <Content Include="PCBsetup.ico" />
+    <None Include="Resources\Reset2.png" />
+    <None Include="Resources\779-7790148_reset-icon-transparent-hd-png-download.png" />
+    <None Include="Resources\Reset.png" />
+    <None Include="Resources\Help.png" />
     <None Include="Resources\esptool.exe" />
     <None Include="Resources\Update4.png" />
     <None Include="Resources\Start_Icon_64.png" />

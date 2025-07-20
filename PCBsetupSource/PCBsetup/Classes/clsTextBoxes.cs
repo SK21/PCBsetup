@@ -66,6 +66,13 @@ namespace PCBsetup
             cTextBoxes.Clear();
             cCounter = 0;
         }
+        public void Clear()
+        {
+            for(int i=0;i<cTextBoxes.Count;i++)
+            {
+                cTextBoxes[i].TB.Text = "";
+            }
+        }
 
         public void Save(int TextBoxID = 0)
         {

@@ -143,7 +143,7 @@
             this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             this.btnBrowse.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.btnBrowse_HelpRequested);
             // 
-            // frmFirmware
+            // frmFWTeensySerial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -164,7 +164,7 @@
             this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmFirmware";
+            this.Name = "frmFWTeensySerial";
             this.ShowInTaskbar = false;
             this.Text = "Teensy AutoSteer Firmware";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmFirmware_FormClosed);

@@ -1,9 +1,7 @@
 ﻿using AgOpenGPS;
 using System;
 using System.ComponentModel;
-using System.Net;
-using System.Net.NetworkInformation;
-using System.Net.Sockets;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace PCBsetup.Forms
@@ -77,6 +75,11 @@ namespace PCBsetup.Forms
             }
             UpdateForm();
             SetButtons(false);
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            Boxes.Clear();
         }
 
         private void btnLoadDefaults_Click(object sender, EventArgs e)
@@ -200,14 +203,8 @@ namespace PCBsetup.Forms
                 Boxes.Item(i).TB.Enter += tb_Enter;
                 Boxes.Item(i).TB.TextChanged += tb_TextChanged;
                 Boxes.Item(i).TB.Validating += tb_Validating;
+                Boxes.Item(i).TB.HelpRequested += Page2_HelpRequested;
             }
-        }
-
-        private void cbTSreceiver_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            string Message = "GPS receiver connected.";
-            mf.Tls.ShowHelp(Message, "Receiver");
-            hlpevent.Handled = true;
         }
 
         private void cbTSreceiver_SelectedIndexChanged(object sender, EventArgs e)
@@ -310,6 +307,13 @@ namespace PCBsetup.Forms
             {
                 mf.Tls.ShowHelp(ex.Message, this.Text, 3000, true);
             }
+        }
+
+        private void Page2_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            string FileName = AppDomain.CurrentDomain.BaseDirectory + "Help\\AutoSteerConfig.pdf";
+            Process.Start(new ProcessStartInfo { FileName = FileName, UseShellExecute = true });
+            hlpevent.Handled = true;
         }
 
         private void ResetZeroWas()

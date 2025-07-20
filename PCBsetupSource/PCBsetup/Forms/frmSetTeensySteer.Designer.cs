@@ -97,6 +97,7 @@
             this.btnSendToModule = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.bntOK = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -222,7 +223,7 @@
             this.cbTSreceiver.Size = new System.Drawing.Size(187, 32);
             this.cbTSreceiver.TabIndex = 0;
             this.cbTSreceiver.SelectedIndexChanged += new System.EventHandler(this.cbTSreceiver_SelectedIndexChanged);
-            this.cbTSreceiver.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cbTSreceiver_HelpRequested);
+            this.cbTSreceiver.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.Page2_HelpRequested);
             // 
             // label26
             // 
@@ -257,6 +258,7 @@
             this.cbTSRelayControl.Size = new System.Drawing.Size(187, 32);
             this.cbTSRelayControl.TabIndex = 9;
             this.cbTSRelayControl.SelectedIndexChanged += new System.EventHandler(this.cbTSRelayControl_SelectedIndexChanged);
+            this.cbTSRelayControl.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.Page2_HelpRequested);
             // 
             // tbTSIMUport
             // 
@@ -760,9 +762,9 @@
             this.btnLoadDefaults.FlatAppearance.BorderSize = 0;
             this.btnLoadDefaults.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoadDefaults.Image = global::PCBsetup.Properties.Resources.VehFileLoad;
-            this.btnLoadDefaults.Location = new System.Drawing.Point(18, 561);
+            this.btnLoadDefaults.Location = new System.Drawing.Point(12, 561);
             this.btnLoadDefaults.Name = "btnLoadDefaults";
-            this.btnLoadDefaults.Size = new System.Drawing.Size(115, 72);
+            this.btnLoadDefaults.Size = new System.Drawing.Size(83, 72);
             this.btnLoadDefaults.TabIndex = 30;
             this.btnLoadDefaults.UseVisualStyleBackColor = false;
             this.btnLoadDefaults.Click += new System.EventHandler(this.btnLoadDefaults_Click);
@@ -774,9 +776,9 @@
             this.btnSendToModule.FlatAppearance.BorderSize = 0;
             this.btnSendToModule.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSendToModule.Image = global::PCBsetup.Properties.Resources.UpArrow64;
-            this.btnSendToModule.Location = new System.Drawing.Point(153, 561);
+            this.btnSendToModule.Location = new System.Drawing.Point(122, 561);
             this.btnSendToModule.Name = "btnSendToModule";
-            this.btnSendToModule.Size = new System.Drawing.Size(115, 72);
+            this.btnSendToModule.Size = new System.Drawing.Size(83, 72);
             this.btnSendToModule.TabIndex = 29;
             this.btnSendToModule.UseVisualStyleBackColor = false;
             this.btnSendToModule.Click += new System.EventHandler(this.btnSendToModule_Click);
@@ -789,9 +791,9 @@
             this.btnCancel.FlatAppearance.BorderSize = 0;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Image = global::PCBsetup.Properties.Resources.Cancel64;
-            this.btnCancel.Location = new System.Drawing.Point(288, 561);
+            this.btnCancel.Location = new System.Drawing.Point(342, 561);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(115, 72);
+            this.btnCancel.Size = new System.Drawing.Size(83, 72);
             this.btnCancel.TabIndex = 28;
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.btnCancel.UseVisualStyleBackColor = false;
@@ -803,19 +805,33 @@
             this.bntOK.FlatAppearance.BorderSize = 0;
             this.bntOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntOK.Image = global::PCBsetup.Properties.Resources.bntOK_Image;
-            this.bntOK.Location = new System.Drawing.Point(423, 561);
+            this.bntOK.Location = new System.Drawing.Point(452, 561);
             this.bntOK.Name = "bntOK";
-            this.bntOK.Size = new System.Drawing.Size(115, 72);
+            this.bntOK.Size = new System.Drawing.Size(83, 72);
             this.bntOK.TabIndex = 0;
             this.bntOK.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.bntOK.UseVisualStyleBackColor = false;
             this.bntOK.Click += new System.EventHandler(this.bntOK_Click);
+            // 
+            // btnClear
+            // 
+            this.btnClear.BackColor = System.Drawing.Color.Transparent;
+            this.btnClear.FlatAppearance.BorderSize = 0;
+            this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClear.Image = global::PCBsetup.Properties.Resources.Reset2;
+            this.btnClear.Location = new System.Drawing.Point(232, 561);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(83, 72);
+            this.btnClear.TabIndex = 73;
+            this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // frmSetTeensySteer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(552, 640);
+            this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnLoadDefaults);
             this.Controls.Add(this.btnSendToModule);
             this.Controls.Add(this.btnCancel);
@@ -912,5 +928,6 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button bntOK;
         private System.Windows.Forms.CheckBox ckTSZeroWas;
+        private System.Windows.Forms.Button btnClear;
     }
 }

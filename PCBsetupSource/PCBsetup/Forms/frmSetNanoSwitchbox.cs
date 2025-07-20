@@ -1,8 +1,7 @@
 ﻿using AgOpenGPS;
 using System;
 using System.ComponentModel;
-using System.Net.NetworkInformation;
-using System.Net.Sockets;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace PCBsetup.Forms
@@ -53,22 +52,52 @@ namespace PCBsetup.Forms
             SetButtons(false);
         }
 
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            tbAuto.Text = "";
+            tbMasterOff.Text = "";
+            tbMasterOn.Text = "";
+            tbRateDown.Text = "";
+            tbRateUp.Text = "";
+            tbWorkSwitch.Text = "";
+
+            tbSW1.Text = "";
+            tbSW2.Text = "";
+            tbSW3.Text = "";
+            tbSW4.Text = "";
+            tbSW5.Text = "";
+            tbSW6.Text = "";
+            tbSW7.Text = "";
+            tbSW8.Text = "";
+
+            tbSW9.Text = "";
+            tbSW10.Text = "";
+            tbSW11.Text = "";
+            tbSW12.Text = "";
+            tbSW13.Text = "";
+            tbSW14.Text = "";
+            tbSW15.Text = "";
+            tbSW16.Text = "";
+        }
+
         private void btnLoadDefaults_Click(object sender, EventArgs e)
         {
-            tbAuto.Text = "19";
-            tbMasterOn.Text = "3";
-            tbMasterOff.Text = "5";
-            tbRateUp.Text = "17";
-            tbRateDown.Text = "16";
+            // switchbox 3
+            tbAuto.Text = "9";
+            tbMasterOn.Text = "4";
+            tbMasterOff.Text = "3";
+            tbRateUp.Text = "6";
+            tbRateDown.Text = "5";
+            tbWorkSwitch.Text = "0";
 
-            tbSW1.Text = "18";
-            tbSW2.Text = "9";
-            tbSW3.Text = "6";
-            tbSW4.Text = "4";
-            tbSW5.Text = "0";
-            tbSW6.Text = "0";
-            tbSW7.Text = "0";
-            tbSW8.Text = "0";
+            tbSW1.Text = "21";
+            tbSW2.Text = "20";
+            tbSW3.Text = "19";
+            tbSW4.Text = "18";
+            tbSW5.Text = "14";
+            tbSW6.Text = "15";
+            tbSW7.Text = "16";
+            tbSW8.Text = "17";
 
             tbSW9.Text = "0";
             tbSW10.Text = "0";
@@ -78,8 +107,6 @@ namespace PCBsetup.Forms
             tbSW14.Text = "0";
             tbSW15.Text = "0";
             tbSW16.Text = "0";
-
-            tbWorkSwitch.Text = "0";
         }
 
         private void btnLoadDefaults_HelpRequested(object sender, HelpEventArgs hlpevent)
@@ -89,8 +116,6 @@ namespace PCBsetup.Forms
             mf.Tls.ShowHelp(Message);
             hlpevent.Handled = true;
         }
-
-
 
         private void btnSendToModule_Click(object sender, EventArgs e)
         {
@@ -174,7 +199,6 @@ namespace PCBsetup.Forms
             }
         }
 
-
         private void frmSwitchboxSettings_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (this.WindowState == FormWindowState.Normal)
@@ -204,7 +228,6 @@ namespace PCBsetup.Forms
             }
         }
 
-
         private void LoadSettings()
         {
             try
@@ -220,12 +243,8 @@ namespace PCBsetup.Forms
 
         private void Pins_HelpRequested(object sender, HelpEventArgs hlpevent)
         {
-            string Message = "Nano pin number for each function. Digital pins 2-13. For Analog pins A0-A7 use 14-21. " +
-                " \n\nIf using the ENC28J60 ethernet shield these pins are used by it and" +
-                " unavailable for relays: 7,8,10,11,12,13. It also pulls pin D2 high. " +
-                "D2 can be used if pin D2 on the shield is cut off and then mount the" +
-                " shield on top of the Nano.";
-            mf.Tls.ShowHelp(Message, "Nano Pins", 60000);
+            string FileName = AppDomain.CurrentDomain.BaseDirectory + "Help\\SwitchBoxPins.pdf";
+            Process.Start(new ProcessStartInfo { FileName = FileName, UseShellExecute = true });
             hlpevent.Handled = true;
         }
 
@@ -296,14 +315,6 @@ namespace PCBsetup.Forms
                 System.Media.SystemSounds.Exclamation.Play();
                 e.Cancel = true;
             }
-        }
-
-        private void tbAuto_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            string Message = "Pin number for function. For A0-A7 use 14-21.";
-
-            mf.Tls.ShowHelp(Message);
-            hlpevent.Handled = true;
         }
 
         private void UpdateForm()
