@@ -79,7 +79,7 @@ namespace PCBsetup.Forms
 
                             default:
                                 // autosteer
-                                //File.WriteAllBytes(filename, PCBsetup.Properties.Resources.AutoSteerTeensyRVC_ino);
+                                File.Copy(mf.Tls.FirmwareDir() + "\\AutoSteerTeensyRVC.ino.hex", filename, true);
                                 break;
                         }
                     }
@@ -133,7 +133,7 @@ namespace PCBsetup.Forms
                             }
                             TotalLines = idx;
                         }
-                        mf.Tls.ShowHelp("Wait about 1 minute for the new firmware to be installed. You may need to resend the subnet after the 1 minute. Watch on the rate app for a connection.");
+                        mf.Tls.ShowHelp("Wait about 1 minute for the new firmware to be installed. You may need to resend the subnet after the 1 minute.");
                     }
                 }
             }
@@ -234,8 +234,8 @@ namespace PCBsetup.Forms
                     Result = "File version date:  " + mf.VC.ModuleDate((int)ModuleTypes.Teensy_Rate).ToString("dd-MMM-yyyy");
                     break;
 
-                case 2:
-                    //Result = "File version date:" + mf.VC.ModuleDate((int)ModuleTypes.Teensy_Rate);
+                default:
+                    Result = "File version date:  " + mf.ASF.AutoSteerVersion.ToString();
                     break;
             }
             return Result;

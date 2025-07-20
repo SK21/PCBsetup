@@ -65,7 +65,7 @@ namespace PCBsetup.Forms
                     break;
 
                 default:
-                    //Result = "File version date:" + mf.VC.ModuleDate((int)ModuleTypes.Teensy_Rate);
+                    Result = "File version date:  " + mf.ASF.AutoSteerVersion.ToString();
                     break;
             }
             return Result;
@@ -114,7 +114,7 @@ namespace PCBsetup.Forms
 
                             default:
                                 // autosteer
-                                //File.WriteAllBytes(filename, PCBsetup.Properties.Resources.AutoSteerTeensyRVC_ino);
+                                File.Copy(mf.Tls.FirmwareDir() + "\\AutoSteerTeensyRVC.ino.hex", filename, true);
                                 break;
                         }
                     }
