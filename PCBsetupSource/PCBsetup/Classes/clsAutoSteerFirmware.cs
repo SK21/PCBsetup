@@ -27,15 +27,7 @@ namespace PCBsetup.Classes
         public string AutoSteerVersion
         { get { return cAutoSteerVersion; } }
 
-        public async Task<bool> Update()
-        {
-            bool Result = false;
-            bool Changed = await HasVersionChanged();
-            if (Changed) Result = await GetHex();
-            return Result;
-        }
-
-        private async Task<bool> GetHex()
+        public async Task<bool> GetHex()
         {
             bool Result = false;
             string SavePath = mf.Tls.FirmwareDir() + "\\AutoSteerTeensyRVC.ino.hex";
@@ -72,7 +64,7 @@ namespace PCBsetup.Classes
             return Result;
         }
 
-        private async Task<bool> HasVersionChanged()
+        public async Task<bool> HasVersionChanged()
         {
             bool Result = true;
             try

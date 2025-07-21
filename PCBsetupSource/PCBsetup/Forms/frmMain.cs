@@ -207,15 +207,31 @@ namespace PCBsetup.Forms
             bool NewFirmware = false;
             try
             {
-                if (await VC.HasVersionChanged()) NewFirmware |= await Dlr.Download();
-                NewFirmware |= await ASF.Update();
+                NewFirmware |= await VC.HasVersionChanged();
+                NewFirmware |= await ASF.HasVersionChanged();
+
                 if (NewFirmware)
                 {
+                    await Dlr.Download();
+                    await ASF.GetHex();
                     Tls.ShowHelp("New firmware downloaded.", "Help", 5000);
                 }
                 else
                 {
-                    Tls.ShowHelp("No new firmware found.", "Help", 5000);
+                    var result = MessageBox.Show("No new firmware found.\nWould you like to re-download the current firmware?",
+                                         "Firmware Update",
+                                         MessageBoxButtons.YesNo,
+                                         MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        await Dlr.Download();
+                        await ASF.GetHex();
+                        Tls.ShowHelp("New firmware downloaded.", "Help", 5000);
+                    }
+                    else
+                    {
+                        Tls.ShowHelp("No files downloaded.", "Help", 5000);
+                    }
                 }
             }
             catch (Exception ex)
