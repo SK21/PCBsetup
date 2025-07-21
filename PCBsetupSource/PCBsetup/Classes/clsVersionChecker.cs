@@ -1,13 +1,9 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using PCBsetup.Forms;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace PCBsetup.Classes
@@ -31,9 +27,6 @@ namespace PCBsetup.Classes
 
         public string RCappLatest => RCapp?.Version ?? "N/A";
 
-        public string Version(int ModuleID) =>
-            Modules.TryGetValue(ModuleID, out var info) ? info.Version : "N/A";
-
         public string ModuleDescription(int ModuleID) =>
             Modules.TryGetValue(ModuleID, out var info) ? info.Description : "Unknown";
 
@@ -54,35 +47,45 @@ namespace PCBsetup.Classes
             }
         }
 
+        public string Version(int ModuleID) =>
+                            Modules.TryGetValue(ModuleID, out var info) ? info.Version : "N/A";
+
         private void LoadFromFile(string filePath)
         {
-            if (File.Exists(filePath))
+            try
             {
-                string json = File.ReadAllText(filePath);
-                var doc = JsonDocument.Parse(json);
-
-                RCapp = null;
-                Modules.Clear();
-
-                foreach (var property in doc.RootElement.EnumerateObject())
+                if (File.Exists(filePath))
                 {
-                    if (property.Name == "RCapp")
+                    string json = File.ReadAllText(filePath);
+                    var jObject = JObject.Parse(json);
+
+                    RCapp = null;
+                    Modules.Clear();
+
+                    foreach (var property in jObject.Properties())
                     {
-                        RCapp = JsonConvert.DeserializeObject<RCappInfo>(property.Value.GetRawText());
-                    }
-                    else if (int.TryParse(property.Name, out int key))
-                    {
-                        var info = JsonConvert.DeserializeObject<ModuleInfo>(property.Value.GetRawText());
-                        Modules[key] = info;
+                        if (property.Name == "RCapp")
+                        {
+                            RCapp = property.Value.ToObject<RCappInfo>();
+                        }
+                        else if (int.TryParse(property.Name, out int key))
+                        {
+                            var info = property.Value.ToObject<ModuleInfo>();
+                            if (info != null) Modules[key] = info;
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                mf.Tls.ShowHelp("Could not load version information: " + ex.Message, "Help", 5000);
             }
         }
 
         private class ModuleInfo
         {
-            public string Version { get; set; }
             public string Description { get; set; }
+            public string Version { get; set; }
         }
 
         private class RCappInfo
