@@ -58,5 +58,17 @@ namespace PCBsetup.Properties {
                 this["IsDay"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MsgBoxResult {
+            get {
+                return ((bool)(this["MsgBoxResult"]));
+            }
+            set {
+                this["MsgBoxResult"] = value;
+            }
+        }
     }
 }

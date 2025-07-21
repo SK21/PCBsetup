@@ -282,6 +282,12 @@
     <Compile Include="Forms\frmFWNanoSwitchBox.Designer.cs">
       <DependentUpon>frmFWNanoSwitchBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmMsgBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmMsgBox.Designer.cs">
+      <DependentUpon>frmMsgBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmSetNanoSwitchbox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -332,6 +338,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmFWNanoSwitchBox.resx">
       <DependentUpon>frmFWNanoSwitchBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmMsgBox.resx">
+      <DependentUpon>frmMsgBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmSetNanoSwitchbox.resx">
       <DependentUpon>frmSetNanoSwitchbox.cs</DependentUpon>

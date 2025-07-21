@@ -218,11 +218,10 @@ namespace PCBsetup.Forms
                 }
                 else
                 {
-                    var result = MessageBox.Show("No new firmware found.\nWould you like to re-download the current firmware?",
-                                         "Firmware Update",
-                                         MessageBoxButtons.YesNo,
-                                         MessageBoxIcon.Question);
-                    if (result == DialogResult.Yes)
+                    Form frm = new frmMsgBox(this, "No new firmware found.\nWould you like to re-download the current firmware?", "Firmware Update", true);
+                    frm.ShowDialog();
+
+                    if(Properties.Settings.Default.MsgBoxResult)
                     {
                         await Dlr.Download();
                         await ASF.GetHex();
