@@ -204,17 +204,23 @@ namespace PCBsetup.Forms
 
         private async void btnUpdates_Click(object sender, EventArgs e)
         {
+            bool NewFirmware = false;
             try
             {
-                await VC.Update();
-                await Dlr.Download();
-                await ASF.Update();
-                Tls.ShowHelp("Files downloaded.", "Help", 5000);
+                if (await VC.HasVersionChanged()) NewFirmware |= await Dlr.Download();
+                NewFirmware |= await ASF.Update();
+                if (NewFirmware)
+                {
+                    Tls.ShowHelp("New firmware downloaded.", "Help", 5000);
+                }
+                else
+                {
+                    Tls.ShowHelp("No new firmware found.", "Help", 5000);
+                }
             }
             catch (Exception ex)
             {
                 Tls.ShowHelp("Failed to update.  " + ex.Message, "Help", 5000, true);
-                throw;
             }
         }
 

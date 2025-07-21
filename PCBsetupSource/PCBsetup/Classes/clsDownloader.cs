@@ -19,12 +19,12 @@ namespace PCBsetup.Classes
             mf = CalledFrom;
         }
 
-        public async Task Download()
+        public async Task<bool> Download()
         {
             string firmwareDir = mf.Tls.FirmwareDir();
             string hexDir = mf.Tls.HexDir();
             string zipPath = Path.Combine(firmwareDir, "ModulesHex.zip");
-
+            bool Result = false;
             try
             {
                 using (var cts = new CancellationTokenSource(TimeSpan.FromMinutes(2)))
@@ -48,6 +48,7 @@ namespace PCBsetup.Classes
                             await contentStream.CopyToAsync(fileStream, 81920, cts.Token);
                         }
                     }
+                    Result = true;
                 }
 
                 if (Directory.Exists(hexDir) && mf.Tls.IsPathSafeToDelete(hexDir)) Directory.Delete(hexDir, recursive: true);
@@ -61,6 +62,7 @@ namespace PCBsetup.Classes
             {
                 mf.Tls.ShowHelp("Failed to update firmware.  " + ex.Message, "Help", 5000, true);
             }
+            return Result;
         }
     }
 }

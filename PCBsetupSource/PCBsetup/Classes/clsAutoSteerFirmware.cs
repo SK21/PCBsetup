@@ -27,14 +27,17 @@ namespace PCBsetup.Classes
         public string AutoSteerVersion
         { get { return cAutoSteerVersion; } }
 
-        public async Task Update()
+        public async Task<bool> Update()
         {
-            await GetVersion();
-            await GetHex();
+            bool Result = false;
+            bool Changed = await HasVersionChanged();
+            if (Changed) Result = await GetHex();
+            return Result;
         }
 
-        private async Task GetHex()
+        private async Task<bool> GetHex()
         {
+            bool Result = false;
             string SavePath = mf.Tls.FirmwareDir() + "\\AutoSteerTeensyRVC.ino.hex";
             try
             {
@@ -59,29 +62,40 @@ namespace PCBsetup.Classes
                             await contentStream.CopyToAsync(fileStream, 81920, cts.Token);
                         }
                     }
+                    Result = true;
                 }
             }
             catch (Exception ex)
             {
                 mf.Tls.ShowHelp("Hex update failed: " + ex.Message);
             }
+            return Result;
         }
 
-        private async Task GetVersion()
+        private async Task<bool> HasVersionChanged()
         {
-            using (var client = new HttpClient())
+            bool Result = true;
+            try
             {
-                try
+                string NewJson = await _httpClient.GetStringAsync(VersionsURL);
+
+                if (File.Exists(VersionLocation))
                 {
-                    string json = await client.GetStringAsync(VersionsURL);
-                    File.WriteAllText(VersionLocation, json);
+                    string ExistingJson = File.ReadAllText(VersionLocation);
+                    Result = (ExistingJson != NewJson);
+                }
+
+                if (Result)
+                {
+                    File.WriteAllText(VersionLocation, NewJson);
                     LoadFromFile(VersionLocation);
                 }
-                catch (Exception ex)
-                {
-                    mf.Tls.ShowHelp("Version update failed: " + ex.Message);
-                }
             }
+            catch (Exception ex)
+            {
+                mf.Tls.ShowHelp("Version update failed: " + ex.Message);
+            }
+            return Result;
         }
 
         private void LoadFromFile(string FilePath)

@@ -309,7 +309,7 @@
             this.btnUpdates.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btnUpdates.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnUpdates.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdates.Location = new System.Drawing.Point(127, 332);
+            this.btnUpdates.Location = new System.Drawing.Point(127, 319);
             this.btnUpdates.Name = "btnUpdates";
             this.btnUpdates.Size = new System.Drawing.Size(216, 40);
             this.btnUpdates.TabIndex = 140;
@@ -331,7 +331,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(456, 402);
+            this.ClientSize = new System.Drawing.Size(456, 367);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnUpdates);
             this.Controls.Add(this.label1);

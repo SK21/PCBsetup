@@ -10,6 +10,7 @@ namespace PCBsetup.Classes
 {
     public class clsVersionChecker
     {
+        private static readonly HttpClient _httpClient = new HttpClient();
         private string FileLocation;
         private frmMain mf;
         private Dictionary<int, ModuleInfo> Modules = new Dictionary<int, ModuleInfo>();
@@ -27,25 +28,34 @@ namespace PCBsetup.Classes
 
         public string RCappLatest => RCapp?.Version ?? "N/A";
 
-        public string ModuleDescription(int ModuleID) =>
-            Modules.TryGetValue(ModuleID, out var info) ? info.Description : "Unknown";
-
-        public async Task Update()
+        public async Task<bool> HasVersionChanged()
         {
-            using (var client = new HttpClient())
+            bool Result = true;
+            try
             {
-                try
+                string NewJson = await _httpClient.GetStringAsync(VersionsURL);
+
+                if (File.Exists(FileLocation))
                 {
-                    string json = await client.GetStringAsync(VersionsURL);
-                    File.WriteAllText(FileLocation, json);
+                    string ExistingJson = File.ReadAllText(FileLocation);
+                    Result = (ExistingJson != NewJson);
+                }
+
+                if (Result)
+                {
+                    File.WriteAllText(FileLocation, NewJson);
                     LoadFromFile(FileLocation);
                 }
-                catch (Exception ex)
-                {
-                    mf.Tls.ShowHelp("Version update failed: " + ex.Message);
-                }
             }
+            catch (Exception ex)
+            {
+                mf.Tls.ShowHelp("Version update failed: " + ex.Message);
+            }
+            return Result;
         }
+
+        public string ModuleDescription(int ModuleID) =>
+                    Modules.TryGetValue(ModuleID, out var info) ? info.Description : "Unknown";
 
         public string Version(int ModuleID) =>
                             Modules.TryGetValue(ModuleID, out var info) ? info.Version : "N/A";
