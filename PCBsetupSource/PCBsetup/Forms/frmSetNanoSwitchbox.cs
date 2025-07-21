@@ -117,13 +117,13 @@ namespace PCBsetup.Forms
             hlpevent.Handled = true;
         }
 
-        private void btnSendToModule_Click(object sender, EventArgs e)
+        private async void btnSendToModule_Click(object sender, EventArgs e)
         {
             bool Sent;
             try
             {
                 PGN32701 PGN = new PGN32701(this);
-                Sent = PGN.Send();
+                Sent = await PGN.Send();
 
                 if (Sent)
                 {

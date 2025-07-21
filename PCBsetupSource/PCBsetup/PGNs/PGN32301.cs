@@ -1,4 +1,5 @@
-﻿using PCBsetup.Forms;
+﻿using PCBsetup.Classes;
+using PCBsetup.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,7 @@ namespace PCBsetup
             cData[1] = 126;
         }
 
-        public bool Send()
+        public async Task<bool> Send() 
         {
             bool Result = false;
 
@@ -61,7 +62,7 @@ namespace PCBsetup
                     // send serial
                     try
                     {
-                        Result = cf.mf.CommPort.Send(cData);
+                        Result = await cf.mf.SerialMes.SendAsync(cData); // Await the async method
                     }
                     catch (Exception ex)
                     {

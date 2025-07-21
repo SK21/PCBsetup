@@ -8,6 +8,7 @@ using System.Management;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Security.Policy;
 using System.Windows.Forms;
 
 namespace PCBsetup.Forms
@@ -32,8 +33,8 @@ namespace PCBsetup.Forms
     public partial class frmMain : Form
     {
         public clsAutoSteerFirmware ASF;
-        public SerialComm CommPort;
         public clsDownloader Dlr;
+        public SerialMessages SerialMes;
         public clsTools Tls;
         public frmFWTeensyNetwork TN;
         public UDPComm UDPmodules;
@@ -48,8 +49,6 @@ namespace PCBsetup.Forms
         {
             InitializeComponent();
             Tls = new clsTools(this);
-            CommPort = new SerialComm(this, PortID);
-            CommPort.ModuleConnected += CommPort_ModuleConnected;
             UDPmodules = new UDPComm(this, 29500, 28888, 9250, "UDPmodules");
             UDPupdate = new UDPComm(this, 29000, 29100, 9350, "UDPupdate");
             VC = new clsVersionChecker(this);
@@ -76,34 +75,36 @@ namespace PCBsetup.Forms
             }
         }
 
-        public bool OpenComm()
-        {
-            CommPort.SCportName = TrimPortName(cboPort1.Text);
-            CommPort.SCportBaud = 38400;
-            CommPort.Open();
-            return CommPort.IsOpen();
-        }
-
         public string SelectedPortName()
         {
             return cSelectedPortName;
         }
 
-        private void btnConnect1_Click_1(object sender, EventArgs e)
+        private void btnConnect1_Click(object sender, EventArgs e)
         {
-            if (btnConnect1.Text == Languages.Lang.lgConnect)
+            try
             {
-                if (!OpenComm()) Tls.ShowHelp("Could not open comm port.", this.Text, 3000);
+                if (SerialMes != null && SerialMes.IsOpen)
+                {
+                    // close open port
+                    SerialMes.Dispose();
+                }
+                else
+                {
+                    OpenPort();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                CommPort.Close();
+                Tls.ShowHelp("Could not open comm port.\n " + ex.Message, "Help", 5000);
             }
+
             UpdateForm();
         }
 
         private void btnFirmware_Click(object sender, EventArgs e)
         {
+            SerialMes.Dispose();
             switch (cModule)
             {
                 case 0:
@@ -133,10 +134,11 @@ namespace PCBsetup.Forms
                 case 4:
                     // esp32 rate
                     Form tmp4 = new frmFWESP32(this);
-                    CommPort.Close();   // needs to be closed for esptool to connect
                     tmp4.ShowDialog();
                     break;
             }
+            OpenPort();
+            UpdateForm();
         }
 
         private void btnFirmware_Click_1(object sender, EventArgs e)
@@ -221,7 +223,7 @@ namespace PCBsetup.Forms
                     Form frm = new frmMsgBox(this, "No new firmware found.\nWould you like to re-download the current firmware?", "Firmware Update", true);
                     frm.ShowDialog();
 
-                    if(Properties.Settings.Default.MsgBoxResult)
+                    if (Properties.Settings.Default.MsgBoxResult)
                     {
                         await Dlr.Download();
                         await ASF.GetHex();
@@ -436,6 +438,15 @@ namespace PCBsetup.Forms
             hlpevent.Handled = true;
         }
 
+        private void OpenPort()
+        {
+            if (SerialMes == null || !SerialMes.IsOpen)
+            {
+                SerialMes = new SerialMessages(TrimPortName(cboPort1.Text),this);
+                if (!SerialMes.IsOpen) Tls.ShowHelp("Could not open comm port.", this.Text, 3000);
+            }
+        }
+
         private void PortIndicator1_HelpRequested(object sender, HelpEventArgs hlpevent)
         {
             string Message = "Indicates serial port connected.";
@@ -480,7 +491,6 @@ namespace PCBsetup.Forms
             {
                 this.BackColor = Properties.Settings.Default.DayColour;
                 PortIndicator1.BackColor = Properties.Settings.Default.DayColour;
-                ModuleIndicator.BackColor = Properties.Settings.Default.DayColour;
 
                 foreach (Control c in this.Controls)
                 {
@@ -522,7 +532,7 @@ namespace PCBsetup.Forms
 
         private void UpdateForm(bool UpdateCombo = true)
         {
-            if (CommPort.IsOpen())
+            if (SerialMes != null && SerialMes.IsOpen)
             {
                 PortIndicator1.Image = Properties.Resources.On;
                 btnConnect1.Text = Languages.Lang.lgDisconnect;
@@ -531,15 +541,6 @@ namespace PCBsetup.Forms
             {
                 PortIndicator1.Image = Properties.Resources.Off;
                 btnConnect1.Text = Languages.Lang.lgConnect;
-            }
-
-            if (CommPort.IsReceiveActive())
-            {
-                ModuleIndicator.Image = Properties.Resources.On;
-            }
-            else
-            {
-                ModuleIndicator.Image = Properties.Resources.Off;
             }
 
             if (UpdateCombo) LoadCombo();

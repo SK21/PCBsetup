@@ -14,7 +14,7 @@ namespace PCBsetup.Forms
             InitializeComponent();
             mf = CallingForm;
             this.BackColor = PCBsetup.Properties.Settings.Default.DayColour;
-            tbMonitor.BackColor=PCBsetup.Properties.Settings.Default.DayColour;
+            tbMonitor.BackColor = PCBsetup.Properties.Settings.Default.DayColour;
         }
 
         private void bntOK_Click(object sender, EventArgs e)
@@ -65,9 +65,9 @@ namespace PCBsetup.Forms
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (!FreezeUpdate)
+            if (!FreezeUpdate && mf.SerialMes != null)
             {
-                tbMonitor.Text = mf.CommPort.Log();
+                tbMonitor.Text = mf.SerialMes.Log;
                 tbMonitor.Select(tbMonitor.Text.Length, 0);
                 tbMonitor.ScrollToCaret();
             }

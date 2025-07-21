@@ -38,7 +38,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.btnFirmware = new System.Windows.Forms.Button();
             this.cboPort1 = new System.Windows.Forms.ComboBox();
-            this.ModuleIndicator = new System.Windows.Forms.Label();
             this.PortIndicator1 = new System.Windows.Forms.Label();
             this.btnConnect1 = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -98,7 +97,6 @@
             this.tabPage2.Controls.Add(this.button2);
             this.tabPage2.Controls.Add(this.btnFirmware);
             this.tabPage2.Controls.Add(this.cboPort1);
-            this.tabPage2.Controls.Add(this.ModuleIndicator);
             this.tabPage2.Controls.Add(this.PortIndicator1);
             this.tabPage2.Controls.Add(this.btnConnect1);
             this.tabPage2.Location = new System.Drawing.Point(4, 33);
@@ -176,24 +174,12 @@
             this.cboPort1.SelectedIndexChanged += new System.EventHandler(this.cboPort1_SelectedIndexChanged);
             this.cboPort1.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cboPort1_HelpRequested);
             // 
-            // ModuleIndicator
-            // 
-            this.ModuleIndicator.BackColor = System.Drawing.SystemColors.Control;
-            this.ModuleIndicator.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ModuleIndicator.Image = global::PCBsetup.Properties.Resources.Off;
-            this.ModuleIndicator.Location = new System.Drawing.Point(351, 58);
-            this.ModuleIndicator.Name = "ModuleIndicator";
-            this.ModuleIndicator.Size = new System.Drawing.Size(41, 37);
-            this.ModuleIndicator.TabIndex = 137;
-            this.ModuleIndicator.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.ModuleIndicator.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.ModuleIndicator_HelpRequested);
-            // 
             // PortIndicator1
             // 
             this.PortIndicator1.BackColor = System.Drawing.SystemColors.Control;
             this.PortIndicator1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PortIndicator1.Image = global::PCBsetup.Properties.Resources.Off;
-            this.PortIndicator1.Location = new System.Drawing.Point(304, 58);
+            this.PortIndicator1.Location = new System.Drawing.Point(349, 58);
             this.PortIndicator1.Name = "PortIndicator1";
             this.PortIndicator1.Size = new System.Drawing.Size(41, 37);
             this.PortIndicator1.TabIndex = 136;
@@ -211,7 +197,7 @@
             this.btnConnect1.TabIndex = 135;
             this.btnConnect1.Text = "Connect";
             this.btnConnect1.UseVisualStyleBackColor = false;
-            this.btnConnect1.Click += new System.EventHandler(this.btnConnect1_Click_1);
+            this.btnConnect1.Click += new System.EventHandler(this.btnConnect1_Click);
             // 
             // tabPage1
             // 
@@ -372,7 +358,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnFirmware;
         private System.Windows.Forms.ComboBox cboPort1;
-        private System.Windows.Forms.Label ModuleIndicator;
         private System.Windows.Forms.Label PortIndicator1;
         private System.Windows.Forms.Button btnConnect1;
         private System.Windows.Forms.Button btnRescanSerial;

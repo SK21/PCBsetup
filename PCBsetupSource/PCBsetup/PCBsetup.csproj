@@ -226,8 +226,9 @@
     <Compile Include="Classes\clsTextBoxes.cs" />
     <Compile Include="Classes\clsTools.cs" />
     <Compile Include="Classes\clsVersionChecker.cs" />
-    <Compile Include="Classes\SerialComm.cs" />
+    <Compile Include="Classes\SerialMessages.cs" />
     <Compile Include="Classes\UDPcomm.cs" />
+    <Compile Include="Classes\UDPmessages.cs" />
     <Compile Include="Forms\FormNumeric.cs">
       <SubType>Form</SubType>
     </Compile>

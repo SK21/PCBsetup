@@ -97,7 +97,6 @@ namespace PCBsetup.Forms
         {
             try
             {
-                mf.CommPort.Close();
                 string filename = "";
                 var teensy = lbTeensies.SelectedItem as ITeensy;
                 if (teensy != null)
