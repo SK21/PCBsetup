@@ -69,11 +69,11 @@ namespace PCBsetup
                     // send serial
                     try
                     {
-                        Result = await cf.mf.SerialMes.SendAsync(cData); 
+                        Result = await cf.mf.CommPort.SendAsync(cData); 
                     }
                     catch (Exception ex)
                     {
-                        cf.mf.Tls.WriteErrorLog("PGN32300/send serial: " + ex.Message);
+                        cf.mf.Tls.WriteErrorLog("PGN32701/send serial: " + ex.Message);
                     }
                     break;
 

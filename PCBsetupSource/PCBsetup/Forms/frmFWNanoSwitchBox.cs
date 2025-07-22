@@ -58,6 +58,14 @@ namespace PCBsetup.Forms
             tbHexfile.Text = "File version date:  " + mf.VC.Version((int)ModuleTypes.Nano_SwitchBox);
         }
 
+        private void btnDefault_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            string Message = "Load defaults.";
+
+            mf.Tls.ShowHelp(Message);
+            hlpevent.Handled = true;
+        }
+
         private void btnUpload_Click(object sender, EventArgs e)
         {
             try
@@ -74,6 +82,19 @@ namespace PCBsetup.Forms
                 mf.Tls.ShowHelp(ex.Message, this.Text, 3000, true);
                 bntOK.Enabled = true;
             }
+        }
+
+        private void btnUpload_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            string Message = "Upload to module.";
+
+            mf.Tls.ShowHelp(Message);
+            hlpevent.Handled = true;
+        }
+
+        private void ckSWOldBootloader_CheckedChanged(object sender, EventArgs e)
+        {
+            lbWarning.Visible = !ckSWOldBootloader.Checked;
         }
 
         private void frmSwitchboxFirmware_FormClosed(object sender, FormClosedEventArgs e)
@@ -182,7 +203,7 @@ namespace PCBsetup.Forms
                         HexFile = Path.GetTempFileName();
                         File.Copy(mf.Tls.HexDir() + "\\SWarduinoOB.ino.hex", HexFile, true);
                     }
-                    else 
+                    else
                     {
                         // new bootloader
                         HexFile = Path.GetTempFileName();
@@ -251,27 +272,6 @@ namespace PCBsetup.Forms
 
             bntOK.Enabled = true;
             WatchDogTimer.Enabled = false;
-        }
-
-        private void btnUpload_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            string Message = "Upload to module.";
-
-            mf.Tls.ShowHelp(Message);
-            hlpevent.Handled = true;
-        }
-
-        private void btnDefault_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            string Message = "Load defaults.";
-
-            mf.Tls.ShowHelp(Message);
-            hlpevent.Handled = true;
-        }
-
-        private void ckSWOldBootloader_CheckedChanged(object sender, EventArgs e)
-        {
-            lbWarning.Visible = !ckSWOldBootloader.Checked;
         }
     }
 }

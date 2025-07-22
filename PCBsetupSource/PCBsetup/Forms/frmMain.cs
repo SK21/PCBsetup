@@ -33,8 +33,8 @@ namespace PCBsetup.Forms
     public partial class frmMain : Form
     {
         public clsAutoSteerFirmware ASF;
+        public SerialComm CommPort;
         public clsDownloader Dlr;
-        public SerialMessages SerialMes;
         public clsTools Tls;
         public frmFWTeensyNetwork TN;
         public UDPComm UDPmodules;
@@ -84,10 +84,10 @@ namespace PCBsetup.Forms
         {
             try
             {
-                if (SerialMes != null && SerialMes.IsOpen)
+                if (CommPort != null && CommPort.IsOpen)
                 {
                     // close open port
-                    SerialMes.Dispose();
+                    CommPort.Dispose();
                 }
                 else
                 {
@@ -104,41 +104,48 @@ namespace PCBsetup.Forms
 
         private void btnFirmware_Click(object sender, EventArgs e)
         {
-            SerialMes.Dispose();
-            switch (cModule)
+            if (CommPort != null && CommPort.IsOpen)
             {
-                case 0:
-                    // Teensy AutoSteer
-                    Form tmp = new frmFWTeensySerial(this, 0);
-                    tmp.ShowDialog();
-                    break;
+                CommPort.Dispose();
+                switch (cModule)
+                {
+                    case 0:
+                        // Teensy AutoSteer
+                        Form tmp = new frmFWTeensySerial(this, 0);
+                        tmp.ShowDialog();
+                        break;
 
-                case 1:
-                    // Teensy Rate
-                    Form tmp1 = new frmFWTeensySerial(this, 1);
-                    tmp1.ShowDialog();
-                    break;
+                    case 1:
+                        // Teensy Rate
+                        Form tmp1 = new frmFWTeensySerial(this, 1);
+                        tmp1.ShowDialog();
+                        break;
 
-                case 2:
-                    // Nano Rate
-                    Form tmp2 = new frmFWNanoRate(this);
-                    tmp2.ShowDialog();
-                    break;
+                    case 2:
+                        // Nano Rate
+                        Form tmp2 = new frmFWNanoRate(this);
+                        tmp2.ShowDialog();
+                        break;
 
-                case 3:
-                    // Nano SwitchBox
-                    Form tmp3 = new frmFWNanoSwitchBox(this);
-                    tmp3.ShowDialog();
-                    break;
+                    case 3:
+                        // Nano SwitchBox
+                        Form tmp3 = new frmFWNanoSwitchBox(this);
+                        tmp3.ShowDialog();
+                        break;
 
-                case 4:
-                    // esp32 rate
-                    Form tmp4 = new frmFWESP32(this);
-                    tmp4.ShowDialog();
-                    break;
+                    case 4:
+                        // esp32 rate
+                        Form tmp4 = new frmFWESP32(this);
+                        tmp4.ShowDialog();
+                        break;
+                }
+                OpenPort();
+                UpdateForm();
             }
-            OpenPort();
-            UpdateForm();
+            else
+            {
+                Tls.ShowHelp("Port not open.", "Help");
+            }
         }
 
         private void btnFirmware_Click_1(object sender, EventArgs e)
@@ -188,19 +195,33 @@ namespace PCBsetup.Forms
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            switch (cModule)
+            try
             {
-                case 0:
-                    // Teensy AutoSteer
-                    Form tmp = new frmSetTeensySteer(this);
-                    tmp.ShowDialog();
-                    break;
+                if (CommPort != null && CommPort.IsOpen)
+                {
+                    switch (cModule)
+                    {
+                        case 0:
+                            // Teensy AutoSteer
+                            Form tmp = new frmSetTeensySteer(this);
+                            tmp.ShowDialog();
+                            break;
 
-                case 3:
-                    // Nano SwitchBox
-                    Form tmp3 = new frmSetNanoSwitchbox(this);
-                    tmp3.ShowDialog();
-                    break;
+                        case 3:
+                            // Nano SwitchBox
+                            Form tmp3 = new frmSetNanoSwitchbox(this);
+                            tmp3.ShowDialog();
+                            break;
+                    }
+                }
+                else
+                {
+                    Tls.ShowHelp("Port not open.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Tls.ShowHelp("btnSettings: " + ex.Message);
             }
         }
 
@@ -289,6 +310,17 @@ namespace PCBsetup.Forms
 
         private void CommPort_ModuleConnected(object sender, EventArgs e)
         {
+            UpdateForm();
+        }
+
+        private void CommPort_PortDisconnected()
+        {
+            // Ensure UI updates happen on the main thread
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action(CommPort_PortDisconnected));
+                return;
+            }
             UpdateForm();
         }
 
@@ -440,10 +472,18 @@ namespace PCBsetup.Forms
 
         private void OpenPort()
         {
-            if (SerialMes == null || !SerialMes.IsOpen)
+            try
             {
-                SerialMes = new SerialMessages(TrimPortName(cboPort1.Text),this);
-                if (!SerialMes.IsOpen) Tls.ShowHelp("Could not open comm port.", this.Text, 3000);
+                if (CommPort == null || !CommPort.IsOpen)
+                {
+                    CommPort = new SerialComm(TrimPortName(cboPort1.Text), this);
+                    if (!CommPort.IsOpen) Tls.ShowHelp("Could not open comm port.", this.Text, 3000);
+                    CommPort.PortDisconnected += CommPort_PortDisconnected;
+                }
+            }
+            catch (Exception ex)
+            {
+                Tls.ShowHelp("OpenPort: " + ex.Message, "Help", 5000);
             }
         }
 
@@ -532,7 +572,7 @@ namespace PCBsetup.Forms
 
         private void UpdateForm(bool UpdateCombo = true)
         {
-            if (SerialMes != null && SerialMes.IsOpen)
+            if (CommPort != null && CommPort.IsOpen)
             {
                 PortIndicator1.Image = Properties.Resources.On;
                 btnConnect1.Text = Languages.Lang.lgDisconnect;

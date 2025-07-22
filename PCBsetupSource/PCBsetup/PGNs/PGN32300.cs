@@ -76,7 +76,7 @@ namespace PCBsetup
                     // send serial
                     try
                     {
-                        Result = await cf.mf.SerialMes.SendAsync(cData);
+                        Result = await cf.mf.CommPort.SendAsync(cData);
                     }
                     catch (Exception ex)
                     {

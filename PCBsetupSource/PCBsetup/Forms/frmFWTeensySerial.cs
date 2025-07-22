@@ -16,9 +16,10 @@ namespace PCBsetup.Forms
         // teensy uploader and serial monitor need to be closed to free the serial port
 
         private frmMain mf;
+        private byte SoftwareID;
         private bool UseDefault = false;
         private TeensyWatcher watcher;
-        private byte SoftwareID;    // 0 autosteer, 1 rate
+        // 0 autosteer, 1 rate
 
         public frmFWTeensySerial(frmMain CallingForm, byte ID)
         {
@@ -54,21 +55,6 @@ namespace PCBsetup.Forms
                     tbHexfile.Text = openFileDialog.FileName;
                 }
             }
-        }
-        private string FileVersion()
-        {
-            string Result = "";
-            switch (SoftwareID)
-            {
-                case 1:
-                    Result = "File version date:  " + mf.VC.Version((int)ModuleTypes.Teensy_Rate);
-                    break;
-
-                default:
-                    Result = "File version date:  " + mf.ASF.AutoSteerVersion.ToString();
-                    break;
-            }
-            return Result;
         }
 
         private void btnBrowse_HelpRequested(object sender, HelpEventArgs hlpevent)
@@ -170,6 +156,22 @@ namespace PCBsetup.Forms
                     break;
             }
             if (lbTeensies.SelectedIndex == -1 && lbTeensies.Items.Count > 0) lbTeensies.SelectedIndex = 0;
+        }
+
+        private string FileVersion()
+        {
+            string Result = "";
+            switch (SoftwareID)
+            {
+                case 1:
+                    Result = "File version date:  " + mf.VC.Version((int)ModuleTypes.Teensy_Rate);
+                    break;
+
+                default:
+                    Result = "File version date:  " + mf.ASF.AutoSteerVersion.ToString();
+                    break;
+            }
+            return Result;
         }
 
         private void frmFirmware_FormClosed(object sender, FormClosedEventArgs e)

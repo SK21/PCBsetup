@@ -122,13 +122,20 @@ namespace PCBsetup.Forms
             bool Sent;
             try
             {
-                PGN32701 PGN = new PGN32701(this);
-                Sent = await PGN.Send();
-
-                if (Sent)
+                if (mf.CommPort != null && mf.CommPort.IsOpen)
                 {
-                    mf.Tls.ShowHelp("Sent to module.", this.Text, 3000);
-                    ConfigEdited = false;
+                    PGN32701 PGN = new PGN32701(this);
+                    Sent = await PGN.Send();
+
+                    if (Sent)
+                    {
+                        mf.Tls.ShowHelp("Sent to module.", this.Text, 3000);
+                        ConfigEdited = false;
+                    }
+                }
+                else
+                {
+                    mf.Tls.ShowHelp("Port not open.");
                 }
             }
             catch (InvalidOperationException ex)

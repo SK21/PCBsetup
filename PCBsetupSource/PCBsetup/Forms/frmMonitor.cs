@@ -65,9 +65,9 @@ namespace PCBsetup.Forms
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (!FreezeUpdate && mf.SerialMes != null)
+            if (!FreezeUpdate && mf.CommPort != null)
             {
-                tbMonitor.Text = mf.SerialMes.Log;
+                tbMonitor.Text = mf.CommPort.Log;
                 tbMonitor.Select(tbMonitor.Text.Length, 0);
                 tbMonitor.ScrollToCaret();
             }

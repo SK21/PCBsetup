@@ -20,7 +20,7 @@ namespace PCBsetup
         private string cAppVersion = "2.0.0";
         private string cFileName;
         private string cFirmwareDir;
-        private string cVersionDate = "20-Jul-2025";
+        private string cVersionDate = "22-Jul-2025";
         private frmMain mf;
 
         public clsTools(frmMain CallingForm)
@@ -226,7 +226,7 @@ namespace PCBsetup
         }
 
         public void ShowHelp(string Message, string Title = "Help",
-            int timeInMsec = 30000, bool LogError = false, bool Modal = false)
+            int timeInMsec = 5000, bool LogError = false, bool Modal = false)
         {
             var Hlp = new frmHelp(mf, Message, Title, timeInMsec);
             if (Modal)

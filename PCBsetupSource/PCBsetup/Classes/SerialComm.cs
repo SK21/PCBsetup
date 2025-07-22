@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PCBsetup.Classes
 {
-    public class SerialMessages : IDisposable
+    public class SerialComm : IDisposable
     {
         private readonly CancellationTokenSource _cts = new CancellationTokenSource();
         private readonly StringBuilder _logBuilder = new StringBuilder();
@@ -18,8 +18,9 @@ namespace PCBsetup.Classes
         private readonly ConcurrentQueue<string> _receiveQueue = new ConcurrentQueue<string>();
         private readonly SerialPort _serialPort;
         private frmMain mf;
+        public event Action PortDisconnected;
 
-        public SerialMessages(string portName, frmMain CallingForm, int baudRate = 38400)
+        public SerialComm(string portName, frmMain CallingForm, int baudRate = 38400)
         {
             mf = CallingForm;
             _serialPort = new SerialPort(portName, baudRate, Parity.None, 8, StopBits.One)
@@ -127,6 +128,9 @@ namespace PCBsetup.Classes
                 catch (Exception ex)
                 {
                     mf.Tls.WriteErrorLog("SerialMessage/ReadLoopAsync: " + ex.Message);
+                    PortDisconnected?.Invoke();
+                    Dispose();  // cleanly shut down background tasks and close port
+                    return;     // exit the loop
                 }
             }
         }

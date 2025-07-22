@@ -19,8 +19,8 @@ namespace PCBsetup.Forms
         private frmMain mf;
         private int ProgressCount;
         private DateTime StartUpload;
-        private UploadResult UploadStatus;
         private string UploadError;
+        private UploadResult UploadStatus;
         private bool UserSelectedFile = true;
         private BackgroundWorker worker = new BackgroundWorker();
 
@@ -29,7 +29,7 @@ namespace PCBsetup.Forms
             InitializeComponent();
             mf = CallingForm;
 
-            CKs = new CheckBox[] {  ckRtOldBootloader };
+            CKs = new CheckBox[] { ckRtOldBootloader };
         }
 
         private void bntOK_Click(object sender, EventArgs e)
@@ -60,6 +60,14 @@ namespace PCBsetup.Forms
             tbHexfile.Text = "File version date:  " + mf.VC.Version((int)ModuleTypes.Nano_Rate);
         }
 
+        private void btnDefault_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            string Message = "Load defaults.";
+
+            mf.Tls.ShowHelp(Message);
+            hlpevent.Handled = true;
+        }
+
         private void btnUpload_Click(object sender, EventArgs e)
         {
             try
@@ -76,6 +84,19 @@ namespace PCBsetup.Forms
                 mf.Tls.ShowHelp(ex.Message, this.Text, 3000, true);
                 bntOK.Enabled = true;
             }
+        }
+
+        private void btnUpload_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            string Message = "Upload to module.";
+
+            mf.Tls.ShowHelp(Message);
+            hlpevent.Handled = true;
+        }
+
+        private void ckRtOldBootloader_CheckedChanged(object sender, EventArgs e)
+        {
+            lbWarning.Visible = !ckRtOldBootloader.Checked;
         }
 
         private void frmNanoFirmware_FormClosed(object sender, FormClosedEventArgs e)
@@ -185,7 +206,7 @@ namespace PCBsetup.Forms
                         HexFile = Path.GetTempFileName();
                         File.Copy(mf.Tls.HexDir() + "\\NanoRateOB.ino.hex", HexFile, true);
                     }
-                    else 
+                    else
                     {
                         // new bootloader
                         HexFile = Path.GetTempFileName();
@@ -256,27 +277,6 @@ namespace PCBsetup.Forms
 
             bntOK.Enabled = true;
             WatchDogTimer.Enabled = false;
-        }
-
-        private void btnDefault_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            string Message = "Load defaults.";
-
-            mf.Tls.ShowHelp(Message);
-            hlpevent.Handled = true;
-        }
-
-        private void btnUpload_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            string Message = "Upload to module.";
-
-            mf.Tls.ShowHelp(Message);
-            hlpevent.Handled = true;
-        }
-
-        private void ckRtOldBootloader_CheckedChanged(object sender, EventArgs e)
-        {
-            lbWarning.Visible = !ckRtOldBootloader.Checked;
         }
     }
 }
