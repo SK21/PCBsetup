@@ -414,7 +414,7 @@ namespace PCBsetup.Forms
 
                 foreach (string s in portList)
                 {
-                    Console.WriteLine(s);
+                    //Console.WriteLine(s);
                     cboPort1.Items.Add(s);
                 }
             }
@@ -470,7 +470,7 @@ namespace PCBsetup.Forms
             hlpevent.Handled = true;
         }
 
-        private void OpenPort()
+        public void OpenPort()
         {
             try
             {
@@ -502,7 +502,7 @@ namespace PCBsetup.Forms
                 case 0:
                     btnSettingsNetwork.Enabled = true;
                     btnFirmwareNetwork.Enabled = true;
-                    btnSettings.Enabled = false;
+                    btnSettings.Enabled = true;
                     break;
 
                 case 1:

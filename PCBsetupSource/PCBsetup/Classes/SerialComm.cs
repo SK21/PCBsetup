@@ -114,24 +114,41 @@ namespace PCBsetup.Classes
 
         private async Task ReadLoopAsync(CancellationToken token)
         {
-            while (!token.IsCancellationRequested)
+            try
             {
-                try
+                var sb = new StringBuilder();
+
+                while (!token.IsCancellationRequested)
                 {
-                    string line = await Task.Run(() => _serialPort.ReadLine()).ConfigureAwait(false);
-                    _receiveQueue.Enqueue(line.Trim());
+                    // Grab all available bytes (non‐blocking)
+                    string chunk = _serialPort.ReadExisting();
+                    if (chunk.Length > 0)
+                    {
+                        sb.Append(chunk);
+
+                        // Pull out each full line
+                        int newline;
+                        while ((newline = sb.ToString().IndexOf('\n')) >= 0)
+                        {
+                            string line = sb
+                                .ToString(0, newline)
+                                .TrimEnd('\r');
+                            _receiveQueue.Enqueue(line);
+
+                            // Remove the consumed segment
+                            sb.Remove(0, newline + 1);
+                        }
+                    }
+                    else
+                    {
+                        // No data—yield for a moment
+                        await Task.Delay(20, token).ConfigureAwait(false);
+                    }
                 }
-                catch (TimeoutException)
-                {
-                    // no data, continue
-                }
-                catch (Exception ex)
-                {
-                    mf.Tls.WriteErrorLog("SerialMessage/ReadLoopAsync: " + ex.Message);
-                    PortDisconnected?.Invoke();
-                    Dispose();  // cleanly shut down background tasks and close port
-                    return;     // exit the loop
-                }
+            }
+            catch (Exception ex)
+            {
+                mf.Tls.WriteErrorLog("ReadLoopAsync: " + ex.Message);
             }
         }
     }

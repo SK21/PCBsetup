@@ -131,6 +131,8 @@ namespace PCBsetup.Forms
                     {
                         mf.Tls.ShowHelp("Sent to module.", this.Text, 3000);
                         ConfigEdited = false;
+                        mf.CommPort.Dispose();
+                        mf.OpenPort();
                     }
                 }
                 else

@@ -77,6 +77,8 @@ namespace PCBsetup
                     try
                     {
                         Result = await cf.mf.CommPort.SendAsync(cData);
+                        cf.mf.CommPort.Dispose();
+                        cf.mf.OpenPort();
                     }
                     catch (Exception ex)
                     {
