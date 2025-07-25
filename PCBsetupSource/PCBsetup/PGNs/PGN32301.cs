@@ -62,9 +62,7 @@ namespace PCBsetup
                     // send serial
                     try
                     {
-                        Result =  cf.mf.CommPort.Send(cData); // Await the async method
-                        cf.mf.CommPort.ClosePort();
-                        cf.mf.OpenPort();
+                        Result =  cf.mf.CommPort.Send(cData); 
                     }
                     catch (Exception ex)
                     {

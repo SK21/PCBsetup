@@ -1,6 +1,5 @@
 ﻿using PCBsetup.Forms;
 using System;
-using System.Diagnostics;
 using System.IO.Ports;
 using System.Text;
 
@@ -11,7 +10,6 @@ namespace PCBsetup.Classes
         private readonly StringBuilder LogBuilder = new StringBuilder();
         private readonly object LogLock = new object();
         private readonly SerialPort Sport;
-        private string cLog = "";
         private frmMain mf;
 
         public SerialComm(string portName, frmMain CallingForm, int baudRate = 38400)
@@ -26,8 +24,6 @@ namespace PCBsetup.Classes
             };
             OpenPort();
         }
-
-        public event Action<string> DataReceived;
 
         public event Action PortDisconnected;
 
@@ -53,7 +49,7 @@ namespace PCBsetup.Classes
                 {
                     Sport.DataReceived -= Sport_DataReceived;
                     Sport.Close();
-                    AddToLog("Port closed.");
+                    AddToLog("\nPort closed.\n");
                     PortDisconnected?.Invoke();
                 }
             }
@@ -88,7 +84,6 @@ namespace PCBsetup.Classes
                     LogBuilder.Append(NewData);
                     if (LogBuilder.Length > 100000) LogBuilder.Remove(0, LogBuilder.Length - 25000);
                 }
-                DataReceived?.Invoke(NewData);
             }
             catch (Exception ex)
             {
@@ -103,7 +98,7 @@ namespace PCBsetup.Classes
                 if (!Sport.IsOpen)
                 {
                     Sport.Open();
-                    AddToLog("Port open.");
+                    AddToLog("\nPort open.\n");
 
                     Sport.DataReceived += Sport_DataReceived;
                     Sport.DiscardOutBuffer();

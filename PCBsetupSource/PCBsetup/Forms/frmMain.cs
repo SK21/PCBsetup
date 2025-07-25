@@ -75,6 +75,23 @@ namespace PCBsetup.Forms
             }
         }
 
+        public void OpenPort()
+        {
+            try
+            {
+                if (CommPort == null || !CommPort.IsOpen)
+                {
+                    CommPort = new SerialComm(TrimPortName(cboPort1.Text), this);
+                    if (!CommPort.IsOpen) Tls.ShowHelp("Could not open comm port.", this.Text, 3000);
+                    CommPort.PortDisconnected += CommPort_PortDisconnected;
+                }
+            }
+            catch (Exception ex)
+            {
+                Tls.ShowHelp("OpenPort: " + ex.Message, "Help", 5000);
+            }
+        }
+
         public string SelectedPortName()
         {
             return cSelectedPortName;
@@ -203,13 +220,13 @@ namespace PCBsetup.Forms
                         case 0:
                             // Teensy AutoSteer
                             Form tmp = new frmSetTeensySteer(this);
-                            tmp.Show();
+                            tmp.ShowDialog();
                             break;
 
                         case 3:
                             // Nano SwitchBox
                             Form tmp3 = new frmSetNanoSwitchbox(this);
-                            tmp3.Show();
+                            tmp3.ShowDialog();
                             break;
                     }
                 }
@@ -461,31 +478,6 @@ namespace PCBsetup.Forms
             }
         }
 
-        private void ModuleIndicator_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            string Message = "Indicates module connected. The ESP8266 does not need to show connection.";
-
-            Tls.ShowHelp(Message, this.Text, 3000);
-            hlpevent.Handled = true;
-        }
-
-        public void OpenPort()
-        {
-            try
-            {
-                if (CommPort == null || !CommPort.IsOpen)
-                {
-                    CommPort = new SerialComm(TrimPortName(cboPort1.Text), this);
-                    if (!CommPort.IsOpen) Tls.ShowHelp("Could not open comm port.", this.Text, 3000);
-                    CommPort.PortDisconnected += CommPort_PortDisconnected;
-                }
-            }
-            catch (Exception ex)
-            {
-                Tls.ShowHelp("OpenPort: " + ex.Message, "Help", 5000);
-            }
-        }
-
         private void PortIndicator1_HelpRequested(object sender, HelpEventArgs hlpevent)
         {
             string Message = "Indicates serial port connected.";
@@ -501,7 +493,7 @@ namespace PCBsetup.Forms
                 case 0:
                     btnSettingsNetwork.Enabled = true;
                     btnFirmwareNetwork.Enabled = true;
-                    btnSettings.Enabled = true;
+                    btnSettings.Enabled = false;
                     break;
 
                 case 1:
