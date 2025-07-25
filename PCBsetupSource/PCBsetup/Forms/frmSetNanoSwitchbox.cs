@@ -117,7 +117,7 @@ namespace PCBsetup.Forms
             hlpevent.Handled = true;
         }
 
-        private async void btnSendToModule_Click(object sender, EventArgs e)
+        private  void btnSendToModule_Click(object sender, EventArgs e)
         {
             bool Sent;
             try
@@ -125,14 +125,14 @@ namespace PCBsetup.Forms
                 if (mf.CommPort != null && mf.CommPort.IsOpen)
                 {
                     PGN32701 PGN = new PGN32701(this);
-                    Sent = await PGN.Send();
+                    Sent =  PGN.Send();
 
                     if (Sent)
                     {
                         mf.Tls.ShowHelp("Sent to module.", this.Text, 3000);
                         ConfigEdited = false;
-                        mf.CommPort.Dispose();
-                        mf.OpenPort();
+                        //mf.CommPort.ClosePort();
+                        //mf.OpenPort();
                     }
                 }
                 else

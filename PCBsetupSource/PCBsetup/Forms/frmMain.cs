@@ -86,8 +86,7 @@ namespace PCBsetup.Forms
             {
                 if (CommPort != null && CommPort.IsOpen)
                 {
-                    // close open port
-                    CommPort.Dispose();
+                    CommPort.ClosePort();
                 }
                 else
                 {
@@ -106,7 +105,7 @@ namespace PCBsetup.Forms
         {
             if (CommPort != null && CommPort.IsOpen)
             {
-                CommPort.Dispose();
+                CommPort.ClosePort();
                 switch (cModule)
                 {
                     case 0:
@@ -204,13 +203,13 @@ namespace PCBsetup.Forms
                         case 0:
                             // Teensy AutoSteer
                             Form tmp = new frmSetTeensySteer(this);
-                            tmp.ShowDialog();
+                            tmp.Show();
                             break;
 
                         case 3:
                             // Nano SwitchBox
                             Form tmp3 = new frmSetNanoSwitchbox(this);
-                            tmp3.ShowDialog();
+                            tmp3.Show();
                             break;
                     }
                 }

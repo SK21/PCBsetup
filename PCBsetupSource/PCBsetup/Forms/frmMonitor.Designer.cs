@@ -43,6 +43,7 @@ namespace PCBsetup.Forms
             this.tbMonitor.BackColor = System.Drawing.SystemColors.Window;
             this.tbMonitor.Location = new System.Drawing.Point(15, 15);
             this.tbMonitor.Margin = new System.Windows.Forms.Padding(6);
+            this.tbMonitor.MaxLength = 0;
             this.tbMonitor.Multiline = true;
             this.tbMonitor.Name = "tbMonitor";
             this.tbMonitor.ReadOnly = true;

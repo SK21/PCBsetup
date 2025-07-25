@@ -113,16 +113,16 @@ namespace PCBsetup.Forms
             hlpevent.Handled = true;
         }
 
-        private async void btnSendToModule_Click(object sender, EventArgs e)
+        private  void btnSendToModule_Click(object sender, EventArgs e)
         {
             bool Sent;
             try
             {
                 PGN32300 PGN = new PGN32300(this);
-                Sent = await PGN.Send(); // Await the Task<bool> to get the result
+                Sent =  PGN.Send(); // Await the Task<bool> to get the result
 
                 PGN32301 PGN2 = new PGN32301(this);
-                Sent = Sent & await PGN2.Send(); // Await the Task<bool> to get the result
+                Sent = Sent &  PGN2.Send(); // Await the Task<bool> to get the result
 
                 if (Sent)
                 {

@@ -33,7 +33,7 @@ namespace PCBsetup
             cData[1] = 126;
         }
 
-        public async Task<bool> Send() 
+        public  bool Send() 
         {
             bool Result = false;
 
@@ -62,8 +62,8 @@ namespace PCBsetup
                     // send serial
                     try
                     {
-                        Result = await cf.mf.CommPort.SendAsync(cData); // Await the async method
-                        cf.mf.CommPort.Dispose();
+                        Result =  cf.mf.CommPort.Send(cData); // Await the async method
+                        cf.mf.CommPort.ClosePort();
                         cf.mf.OpenPort();
                     }
                     catch (Exception ex)
