@@ -9,7 +9,7 @@ namespace PCBsetup.Forms
     {
         private bool FreezeUpdate;
         private frmMain mf;
-        private int LastLength;
+
         public frmMonitor(frmMain CallingForm)
         {
             InitializeComponent();
@@ -17,7 +17,6 @@ namespace PCBsetup.Forms
             this.BackColor = PCBsetup.Properties.Settings.Default.DayColour;
             tbMonitor.BackColor = PCBsetup.Properties.Settings.Default.DayColour;
         }
-
 
         private void bntOK_Click(object sender, EventArgs e)
         {
@@ -72,13 +71,6 @@ namespace PCBsetup.Forms
                 tbMonitor.Text = mf.CommPort.Log;
                 tbMonitor.Select(tbMonitor.Text.Length, 0);
                 tbMonitor.ScrollToCaret();
-
-                if (tbMonitor.Text.Length != LastLength)
-                {
-                    LastLength = tbMonitor.Text.Length;
-                    Debug.Print("");
-                    Debug.Print("frmMonitor display length = " + tbMonitor.Text.Length);
-                }
             }
         }
 

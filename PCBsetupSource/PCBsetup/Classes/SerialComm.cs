@@ -2,12 +2,14 @@
 using System;
 using System.Diagnostics;
 using System.IO.Ports;
-using System.Windows.Forms;
+using System.Text;
 
 namespace PCBsetup.Classes
 {
     public class SerialComm
     {
+        private readonly StringBuilder LogBuilder = new StringBuilder();
+        private readonly object LogLock = new object();
         private readonly SerialPort Sport;
         private string cLog = "";
         private frmMain mf;
@@ -25,13 +27,23 @@ namespace PCBsetup.Classes
             OpenPort();
         }
 
+        public event Action<string> DataReceived;
+
         public event Action PortDisconnected;
 
         public bool IsOpen
         { get { return Sport.IsOpen; } }
 
         public string Log
-        { get { return cLog; } }
+        {
+            get
+            {
+                lock (LogLock)
+                {
+                    return LogBuilder.ToString();
+                }
+            }
+        }
 
         public void ClosePort()
         {
@@ -59,8 +71,6 @@ namespace PCBsetup.Classes
             {
                 Sport.Write(Data, 0, Data.Length);
                 Result = true;
-                Debug.Print("");
-                Debug.Print("Data sent");
             }
             catch (Exception ex)
             {
@@ -73,14 +83,12 @@ namespace PCBsetup.Classes
         {
             try
             {
-                string CleanData = NewData.Replace("\0", "");
-                cLog += CleanData;
-                if (cLog.Length > 100000)
+                lock (LogLock)
                 {
-                    cLog = cLog.Substring(cLog.Length - 25000);
+                    LogBuilder.Append(NewData);
+                    if (LogBuilder.Length > 100000) LogBuilder.Remove(0, LogBuilder.Length - 25000);
                 }
-                Debug.Print("");
-                Debug.Print("Log length: " + cLog.Length);
+                DataReceived?.Invoke(NewData);
             }
             catch (Exception ex)
             {
@@ -110,17 +118,18 @@ namespace PCBsetup.Classes
 
         private void Sport_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            if (Sport.IsOpen)
+            try
             {
-                try
+                if (Sport.IsOpen)
                 {
                     string sentence = Sport.ReadExisting();
-                    mf.BeginInvoke((MethodInvoker)(() => AddToLog(sentence)));
+                    sentence = sentence.Replace("\0", "");  // remove nulls
+                    AddToLog(sentence);
                 }
-                catch (Exception ex)
-                {
-                    mf.Tls.WriteErrorLog("SerialComm/Sport_DataReceived: " + ex.Message);
-                }
+            }
+            catch (Exception ex)
+            {
+                mf.Tls.WriteErrorLog("SerialComm/Sport_DataReceived: " + ex.Message);
             }
         }
     }
