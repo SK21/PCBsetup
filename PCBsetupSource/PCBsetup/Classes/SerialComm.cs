@@ -12,9 +12,16 @@ namespace PCBsetup.Classes
         private readonly SerialPort Sport;
         private frmMain mf;
 
-        public SerialComm(string portName, frmMain CallingForm, int baudRate = 38400)
+        public SerialComm(frmMain CallingForm, string portName = "", int baudRate = 38400)
         {
             mf = CallingForm;
+
+            if (portName == "" && Properties.Settings.Default.SerialSuccessful)
+            {
+                portName = Properties.Settings.Default.Port;
+                baudRate = Properties.Settings.Default.Baud;
+            }
+
             Sport = new SerialPort(portName, baudRate, Parity.None, 8, StopBits.One)
             {
                 ReadTimeout = 500,
@@ -27,6 +34,15 @@ namespace PCBsetup.Classes
 
         public event Action PortDisconnected;
 
+        public int Baud
+        {
+            get { return Sport.BaudRate; }
+            set
+            {
+                if (!Sport.IsOpen && value > 0 && value < 115201) Sport.BaudRate = value;
+            }
+        }
+
         public bool IsOpen
         { get { return Sport.IsOpen; } }
 
@@ -38,6 +54,15 @@ namespace PCBsetup.Classes
                 {
                     return LogBuilder.ToString();
                 }
+            }
+        }
+
+        public string PortNm
+        {
+            get { return Sport.PortName; }
+            set
+            {
+                if (!Sport.IsOpen && value != "") Sport.PortName = value;
             }
         }
 
@@ -91,8 +116,9 @@ namespace PCBsetup.Classes
             }
         }
 
-        private void OpenPort()
+        private bool OpenPort()
         {
+            bool Result = false;
             try
             {
                 if (!Sport.IsOpen)
@@ -103,12 +129,22 @@ namespace PCBsetup.Classes
                     Sport.DataReceived += Sport_DataReceived;
                     Sport.DiscardOutBuffer();
                     Sport.DiscardInBuffer();
+                    Result = true;
                 }
             }
             catch (Exception ex)
             {
                 mf.Tls.WriteErrorLog("SerialComm/OpenPort: " + ex.Message);
             }
+
+            if (Result)
+            {
+                Properties.Settings.Default.Port = Sport.PortName;
+                Properties.Settings.Default.Baud = Sport.BaudRate;
+            }
+            Properties.Settings.Default.SerialSuccessful = Result;
+            Properties.Settings.Default.Save();
+            return Result;
         }
 
         private void Sport_DataReceived(object sender, SerialDataReceivedEventArgs e)

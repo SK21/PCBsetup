@@ -70,5 +70,41 @@ namespace PCBsetup.Properties {
                 this["MsgBoxResult"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Com1")]
+        public string Port {
+            get {
+                return ((string)(this["Port"]));
+            }
+            set {
+                this["Port"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("57600")]
+        public int Baud {
+            get {
+                return ((int)(this["Baud"]));
+            }
+            set {
+                this["Baud"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SerialSuccessful {
+            get {
+                return ((bool)(this["SerialSuccessful"]));
+            }
+            set {
+                this["SerialSuccessful"] = value;
+            }
+        }
     }
 }

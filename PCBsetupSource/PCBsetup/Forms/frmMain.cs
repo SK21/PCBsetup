@@ -81,7 +81,7 @@ namespace PCBsetup.Forms
             {
                 if (CommPort == null || !CommPort.IsOpen)
                 {
-                    CommPort = new SerialComm(TrimPortName(cboPort1.Text), this);
+                    CommPort = new SerialComm(this, TrimPortName(cboPort1.Text));
                     if (!CommPort.IsOpen) Tls.ShowHelp("Could not open comm port.", this.Text, 3000);
                     CommPort.PortDisconnected += CommPort_PortDisconnected;
                 }

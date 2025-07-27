@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 
@@ -66,12 +65,7 @@ namespace PCBsetup.Forms
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (!FreezeUpdate && mf.CommPort != null)
-            {
-                tbMonitor.Text = mf.CommPort.Log;
-                tbMonitor.Select(tbMonitor.Text.Length, 0);
-                tbMonitor.ScrollToCaret();
-            }
+            UpdateForm();
         }
 
         private void UpdateForm()
@@ -83,6 +77,21 @@ namespace PCBsetup.Forms
             else
             {
                 btnStart.Image = Properties.Resources.Pause;
+                if (mf.CommPort != null)
+                {
+                    tbMonitor.Text = mf.CommPort.Log;
+                    tbMonitor.Select(tbMonitor.Text.Length, 0);
+                    tbMonitor.ScrollToCaret();
+                }
+            }
+
+            if (mf.CommPort == null)
+            {
+                this.Text = "Serial Monitor";
+            }
+            else
+            {
+                this.Text = "Serial Monitor [" + mf.CommPort.PortNm + "]";
             }
         }
     }
