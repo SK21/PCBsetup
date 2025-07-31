@@ -57,6 +57,7 @@
             // 
             // cbModule
             // 
+            this.cbModule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbModule.FormattingEnabled = true;
             this.cbModule.Items.AddRange(new object[] {
             "Teensy AutoSteer",

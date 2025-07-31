@@ -251,9 +251,10 @@ namespace PCBsetup.Forms
 
                 if (NewFirmware)
                 {
+                    Tls.ShowHelp("Downloading new firmware.");
                     await Dlr.Download();
                     await ASF.GetHex();
-                    Tls.ShowHelp("New firmware downloaded.", "Help", 5000);
+                    Tls.ShowHelp("New firmware downloaded.");
                 }
                 else
                 {
