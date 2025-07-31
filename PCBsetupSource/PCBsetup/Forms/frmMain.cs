@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Security.Policy;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace PCBsetup.Forms
@@ -419,19 +420,34 @@ namespace PCBsetup.Forms
 
         private void LoadPortsCombo()
         {
-            //https://stackoverflow.com/questions/2837985/getting-serial-port-information
-
-            cboPort1.Items.Clear();
-            using (var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_PnPEntity WHERE Caption like '%(COM%'"))
+            var PortNames = SerialPort.GetPortNames();
+            try
             {
-                var portnames = SerialPort.GetPortNames();
-                var ports = searcher.Get().Cast<ManagementBaseObject>().ToList().Select(p => p["Caption"].ToString());
 
-                var portList = portnames.Select(n => n + " - " + ports.FirstOrDefault(s => s.Contains(n))).ToList();
+                //https://stackoverflow.com/questions/2837985/getting-serial-port-information
 
-                foreach (string s in portList)
+                cboPort1.Items.Clear();
+                using (var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_PnPEntity WHERE Caption like '%(COM%'"))
                 {
-                    //Console.WriteLine(s);
+                    var ports = searcher.Get().Cast<ManagementBaseObject>().ToList().Select(p => p["Caption"].ToString());
+                    var portList = PortNames.Select(n => n + " - " + ports.FirstOrDefault(s => s.Contains(n))).ToList();
+
+                    foreach (string s in portList)
+                    {
+                        cboPort1.Items.Add(s);
+                    }
+
+                    if (PortNames.Length > cboPort1.Items.Count) throw new ArgumentException("Missing serial ports on the list, should be " + PortNames.Length.ToString() + ".");
+                }
+            }
+            catch (Exception ex)
+            {
+                Tls.WriteErrorLog("frmMain/LoadPortsCombo: " + ex.Message);
+
+                // revert to GetPortNames
+                cboPort1.Items.Clear();
+                foreach (string s in PortNames)
+                {
                     cboPort1.Items.Add(s);
                 }
             }
