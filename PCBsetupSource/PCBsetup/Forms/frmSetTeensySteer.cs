@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace PCBsetup.Forms
@@ -21,8 +22,7 @@ namespace PCBsetup.Forms
 
             mf = CallingForm;
 
-            CKs = new CheckBox[] { ckTSSwapRoll, ckTSInvertRoll, ckTSuse4_20,
-                ckTSRelayOn, ckTSZeroWas };
+            CKs = new CheckBox[] { ckTSZeroWas, ckTSInvertRoll, ckTSUseAds };
 
             for (int i = 0; i < CKs.Length; i++)
             {
@@ -33,6 +33,11 @@ namespace PCBsetup.Forms
 
             Boxes = new clsTextBoxes(mf);
             BuildBoxes();
+        }
+        private void groupBox_Paint(object sender, PaintEventArgs e)
+        {
+            GroupBox box = sender as GroupBox;
+            mf.Tls.DrawGroupBox(box, e.Graphics, this.BackColor, Color.Black, Color.Blue);
         }
 
         private void bntOK_Click(object sender, EventArgs e)
@@ -84,19 +89,19 @@ namespace PCBsetup.Forms
 
         private void btnLoadDefaults_Click(object sender, EventArgs e)
         {
-            // AS15 pcb
-            cbTSreceiver.SelectedIndex = 1;
-            tbTSReceiverPort.Text = "8";    // 8 both micro and  simpleRTK2B
-            tbTSIMUport.Text = "5";         // 5 Adafruit, 4 Sparkfun
-            tbTSPulseCal.Text = "255";
-            cbTSRelayControl.SelectedIndex = 0;
-            tbTSDir.Text = "23";
-            tbTSPWM.Text = "22";
+            // AS15-3 pcb
             tbTSpowerRelay.Text = "0";
-            tbTSsteerRelay.Text = "7";
-            tbTSsteerSwitch.Text = "26";
-            tbTSworkSwitch.Text = "27";
-            tbTSspeedPulse.Text = "28";
+            tbTSsteerRelay.Text = "1";
+            tbTSwas.Text = "25";
+            tbTScurrent.Text = "26";
+            tbTSsteerSwitch.Text = "30";
+            tbTSworkSwitch.Text = "31";
+            tbTSdir.Text = "23";
+            tbTSpwm.Text = "22";
+            tbTSReceiverPort.Text = "8";
+            tbTSRS232Out.Text = "2";
+            tbTSRS232In.Text = "4";
+            tbTSIMUport.Text = "3";
 
             // check boxes
             for (int i = 0; i < CKs.Length; i++)
@@ -113,18 +118,13 @@ namespace PCBsetup.Forms
             hlpevent.Handled = true;
         }
 
-        private  void btnSendToModule_Click(object sender, EventArgs e)
+        private void btnSendToModule_Click(object sender, EventArgs e)
         {
-            bool Sent;
             try
             {
                 PGN32300 PGN = new PGN32300(this);
-                Sent =  PGN.Send(); // Await the Task<bool> to get the result
 
-                PGN32301 PGN2 = new PGN32301(this);
-                Sent = Sent &  PGN2.Send(); // Await the Task<bool> to get the result
-
-                if (Sent)
+                if (PGN.Send())
                 {
                     mf.Tls.ShowHelp("Sent to module.", this.Text, 3000);
                     for (int i = 0; i < 2; i++)
@@ -166,36 +166,21 @@ namespace PCBsetup.Forms
 
         private void BuildBoxes()
         {
-            int StartID = Boxes.Add(this.Text, tbTSReceiverPort, 8, 1);
-            Boxes.Add(this.Text, tbTSIMUport, 8, 1);
-            Boxes.Add(this.Text, tbTSPulseCal);
-            Boxes.Add(this.Text, tbTSDir, 41);
-            Boxes.Add(this.Text, tbTSPWM, 41);
+            int StartID = Boxes.Add(this.Text, tbTSReceiverPort, 8, 0);
+            Boxes.Add(this.Text, tbTSIMUport, 8, 0);
+            Boxes.Add(this.Text, tbTSRS232In, 8, 0);
+            Boxes.Add(this.Text, tbTSRS232Out, 8, 0);
 
             // pins
             Boxes.Add(this.Text, tbTSpowerRelay, 41);
             Boxes.Add(this.Text, tbTSsteerRelay, 41);
             Boxes.Add(this.Text, tbTSsteerSwitch, 41);
             Boxes.Add(this.Text, tbTSworkSwitch, 41);
-            Boxes.Add(this.Text, tbTSspeedPulse, 41);
 
-            // relay pins
-            Boxes.Add(this.Text, tbTSr1, 41);
-            Boxes.Add(this.Text, tbTSr2, 41);
-            Boxes.Add(this.Text, tbTSr3, 41);
-            Boxes.Add(this.Text, tbTSr4, 41);
-            Boxes.Add(this.Text, tbTSr5, 41);
-            Boxes.Add(this.Text, tbTSr6, 41);
-            Boxes.Add(this.Text, tbTSr7, 41);
-            Boxes.Add(this.Text, tbTSr8, 41);
-            Boxes.Add(this.Text, tbTSr9, 41);
-            Boxes.Add(this.Text, tbTSr10, 41);
-            Boxes.Add(this.Text, tbTSr11, 41);
-            Boxes.Add(this.Text, tbTSr12, 41);
-            Boxes.Add(this.Text, tbTSr13, 41);
-            Boxes.Add(this.Text, tbTSr14, 41);
-            Boxes.Add(this.Text, tbTSr15, 41);
-            int EndID = Boxes.Add(this.Text, tbTSr16, 41);
+            Boxes.Add(this.Text, tbTSwas, 41);
+            Boxes.Add(this.Text, tbTScurrent, 41);
+            Boxes.Add(this.Text, tbTSdir, 41);
+            int EndID = Boxes.Add(this.Text, tbTSpwm, 41);
 
             for (int i = StartID; i < EndID + 1; i++)
             {
@@ -207,37 +192,11 @@ namespace PCBsetup.Forms
             }
         }
 
-        private void cbTSreceiver_SelectedIndexChanged(object sender, EventArgs e)
+        private void ckTSUseAds_HelpRequested(object sender, HelpEventArgs hlpevent)
         {
-            SetButtons(true);
-        }
+            string Message = "Use ADS1115 for WAS and Current measurement.";
 
-        private void cbTSRelayControl_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            SetButtons(true);
-        }
-
-        private void ckTSRelayOn_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            string Message = "Which signal (high or low) turns on the relay.";
-
-            mf.Tls.ShowHelp(Message, "Relay on high");
-            hlpevent.Handled = true;
-        }
-
-        private void ckTSSwapRoll_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            string Message = "Use IMU pitch for roll";
-
-            mf.Tls.ShowHelp(Message, "IMU roll");
-            hlpevent.Handled = true;
-        }
-
-        private void ckTSuse4_20_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            string Message = "Use a 4-20 pressure sensor.";
-
-            mf.Tls.ShowHelp(Message, "Pressure Sensor");
+            mf.Tls.ShowHelp(Message, "ADS1115");
             hlpevent.Handled = true;
         }
 
@@ -263,14 +222,7 @@ namespace PCBsetup.Forms
             try
             {
                 mf.Tls.LoadFormData(this);
-
                 this.BackColor = PCBsetup.Properties.Settings.Default.DayColour;
-
-                for (int i = 0; i < tabControl1.TabCount; i++)
-                {
-                    tabControl1.TabPages[i].BackColor = PCBsetup.Properties.Settings.Default.DayColour;
-                }
-
                 UpdateForm();
             }
             catch (Exception ex)
@@ -283,18 +235,10 @@ namespace PCBsetup.Forms
         {
             try
             {
-                byte tmp;
                 bool Checked;
 
                 // textboxes
                 Boxes.ReLoad();
-
-                // combo boxes
-                byte.TryParse(mf.Tls.LoadProperty("cbTSreceiver"), out tmp);
-                cbTSreceiver.SelectedIndex = tmp;
-
-                byte.TryParse(mf.Tls.LoadProperty("cbTSrelayControl"), out tmp);
-                cbTSRelayControl.SelectedIndex = tmp;
 
                 // check boxes
                 for (int i = 0; i < CKs.Length; i++)
@@ -333,10 +277,6 @@ namespace PCBsetup.Forms
                 // textboxes
                 Boxes.Save();
 
-                // combo boxes
-                mf.Tls.SaveProperty("cbTSreceiver", cbTSreceiver.SelectedIndex.ToString());
-                mf.Tls.SaveProperty("cbTSrelayControl", cbTSRelayControl.SelectedIndex.ToString());
-
                 // check boxes
                 for (int i = 0; i < CKs.Length; i++)
                 {
@@ -358,7 +298,6 @@ namespace PCBsetup.Forms
                     btnCancel.Enabled = true;
                     bntOK.Image = Properties.Resources.Save;
                     btnSendToModule.Enabled = false;
-                    if (tabControl1.SelectedIndex < 2) TabEdited[tabControl1.SelectedIndex] = true;
                 }
                 else
                 {
@@ -403,18 +342,6 @@ namespace PCBsetup.Forms
                 System.Media.SystemSounds.Exclamation.Play();
                 e.Cancel = true;
             }
-        }
-
-        private void tbTSIMUport_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void tbTSPulseCal_HelpRequested(object sender, HelpEventArgs hlpevent)
-        {
-            string Message = "The number of pulses per second output for monitors to read 1 KMH.";
-
-            mf.Tls.ShowHelp(Message, "Speed pulse");
-            hlpevent.Handled = true;
         }
 
         private void UpdateForm()

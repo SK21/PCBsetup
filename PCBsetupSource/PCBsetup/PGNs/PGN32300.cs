@@ -9,26 +9,29 @@ namespace PCBsetup
 {
     public class PGN32300
     {
-        //      Steering PCB config
+        //      teensy steering config
         //0     HeaderLo    44
         //1     HeaderHi    126
-        //2     Receiver    0-None, 1-SimpleRTK2B
-        //3     Receiver serial port
-        //4     IMU serial port
-        //5     Minimum speed
-        //6     Maximum speed
-        //7     Pulse cal X 10, Lo
-        //8     Pulse cal X 10, Hi
-        //9     Relay control type, 0 - no relays, 1 - , 2 - PCA9555 8 relays, 3 - PCA9555 16 relays, 4 - MCP23017, 5 - GPIO
-        //10    Commands
-        //          - bit 0, swap pitch for roll
+        //2		power relay pin
+        //3		steer relay pin
+        //4     WAS pin
+        //5     Current pin
+        //6		Steer switch pin
+        //7		Work switch pin
+        //8		Dir pin
+        //9		PWM pin
+        //10    Receiver serial port
+        //11	PassThr Out port
+        //12	PassThru In port
+        //13    IMU serial port
+        //14    Commands
+        //          - bit 0, zero WAS
         //          - bit 1, invert roll
-        //          - bit 2, use 4_20 for analog
-        //          - bit 3, relay on signal
-        //          - bit 4, zero WAS
-        //11    CRC
+        //          - bit 2, use ADS1115
+        //15	-
+        //16	CRC
 
-        private byte[] cData = new byte[12];
+        private byte[] cData = new byte[17];
         private frmSetTeensySteer cf;
 
         public PGN32300(frmSetTeensySteer CalledFrom)
@@ -36,39 +39,39 @@ namespace PCBsetup
             cf = CalledFrom;
             cData[0] = 44;
             cData[1] = 126;
+            cData[15] = 0;
         }
         public  bool Send()
         {
             bool Result = false;
-            byte tmp;
             string Name;
             bool Checked;
 
-            byte.TryParse(cf.mf.Tls.LoadProperty("cbTSreceiver"), out tmp);
-            cData[2] = tmp;
-            cData[3] = (byte)cf.Boxes.Value("tbTSReceiverPort");
-            cData[4] = (byte)cf.Boxes.Value("tbTSIMUport");
+            cData[2] = (byte)cf.Boxes.Value("tbTSpowerRelay");
+            cData[3] = (byte)cf.Boxes.Value("tbTSsteerRelay");
+            cData[4] = (byte)cf.Boxes.Value("tbTSwas");
+            cData[5] = (byte)cf.Boxes.Value("tbTScurrent");
+            cData[6] = (byte)cf.Boxes.Value("tbTSsteerSwitch");
+            cData[7] = (byte)cf.Boxes.Value("tbTSworkSwitch");
+            cData[8] = (byte)cf.Boxes.Value("tbTSdir");
+            cData[9] = (byte)cf.Boxes.Value("tbTSpwm");
 
-            cData[5] = (byte)cf.Boxes.Value("tbTSMinSpeed");
-            cData[6] = (byte)cf.Boxes.Value("tbTSMaxSpeed");
-
-            double val = cf.Boxes.Value("tbTSPulseCal");
-            cData[7] = (byte)(val * 10);
-            cData[8] = (byte)((int)(val * 10) >> 8);
-
-            cData[9] = (byte)cf.Boxes.Value("cbTSrelayControl");
+            cData[10] = (byte)cf.Boxes.Value("tbTSReceiverPort");
+            cData[11] = (byte)cf.Boxes.Value("tbTSRS232Out");
+            cData[12] = (byte)cf.Boxes.Value("tbTSRS232In");
+            cData[13] = (byte)cf.Boxes.Value("tbTSIMUport");
 
             // check boxes
-            cData[10] = 0;
+            cData[14] = 0;
             for (int i = 0; i < cf.CKs.Length; i++)
             {
                 Name = cf.CKs[i].Name;
                 bool.TryParse(cf.mf.Tls.LoadProperty(Name), out Checked);
-                if (Checked) cData[10] |= (byte)Math.Pow(2, i);
+                if (Checked) cData[14] |= (byte)Math.Pow(2, i);
             }
 
             // CRC
-            cData[11] = cf.mf.Tls.CRC(cData, 11);
+            cData[16] = cf.mf.Tls.CRC(cData, 16);
 
             switch (cf.mf.ConnectionType)
             {

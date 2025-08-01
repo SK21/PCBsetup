@@ -39,7 +39,7 @@ namespace PCBsetup.Forms
         public UDPComm UDPmodules;
         public UDPComm UDPupdate;
         public clsVersionChecker VC;
-        private byte cModule = 0;
+        private byte cModule = 0;   // module type
         private string cSelectedPortName;
         private string cSubnet = "192.168.1.1";
 
@@ -56,9 +56,6 @@ namespace PCBsetup.Forms
 
         public int ConnectionType
         { get { return tbType.SelectedIndex; } }
-
-        public byte ModuleSelected
-        { get { return cModule; } }
 
         public string Subnet
         {
