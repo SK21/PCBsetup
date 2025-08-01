@@ -8,8 +8,6 @@ using System.Management;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using System.Security.Policy;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace PCBsetup.Forms
@@ -44,7 +42,6 @@ namespace PCBsetup.Forms
         private byte cModule = 0;
         private string cSelectedPortName;
         private string cSubnet = "192.168.1.1";
-        private int PortID = 1;
 
         public frmMain()
         {
@@ -82,7 +79,7 @@ namespace PCBsetup.Forms
             {
                 if (CommPort == null || !CommPort.IsOpen)
                 {
-                    CommPort = new SerialComm(this, TrimPortName(cboPort1.Text));
+                    CommPort = new SerialComm(this, TrimPortName(cboPort1.Text), Convert.ToInt32(cboBaud.Text));
                     if (!CommPort.IsOpen) Tls.ShowHelp("Could not open comm port.", this.Text, 3000);
                     CommPort.PortDisconnected += CommPort_PortDisconnected;
                 }
@@ -214,26 +211,19 @@ namespace PCBsetup.Forms
         {
             try
             {
-                if (CommPort != null && CommPort.IsOpen)
+                switch (cModule)
                 {
-                    switch (cModule)
-                    {
-                        case 0:
-                            // Teensy AutoSteer
-                            Form tmp = new frmSetTeensySteer(this);
-                            tmp.ShowDialog();
-                            break;
+                    case 0:
+                        // Teensy AutoSteer
+                        Form tmp = new frmSetTeensySteer(this);
+                        tmp.ShowDialog();
+                        break;
 
-                        case 3:
-                            // Nano SwitchBox
-                            Form tmp3 = new frmSetNanoSwitchbox(this);
-                            tmp3.ShowDialog();
-                            break;
-                    }
-                }
-                else
-                {
-                    Tls.ShowHelp("Port not open.");
+                    case 3:
+                        // Nano SwitchBox
+                        Form tmp3 = new frmSetNanoSwitchbox(this);
+                        tmp3.ShowDialog();
+                        break;
                 }
             }
             catch (Exception ex)
@@ -313,6 +303,12 @@ namespace PCBsetup.Forms
             SetButtons();
         }
 
+        private void cboBaud_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Baud = cboBaud.SelectedItem.ToString();
+            Properties.Settings.Default.Save();
+        }
+
         private void cboPort1_HelpRequested(object sender, HelpEventArgs hlpevent)
         {
             string Message = "List of connected serial ports.";
@@ -324,6 +320,8 @@ namespace PCBsetup.Forms
         private void cboPort1_SelectedIndexChanged(object sender, EventArgs e)
         {
             cSelectedPortName = TrimPortName(cboPort1.SelectedItem.ToString());
+            Properties.Settings.Default.Port = cSelectedPortName;
+            Properties.Settings.Default.Save();
         }
 
         private void CommPort_ModuleConnected(object sender, EventArgs e)
@@ -423,7 +421,6 @@ namespace PCBsetup.Forms
             var PortNames = SerialPort.GetPortNames();
             try
             {
-
                 //https://stackoverflow.com/questions/2837985/getting-serial-port-information
 
                 cboPort1.Items.Clear();
@@ -459,22 +456,26 @@ namespace PCBsetup.Forms
             {
                 LoadPortsCombo();
 
-                // start comm port
-                string ID = "_" + PortID.ToString();
-                string tmp = Tls.LoadProperty("SCportName" + ID);
-                if (tmp == "")
+                // port
+                int index = cboPort1.FindString(Properties.Settings.Default.Port);
+                if (index == -1)
                 {
-                    // select first port available
-                    if (cboPort1.Items.Count > 0) cboPort1.SelectedItem = cboPort1.Items[0];
+                    if (cboPort1.Items.Count > 0) cboPort1.SelectedIndex = 0;
                 }
                 else
                 {
-                    // select previous port
-                    int i = cboPort1.FindString(tmp);
-                    if (i != -1)
-                    {
-                        cboPort1.SelectedIndex = i;
-                    }
+                    cboPort1.SelectedIndex = index;
+                }
+
+                // baud
+                index = cboBaud.FindStringExact(Properties.Settings.Default.Baud);
+                if (index == -1)
+                {
+                    cboBaud.SelectedIndex = 3;  // 38400
+                }
+                else
+                {
+                    cboBaud.SelectedIndex = index;
                 }
 
                 // module
@@ -584,11 +585,15 @@ namespace PCBsetup.Forms
             {
                 PortIndicator1.Image = Properties.Resources.On;
                 btnConnect1.Text = Languages.Lang.lgDisconnect;
+                cboPort1.Enabled = false;
+                cboBaud.Enabled = false;
             }
             else
             {
                 PortIndicator1.Image = Properties.Resources.Off;
                 btnConnect1.Text = Languages.Lang.lgConnect;
+                cboPort1.Enabled = true;
+                cboBaud.Enabled = true;
             }
 
             if (UpdateCombo) LoadCombo();

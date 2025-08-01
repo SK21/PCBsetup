@@ -12,15 +12,9 @@ namespace PCBsetup.Classes
         private readonly SerialPort Sport;
         private frmMain mf;
 
-        public SerialComm(frmMain CallingForm, string portName = "", int baudRate = 38400)
+        public SerialComm(frmMain CallingForm, string portName, int baudRate)
         {
             mf = CallingForm;
-
-            if (portName == "" && Properties.Settings.Default.SerialSuccessful)
-            {
-                portName = Properties.Settings.Default.Port;
-                baudRate = Properties.Settings.Default.Baud;
-            }
 
             Sport = new SerialPort(portName, baudRate, Parity.None, 8, StopBits.One)
             {
@@ -33,15 +27,6 @@ namespace PCBsetup.Classes
         }
 
         public event Action PortDisconnected;
-
-        public int Baud
-        {
-            get { return Sport.BaudRate; }
-            set
-            {
-                if (!Sport.IsOpen && value > 0 && value < 115201) Sport.BaudRate = value;
-            }
-        }
 
         public bool IsOpen
         { get { return Sport.IsOpen; } }
@@ -60,10 +45,6 @@ namespace PCBsetup.Classes
         public string PortNm
         {
             get { return Sport.PortName; }
-            set
-            {
-                if (!Sport.IsOpen && value != "") Sport.PortName = value;
-            }
         }
 
         public void ClosePort()
@@ -136,14 +117,6 @@ namespace PCBsetup.Classes
             {
                 mf.Tls.WriteErrorLog("SerialComm/OpenPort: " + ex.Message);
             }
-
-            if (Result)
-            {
-                Properties.Settings.Default.Port = Sport.PortName;
-                Properties.Settings.Default.Baud = Sport.BaudRate;
-            }
-            Properties.Settings.Default.SerialSuccessful = Result;
-            Properties.Settings.Default.Save();
             return Result;
         }
 

@@ -17,11 +17,8 @@
     <Setting Name="Port" Type="System.String" Scope="User">
       <Value Profile="(Default)">Com1</Value>
     </Setting>
-    <Setting Name="Baud" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">57600</Value>
-    </Setting>
-    <Setting Name="SerialSuccessful" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+    <Setting Name="Baud" Type="System.String" Scope="User">
+      <Value Profile="(Default)">38400</Value>
     </Setting>
   </Settings>
 </SettingsFile>

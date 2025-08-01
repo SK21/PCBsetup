@@ -85,25 +85,13 @@ namespace PCBsetup.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("57600")]
-        public int Baud {
+        [global::System.Configuration.DefaultSettingValueAttribute("38400")]
+        public string Baud {
             get {
-                return ((int)(this["Baud"]));
+                return ((string)(this["Baud"]));
             }
             set {
                 this["Baud"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool SerialSuccessful {
-            get {
-                return ((bool)(this["SerialSuccessful"]));
-            }
-            set {
-                this["SerialSuccessful"] = value;
             }
         }
     }

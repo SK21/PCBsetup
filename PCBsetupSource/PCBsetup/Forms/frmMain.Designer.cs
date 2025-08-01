@@ -33,6 +33,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbType = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lbBaud = new System.Windows.Forms.Label();
+            this.cboBaud = new System.Windows.Forms.ComboBox();
             this.btnSettings = new System.Windows.Forms.Button();
             this.btnRescanSerial = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -93,6 +95,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.lbBaud);
+            this.tabPage2.Controls.Add(this.cboBaud);
             this.tabPage2.Controls.Add(this.btnSettings);
             this.tabPage2.Controls.Add(this.btnRescanSerial);
             this.tabPage2.Controls.Add(this.button2);
@@ -107,6 +111,37 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Serial/USB";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // lbBaud
+            // 
+            this.lbBaud.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbBaud.Location = new System.Drawing.Point(15, 65);
+            this.lbBaud.Name = "lbBaud";
+            this.lbBaud.Size = new System.Drawing.Size(60, 23);
+            this.lbBaud.TabIndex = 230;
+            this.lbBaud.Text = "Baud";
+            this.lbBaud.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cboBaud
+            // 
+            this.cboBaud.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.cboBaud.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboBaud.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboBaud.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.cboBaud.FormattingEnabled = true;
+            this.cboBaud.ItemHeight = 24;
+            this.cboBaud.Items.AddRange(new object[] {
+            "4800",
+            "9600",
+            "19200",
+            "38400",
+            "57600",
+            "115200"});
+            this.cboBaud.Location = new System.Drawing.Point(81, 60);
+            this.cboBaud.Name = "cboBaud";
+            this.cboBaud.Size = new System.Drawing.Size(107, 32);
+            this.cboBaud.TabIndex = 229;
+            this.cboBaud.SelectedIndexChanged += new System.EventHandler(this.cboBaud_SelectedIndexChanged);
             // 
             // btnSettings
             // 
@@ -192,7 +227,7 @@
             this.btnConnect1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btnConnect1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnConnect1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConnect1.Location = new System.Drawing.Point(15, 58);
+            this.btnConnect1.Location = new System.Drawing.Point(238, 58);
             this.btnConnect1.Name = "btnConnect1";
             this.btnConnect1.Size = new System.Drawing.Size(105, 37);
             this.btnConnect1.TabIndex = 135;
@@ -365,5 +400,7 @@
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Button btnUpdates;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label lbBaud;
+        private System.Windows.Forms.ComboBox cboBaud;
     }
 }
