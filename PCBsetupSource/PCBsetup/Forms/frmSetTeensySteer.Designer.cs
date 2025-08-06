@@ -63,6 +63,8 @@
             this.label35 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cboIMU = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -72,7 +74,7 @@
             this.ckTSZeroWas.Appearance = System.Windows.Forms.Appearance.Button;
             this.ckTSZeroWas.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ckTSZeroWas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ckTSZeroWas.Location = new System.Drawing.Point(69, 424);
+            this.ckTSZeroWas.Location = new System.Drawing.Point(181, 424);
             this.ckTSZeroWas.Name = "ckTSZeroWas";
             this.ckTSZeroWas.Size = new System.Drawing.Size(92, 69);
             this.ckTSZeroWas.TabIndex = 54;
@@ -86,9 +88,9 @@
             this.ckTSUseAds.Appearance = System.Windows.Forms.Appearance.Button;
             this.ckTSUseAds.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ckTSUseAds.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ckTSUseAds.Location = new System.Drawing.Point(315, 424);
+            this.ckTSUseAds.Location = new System.Drawing.Point(377, 424);
             this.ckTSUseAds.Name = "ckTSUseAds";
-            this.ckTSUseAds.Size = new System.Drawing.Size(92, 69);
+            this.ckTSUseAds.Size = new System.Drawing.Size(98, 69);
             this.ckTSUseAds.TabIndex = 53;
             this.ckTSUseAds.Text = "Use ADS1115";
             this.ckTSUseAds.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -100,7 +102,7 @@
             this.ckTSInvertRoll.Appearance = System.Windows.Forms.Appearance.Button;
             this.ckTSInvertRoll.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ckTSInvertRoll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ckTSInvertRoll.Location = new System.Drawing.Point(192, 424);
+            this.ckTSInvertRoll.Location = new System.Drawing.Point(279, 424);
             this.ckTSInvertRoll.Name = "ckTSInvertRoll";
             this.ckTSInvertRoll.Size = new System.Drawing.Size(92, 69);
             this.ckTSInvertRoll.TabIndex = 52;
@@ -438,11 +440,35 @@
             this.groupBox2.Text = "I/O Pins";
             this.groupBox2.Paint += new System.Windows.Forms.PaintEventHandler(this.groupBox_Paint);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(16, 446);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(43, 24);
+            this.label3.TabIndex = 77;
+            this.label3.Text = "IMU";
+            // 
+            // cboIMU
+            // 
+            this.cboIMU.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboIMU.FormattingEnabled = true;
+            this.cboIMU.Items.AddRange(new object[] {
+            "BNO080",
+            "TM171"});
+            this.cboIMU.Location = new System.Drawing.Point(65, 443);
+            this.cboIMU.Name = "cboIMU";
+            this.cboIMU.Size = new System.Drawing.Size(110, 32);
+            this.cboIMU.TabIndex = 78;
+            this.cboIMU.SelectedIndexChanged += new System.EventHandler(this.cboIMU_SelectedIndexChanged);
+            // 
             // frmSetTeensySteer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(498, 596);
+            this.Controls.Add(this.cboIMU);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.groupBox1);
@@ -470,6 +496,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -508,5 +535,7 @@
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox cboIMU;
     }
 }

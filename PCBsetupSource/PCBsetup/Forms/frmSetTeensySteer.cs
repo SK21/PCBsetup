@@ -102,6 +102,7 @@ namespace PCBsetup.Forms
             tbTSRS232Out.Text = "2";
             tbTSRS232In.Text = "4";
             tbTSIMUport.Text = "3";
+            cboIMU.SelectedIndex = 0;
 
             // check boxes
             for (int i = 0; i < CKs.Length; i++)
@@ -246,6 +247,7 @@ namespace PCBsetup.Forms
                     bool.TryParse(mf.Tls.LoadProperty(CKs[i].Name), out Checked);
                     CKs[i].Checked = Checked;
                 }
+                cboIMU.SelectedIndex = Properties.Settings.Default.IMU;
             }
             catch (Exception ex)
             {
@@ -282,6 +284,8 @@ namespace PCBsetup.Forms
                 {
                     mf.Tls.SaveProperty(CKs[i].Name, CKs[i].Checked.ToString());
                 }
+                Properties.Settings.Default.IMU = cboIMU.SelectedIndex;
+                Properties.Settings.Default.Save();
             }
             catch (Exception ex)
             {
@@ -349,6 +353,11 @@ namespace PCBsetup.Forms
             Initializing = true;
             LoadSettings();
             Initializing = false;
+        }
+
+        private void cboIMU_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetButtons(true);
         }
     }
 }

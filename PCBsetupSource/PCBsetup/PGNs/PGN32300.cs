@@ -28,7 +28,7 @@ namespace PCBsetup
         //          - bit 0, zero WAS
         //          - bit 1, invert roll
         //          - bit 2, use ADS1115
-        //15	-
+        //15	IMU type	// 0 BNO080, 1 TM171
         //16	CRC
 
         private byte[] cData = new byte[17];
@@ -39,7 +39,6 @@ namespace PCBsetup
             cf = CalledFrom;
             cData[0] = 44;
             cData[1] = 126;
-            cData[15] = 0;
         }
         public  bool Send()
         {
@@ -69,6 +68,9 @@ namespace PCBsetup
                 bool.TryParse(cf.mf.Tls.LoadProperty(Name), out Checked);
                 if (Checked) cData[14] |= (byte)Math.Pow(2, i);
             }
+
+            // IMU type
+            cData[15] = (byte)Properties.Settings.Default.IMU;
 
             // CRC
             cData[16] = cf.mf.Tls.CRC(cData, 16);

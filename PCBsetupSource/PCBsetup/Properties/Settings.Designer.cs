@@ -94,5 +94,17 @@ namespace PCBsetup.Properties {
                 this["Baud"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int IMU {
+            get {
+                return ((int)(this["IMU"]));
+            }
+            set {
+                this["IMU"] = value;
+            }
+        }
     }
 }

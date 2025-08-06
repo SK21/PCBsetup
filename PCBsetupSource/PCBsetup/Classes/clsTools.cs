@@ -17,10 +17,10 @@ namespace PCBsetup
         private static Hashtable ht;
         private string cAppDir;
         private string cAppName = "PCBsetup";
-        private string cAppVersion = "2.0.2";
+        private string cAppVersion = "2.0.3";
         private string cFileName;
         private string cFirmwareDir;
-        private string cVersionDate = "01-Aug-2025";
+        private string cVersionDate = "06-Aug-2025";
         private frmMain mf;
 
         public clsTools(frmMain CallingForm)
