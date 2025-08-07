@@ -333,7 +333,7 @@ namespace PCBsetup.Forms
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            mf.Tls.ShowHelp("Could not connect to the module. Check connection or subnet.");
+            mf.Tls.ShowHelp("Could not connect to the module. Check connection, subnet or module type.", "Help", 10000);
             timer1.Enabled = false;
             SetButtonUpload(true);
         }
