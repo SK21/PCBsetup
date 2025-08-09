@@ -149,8 +149,8 @@ namespace PCBsetup
         {
             try
             {
-                if (Data.Length > 8) mf.TN.CheckLines(Data);
-                if (Data.Length >1)
+                //if (Data.Length > 8) mf.TN.CheckLines(Data);
+                if (Data.Length > 1)
                 {
                     int PGN = Data[0] + Data[1] * 256;
                     switch (PGN)
@@ -160,7 +160,7 @@ namespace PCBsetup
                             break;
 
                         case 32802:
-                            if (mf.Tls.GoodCRC(Data)) mf.TN.DoUpdate(Data);
+                            if (mf.Tls.GoodCRC(Data)) mf.TN.ModuleUpdateStatus(Data);
                             break;
                     }
                 }
@@ -239,6 +239,5 @@ namespace PCBsetup
                 mf.Tls.WriteErrorLog("UDPcomm/SetEP " + ex.Message);
             }
         }
-
     }
 }

@@ -2,14 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
-using System.Net.NetworkInformation;
-using System.Net.Sockets;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace PCBsetup.Forms
 {
+    internal enum UpdateStatus
+    {
+        UpdateReady = 100,
+        WrongModuleID = 101,
+        WrongInoType = 102
+    };
+
     public partial class frmFWTeensyNetwork : Form
     {
         //******************************************************************************
@@ -58,90 +61,28 @@ namespace PCBsetup.Forms
             }
         }
 
-        public void DoUpdate(byte[] data)
+        public void ModuleUpdateStatus(byte[] data)
         {
-            try
+            switch (data[3])
             {
-                if (data[2] == ModuleID && data[3] == 100)
-                {
-                    string filename = "";
+                case (byte)UpdateStatus.UpdateReady:
                     timer1.Enabled = false;
+                    mf.Tls.ShowHelp("Starting update.");
+                    DoUpdate(data);
+                    break;
 
-                    if (UseDefault)
-                    {
-                        filename = Path.GetTempFileName();
-                        switch (ModuleType)
-                        {
-                            case 1:
-                                // rate
-                                File.Copy(mf.Tls.HexDir() + "\\RCteensy.ino.hex", filename, true);
-                                break;
+                case (byte)UpdateStatus.WrongModuleID:
+                    timer1.Enabled = false;
+                    mf.Tls.ShowHelp("Module ID doesn't match.");
+                    SetButtonUpload(true);
+                    break;
 
-                            default:
-                                // autosteer
-                                File.Copy(mf.Tls.FirmwareDir() + "\\AutoSteerTeensyRVC.ino.hex", filename, true);
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        filename = tbHexfile.Text;
-                    }
-
-                    if (File.Exists(filename))
-                    {
-                        progressBar.Value = 0;
-                        int ExpectedLines = (int)new FileInfo(filename).Length / 45;
-
-                        hexindex.Clear();
-                        for (int i = 0; i <= 255; i++) hexindex.Add(i.ToString("X2"), (byte)i);
-                        hexindex.Add("::", 0x3a);
-                        TotalLines = 0;
-                        using (StreamReader reader = new StreamReader(filename))
-                        {
-                            string line;
-                            //read all the lines
-                            DateTime prev = DateTime.Now;
-                            DateTime start = DateTime.Now;
-                            TimeSpan aa = new TimeSpan(TimeSpan.TicksPerMillisecond * 10);
-                            int idx = 0;
-                            while (true)
-                            {
-                                if (DateTime.Now - prev > aa)
-                                {
-                                    prev = DateTime.Now;
-                                    line = "";
-                                    for (int i = 0; i < 11; i++)
-                                    {
-                                        if (!reader.EndOfStream)
-                                        {
-                                            line += ":" + reader.ReadLine();
-                                            idx++;
-                                        }
-                                    }
-                                    lbCount.Text = idx.ToString();
-                                    Application.DoEvents();
-
-                                    UpdateProgress(idx * 100 / ExpectedLines);
-                                    mf.UDPupdate.SendUDPMessage(StrToByteArray(line));
-
-                                    if (reader.EndOfStream)
-                                    {
-                                        break;
-                                    }
-                                }
-                            }
-                            TotalLines = idx;
-                        }
-                        mf.Tls.ShowHelp("Wait about 1 minute for the new firmware to be installed. You may need to resend the subnet after the 1 minute.");
-                    }
-                }
+                case (byte)UpdateStatus.WrongInoType:
+                    timer1.Enabled = false;
+                    mf.Tls.ShowHelp("Ino Type doesn't match.");
+                    SetButtonUpload(true);
+                    break;
             }
-            catch (Exception ex)
-            {
-                mf.Tls.WriteErrorLog(this.Text + "/DoUpdate " + ex.Message);
-            }
-            SetButtonUpload(true);
         }
 
         public byte[] StrToByteArray(string str)
@@ -223,6 +164,88 @@ namespace PCBsetup.Forms
             {
                 mf.Tls.WriteErrorLog(this.Text + "/btnUpload " + ex.Message);
             }
+        }
+
+        private void DoUpdate(byte[] data)
+        {
+            try
+            {
+                string filename = "";
+
+                if (UseDefault)
+                {
+                    filename = Path.GetTempFileName();
+                    switch (ModuleType)
+                    {
+                        case 1:
+                            // rate
+                            File.Copy(mf.Tls.HexDir() + "\\RCteensy.ino.hex", filename, true);
+                            break;
+
+                        default:
+                            // autosteer
+                            File.Copy(mf.Tls.FirmwareDir() + "\\AutoSteerTeensyRVC.ino.hex", filename, true);
+                            break;
+                    }
+                }
+                else
+                {
+                    filename = tbHexfile.Text;
+                }
+
+                if (File.Exists(filename))
+                {
+                    progressBar.Value = 0;
+                    int ExpectedLines = (int)new FileInfo(filename).Length / 45;
+
+                    hexindex.Clear();
+                    for (int i = 0; i <= 255; i++) hexindex.Add(i.ToString("X2"), (byte)i);
+                    hexindex.Add("::", 0x3a);
+                    TotalLines = 0;
+                    using (StreamReader reader = new StreamReader(filename))
+                    {
+                        string line;
+                        //read all the lines
+                        DateTime prev = DateTime.Now;
+                        DateTime start = DateTime.Now;
+                        TimeSpan aa = new TimeSpan(TimeSpan.TicksPerMillisecond * 10);
+                        int idx = 0;
+                        while (true)
+                        {
+                            if (DateTime.Now - prev > aa)
+                            {
+                                prev = DateTime.Now;
+                                line = "";
+                                for (int i = 0; i < 11; i++)
+                                {
+                                    if (!reader.EndOfStream)
+                                    {
+                                        line += ":" + reader.ReadLine();
+                                        idx++;
+                                    }
+                                }
+                                lbCount.Text = idx.ToString();
+                                Application.DoEvents();
+
+                                UpdateProgress(idx * 100 / ExpectedLines);
+                                mf.UDPupdate.SendUDPMessage(StrToByteArray(line));
+
+                                if (reader.EndOfStream)
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                        TotalLines = idx;
+                    }
+                    mf.Tls.ShowHelp("Wait about 1 minute for the new firmware to be installed. You may need to resend the subnet after the 1 minute.");
+                }
+            }
+            catch (Exception ex)
+            {
+                mf.Tls.WriteErrorLog(this.Text + "/DoUpdate " + ex.Message);
+            }
+            SetButtonUpload(true);
         }
 
         private string FileVersion()
