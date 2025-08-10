@@ -28,6 +28,7 @@ namespace PCBsetup
         //          - bit 0, zero WAS
         //          - bit 1, invert roll
         //          - bit 2, use ADS1115
+        //          - bit 3, Auto Zero WAS
         //15	IMU type	// 0 BNO080, 1 TM171
         //16	CRC
 

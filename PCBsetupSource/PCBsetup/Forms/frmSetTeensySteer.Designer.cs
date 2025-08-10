@@ -65,6 +65,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cboIMU = new System.Windows.Forms.ComboBox();
+            this.ckTSAutoZero = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -74,11 +75,11 @@
             this.ckTSZeroWas.Appearance = System.Windows.Forms.Appearance.Button;
             this.ckTSZeroWas.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ckTSZeroWas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ckTSZeroWas.Location = new System.Drawing.Point(181, 424);
+            this.ckTSZeroWas.Location = new System.Drawing.Point(135, 426);
             this.ckTSZeroWas.Name = "ckTSZeroWas";
-            this.ckTSZeroWas.Size = new System.Drawing.Size(92, 69);
+            this.ckTSZeroWas.Size = new System.Drawing.Size(110, 69);
             this.ckTSZeroWas.TabIndex = 54;
-            this.ckTSZeroWas.Text = "Zero WAS";
+            this.ckTSZeroWas.Text = "Reset WAS Zero";
             this.ckTSZeroWas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.ckTSZeroWas.UseVisualStyleBackColor = true;
             this.ckTSZeroWas.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.ckTSZeroWas_HelpRequested);
@@ -88,9 +89,9 @@
             this.ckTSUseAds.Appearance = System.Windows.Forms.Appearance.Button;
             this.ckTSUseAds.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ckTSUseAds.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ckTSUseAds.Location = new System.Drawing.Point(377, 424);
+            this.ckTSUseAds.Location = new System.Drawing.Point(368, 426);
             this.ckTSUseAds.Name = "ckTSUseAds";
-            this.ckTSUseAds.Size = new System.Drawing.Size(98, 69);
+            this.ckTSUseAds.Size = new System.Drawing.Size(107, 69);
             this.ckTSUseAds.TabIndex = 53;
             this.ckTSUseAds.Text = "Use ADS1115";
             this.ckTSUseAds.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -102,9 +103,9 @@
             this.ckTSInvertRoll.Appearance = System.Windows.Forms.Appearance.Button;
             this.ckTSInvertRoll.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ckTSInvertRoll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ckTSInvertRoll.Location = new System.Drawing.Point(279, 424);
+            this.ckTSInvertRoll.Location = new System.Drawing.Point(253, 426);
             this.ckTSInvertRoll.Name = "ckTSInvertRoll";
-            this.ckTSInvertRoll.Size = new System.Drawing.Size(92, 69);
+            this.ckTSInvertRoll.Size = new System.Drawing.Size(107, 69);
             this.ckTSInvertRoll.TabIndex = 52;
             this.ckTSInvertRoll.Text = "Invert Roll";
             this.ckTSInvertRoll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -152,7 +153,7 @@
             this.btnLoadDefaults.FlatAppearance.BorderSize = 0;
             this.btnLoadDefaults.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoadDefaults.Image = global::PCBsetup.Properties.Resources.VehFileLoad;
-            this.btnLoadDefaults.Location = new System.Drawing.Point(12, 510);
+            this.btnLoadDefaults.Location = new System.Drawing.Point(12, 586);
             this.btnLoadDefaults.Name = "btnLoadDefaults";
             this.btnLoadDefaults.Size = new System.Drawing.Size(83, 72);
             this.btnLoadDefaults.TabIndex = 30;
@@ -166,7 +167,7 @@
             this.btnSendToModule.FlatAppearance.BorderSize = 0;
             this.btnSendToModule.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSendToModule.Image = global::PCBsetup.Properties.Resources.UpArrow64;
-            this.btnSendToModule.Location = new System.Drawing.Point(109, 510);
+            this.btnSendToModule.Location = new System.Drawing.Point(109, 586);
             this.btnSendToModule.Name = "btnSendToModule";
             this.btnSendToModule.Size = new System.Drawing.Size(83, 72);
             this.btnSendToModule.TabIndex = 29;
@@ -181,7 +182,7 @@
             this.btnCancel.FlatAppearance.BorderSize = 0;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Image = global::PCBsetup.Properties.Resources.Cancel64;
-            this.btnCancel.Location = new System.Drawing.Point(303, 510);
+            this.btnCancel.Location = new System.Drawing.Point(303, 586);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(83, 72);
             this.btnCancel.TabIndex = 28;
@@ -195,7 +196,7 @@
             this.bntOK.FlatAppearance.BorderSize = 0;
             this.bntOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntOK.Image = global::PCBsetup.Properties.Resources.bntOK_Image;
-            this.bntOK.Location = new System.Drawing.Point(400, 510);
+            this.bntOK.Location = new System.Drawing.Point(400, 586);
             this.bntOK.Name = "bntOK";
             this.bntOK.Size = new System.Drawing.Size(83, 72);
             this.bntOK.TabIndex = 0;
@@ -209,7 +210,7 @@
             this.btnClear.FlatAppearance.BorderSize = 0;
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClear.Image = global::PCBsetup.Properties.Resources.Reset2;
-            this.btnClear.Location = new System.Drawing.Point(206, 510);
+            this.btnClear.Location = new System.Drawing.Point(206, 586);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(83, 72);
             this.btnClear.TabIndex = 73;
@@ -443,7 +444,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 446);
+            this.label3.Location = new System.Drawing.Point(169, 531);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(43, 24);
             this.label3.TabIndex = 77;
@@ -456,17 +457,32 @@
             this.cboIMU.Items.AddRange(new object[] {
             "BNO080",
             "TM171"});
-            this.cboIMU.Location = new System.Drawing.Point(65, 443);
+            this.cboIMU.Location = new System.Drawing.Point(218, 528);
             this.cboIMU.Name = "cboIMU";
             this.cboIMU.Size = new System.Drawing.Size(110, 32);
             this.cboIMU.TabIndex = 78;
             this.cboIMU.SelectedIndexChanged += new System.EventHandler(this.cboIMU_SelectedIndexChanged);
             // 
+            // ckTSAutoZero
+            // 
+            this.ckTSAutoZero.Appearance = System.Windows.Forms.Appearance.Button;
+            this.ckTSAutoZero.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.ckTSAutoZero.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ckTSAutoZero.Location = new System.Drawing.Point(20, 426);
+            this.ckTSAutoZero.Name = "ckTSAutoZero";
+            this.ckTSAutoZero.Size = new System.Drawing.Size(107, 69);
+            this.ckTSAutoZero.TabIndex = 79;
+            this.ckTSAutoZero.Text = "Auto Zero WAS";
+            this.ckTSAutoZero.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ckTSAutoZero.UseVisualStyleBackColor = true;
+            this.ckTSAutoZero.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.ckTSAutoZero_HelpRequested);
+            // 
             // frmSetTeensySteer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(498, 596);
+            this.ClientSize = new System.Drawing.Size(498, 673);
+            this.Controls.Add(this.ckTSAutoZero);
             this.Controls.Add(this.cboIMU);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox2);
@@ -537,5 +553,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cboIMU;
+        private System.Windows.Forms.CheckBox ckTSAutoZero;
     }
 }

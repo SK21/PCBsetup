@@ -22,7 +22,7 @@ namespace PCBsetup.Forms
 
             mf = CallingForm;
 
-            CKs = new CheckBox[] { ckTSZeroWas, ckTSInvertRoll, ckTSUseAds };
+            CKs = new CheckBox[] { ckTSZeroWas, ckTSInvertRoll, ckTSUseAds, ckTSAutoZero };
 
             for (int i = 0; i < CKs.Length; i++)
             {
@@ -203,7 +203,7 @@ namespace PCBsetup.Forms
 
         private void ckTSZeroWas_HelpRequested(object sender, HelpEventArgs hlpevent)
         {
-            string Message = "Zero out the WAS reading.";
+            string Message = "Zero out the WAS at current reading.";
 
             mf.Tls.ShowHelp(Message, "WAS");
             hlpevent.Handled = true;
@@ -358,6 +358,14 @@ namespace PCBsetup.Forms
         private void cboIMU_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetButtons(true);
+        }
+
+        private void ckTSAutoZero_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            string Message = "Auto Zero the WAS reading as it is being used.";
+
+            mf.Tls.ShowHelp(Message, "WAS");
+            hlpevent.Handled = true;
         }
     }
 }
