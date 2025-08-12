@@ -282,6 +282,12 @@
     <Compile Include="Forms\frmFWNanoSwitchBox.Designer.cs">
       <DependentUpon>frmFWNanoSwitchBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmMonitorEthernet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmMonitorEthernet.Designer.cs">
+      <DependentUpon>frmMonitorEthernet.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmMsgBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -307,6 +313,8 @@
     </Compile>
     <Compile Include="PGNs\PGN32300.cs" />
     <Compile Include="PGNs\PGN32503.cs" />
+    <Compile Include="PGNs\PGN32504.cs" />
+    <Compile Include="PGNs\PGN32505.cs" />
     <Compile Include="PGNs\PGN32701.cs" />
     <Compile Include="PGNs\PGN32800.cs" />
     <Compile Include="Program.cs" />
@@ -337,6 +345,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmFWNanoSwitchBox.resx">
       <DependentUpon>frmFWNanoSwitchBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmMonitorEthernet.resx">
+      <DependentUpon>frmMonitorEthernet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmMsgBox.resx">
       <DependentUpon>frmMsgBox.cs</DependentUpon>

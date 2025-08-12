@@ -162,6 +162,10 @@ namespace PCBsetup
                         case 32802:
                             if (mf.Tls.GoodCRC(Data)) mf.TN.ModuleUpdateStatus(Data);
                             break;
+
+                        case 32505:
+                            mf.ModuleStatus.ParseByteData(Data);
+                            break;
                     }
                 }
             }

@@ -34,6 +34,7 @@ namespace PCBsetup.Forms
         public clsAutoSteerFirmware ASF;
         public SerialComm CommPort;
         public clsDownloader Dlr;
+        public PGN32505 ModuleStatus;
         public clsTools Tls;
         public frmFWTeensyNetwork TN;
         public UDPComm UDPmodules;
@@ -52,6 +53,7 @@ namespace PCBsetup.Forms
             VC = new clsVersionChecker(this);
             Dlr = new clsDownloader(this);
             ASF = new clsAutoSteerFirmware(this);
+            ModuleStatus = new PGN32505(this);
         }
 
         public int ConnectionType
@@ -174,6 +176,21 @@ namespace PCBsetup.Forms
                     TN = new frmFWTeensyNetwork(this, 1);
                     TN.ShowDialog();
                     break;
+            }
+        }
+
+        private void btnMonitorEthernet_Click(object sender, EventArgs e)
+        {
+            Form fs = Application.OpenForms["frmMonitorEthernet"];
+
+            if (fs == null)
+            {
+                Form frm = new frmMonitorEthernet(this);
+                frm.Show();
+            }
+            else
+            {
+                fs.Focus();
             }
         }
 
@@ -509,24 +526,28 @@ namespace PCBsetup.Forms
                     btnSettingsNetwork.Enabled = true;
                     btnFirmwareNetwork.Enabled = true;
                     btnSettings.Enabled = false;
+                    btnMonitorEthernet.Enabled = true;
                     break;
 
                 case 1:
                     btnSettingsNetwork.Enabled = false;
                     btnFirmwareNetwork.Enabled = true;
                     btnSettings.Enabled = false;
+                    btnMonitorEthernet.Enabled = false;
                     break;
 
                 case 3:
                     btnSettingsNetwork.Enabled = true;
                     btnFirmwareNetwork.Enabled = false;
                     btnSettings.Enabled = true;
+                    btnMonitorEthernet.Enabled = false;
                     break;
 
                 default:
                     btnSettingsNetwork.Enabled = false;
                     btnFirmwareNetwork.Enabled = false;
                     btnSettings.Enabled = false;
+                    btnMonitorEthernet.Enabled = false;
                     break;
             }
         }

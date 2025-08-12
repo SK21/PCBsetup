@@ -43,6 +43,7 @@
             this.PortIndicator1 = new System.Windows.Forms.Label();
             this.btnConnect1 = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnMonitorEthernet = new System.Windows.Forms.Button();
             this.btnSendSubnet = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.cbEthernet = new System.Windows.Forms.ComboBox();
@@ -237,6 +238,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btnMonitorEthernet);
             this.tabPage1.Controls.Add(this.btnSendSubnet);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.cbEthernet);
@@ -251,13 +253,26 @@
             this.tabPage1.Text = "Ethernet";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // btnMonitorEthernet
+            // 
+            this.btnMonitorEthernet.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnMonitorEthernet.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnMonitorEthernet.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMonitorEthernet.Location = new System.Drawing.Point(15, 111);
+            this.btnMonitorEthernet.Name = "btnMonitorEthernet";
+            this.btnMonitorEthernet.Size = new System.Drawing.Size(95, 72);
+            this.btnMonitorEthernet.TabIndex = 232;
+            this.btnMonitorEthernet.Text = "Monitor";
+            this.btnMonitorEthernet.UseVisualStyleBackColor = false;
+            this.btnMonitorEthernet.Click += new System.EventHandler(this.btnMonitorEthernet_Click);
+            // 
             // btnSendSubnet
             // 
             this.btnSendSubnet.BackColor = System.Drawing.Color.Transparent;
             this.btnSendSubnet.FlatAppearance.BorderSize = 0;
             this.btnSendSubnet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSendSubnet.Image = global::PCBsetup.Properties.Resources.Update4;
-            this.btnSendSubnet.Location = new System.Drawing.Point(15, 111);
+            this.btnSendSubnet.Location = new System.Drawing.Point(22, 26);
             this.btnSendSubnet.Name = "btnSendSubnet";
             this.btnSendSubnet.Size = new System.Drawing.Size(72, 72);
             this.btnSendSubnet.TabIndex = 231;
@@ -268,7 +283,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(66, 46);
+            this.label2.Location = new System.Drawing.Point(148, 50);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(76, 24);
             this.label2.TabIndex = 230;
@@ -278,7 +293,7 @@
             // 
             this.cbEthernet.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbEthernet.FormattingEnabled = true;
-            this.cbEthernet.Location = new System.Drawing.Point(186, 43);
+            this.cbEthernet.Location = new System.Drawing.Point(233, 46);
             this.cbEthernet.Name = "cbEthernet";
             this.cbEthernet.Size = new System.Drawing.Size(157, 32);
             this.cbEthernet.TabIndex = 227;
@@ -402,5 +417,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label lbBaud;
         private System.Windows.Forms.ComboBox cboBaud;
+        private System.Windows.Forms.Button btnMonitorEthernet;
     }
 }
