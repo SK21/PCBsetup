@@ -26,15 +26,19 @@ namespace PCBsetup
         //			- bit 6, Steer switch On
         // 11   MaxLoopTime Lo
         // 12   MaxLoopTime Hi
-        // 13	-
-        // 14	CRC
+        // 13	ZeroOffset Lo
+        // 14   ZeroOffset Hi
+        // 15   Current Was Lo
+        // 16   Current Was Hi
+        // 17	CRC
 
-        private const byte cByteCount = 15;
+        private const byte cByteCount = 18;
         private const byte HeaderHi = 126;
         private const byte HeaderLo = 249;
         private bool cADS1115found;
         private UInt16 cAnalogReading;
         private bool cAOGconnected;
+        private Int16 cCurrentWAS;
         private bool cIMUenabled;
         private double cIMUheading;
         private UInt16 cInoID;
@@ -44,6 +48,7 @@ namespace PCBsetup
         private bool cSteeringOn;
         private bool cSteerSwitchOn;
         private UInt16 cWASreading;
+        private Int16 cZeroOffset;
         private frmMain mf;
 
         public PGN32505(frmMain Main)
@@ -61,6 +66,9 @@ namespace PCBsetup
 
         public bool AOGconnected
         { get { return cAOGconnected; } }
+
+        public Int16 CurrentWAS
+        { get { return cCurrentWAS; } }
 
         public string FirmwareVersion
         { get { return ParseDate(cInoID.ToString()); } }
@@ -89,6 +97,9 @@ namespace PCBsetup
         public int WASreading
         { get { return cWASreading; } }
 
+        public Int16 ZeroOffset
+        { get { return cZeroOffset; } }
+
         public bool ParseByteData(byte[] data)
         {
             bool Result = false;
@@ -109,6 +120,8 @@ namespace PCBsetup
                 cSteerSwitchOn = (status & 0b_0100_0000) != 0;
 
                 cMaxLoopTime = (ushort)(data[11] | data[12] << 8);
+                cZeroOffset = (short)(data[13] | data[14] << 8);
+                cCurrentWAS = (short)(data[15] | data[16] << 8);
 
                 Result = true;
                 NewData?.Invoke(this, EventArgs.Empty);

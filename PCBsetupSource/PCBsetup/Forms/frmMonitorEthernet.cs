@@ -2,7 +2,6 @@
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace PCBsetup.Forms
 {
@@ -70,8 +69,10 @@ namespace PCBsetup.Forms
             newStatus.AppendLine();
             newStatus.AppendLine("Firmware version:\t" + mf.ModuleStatus.FirmwareVersion);
             newStatus.AppendLine("IMU heading:\t" + mf.ModuleStatus.IMUheading);
-            newStatus.AppendLine("WAS reading:\t" + mf.ModuleStatus.WASreading);
-            newStatus.AppendLine("Analog reading:\t" + mf.ModuleStatus.AnalogReading);
+            newStatus.AppendLine("WAS counts:\t" + mf.ModuleStatus.WASreading);
+            newStatus.AppendLine("Zero offset:\t" + mf.ModuleStatus.ZeroOffset);
+            newStatus.AppendLine("Net WAS counts:\t" + mf.ModuleStatus.CurrentWAS);
+            newStatus.AppendLine("Analog counts:\t" + mf.ModuleStatus.AnalogReading);
             newStatus.AppendLine("IMU enabled:\t" + mf.ModuleStatus.IMUenabled);
             newStatus.AppendLine("Receiver enabled:\t" + mf.ModuleStatus.ReceiverEnabled);
             newStatus.AppendLine("RS232 enabled:\t" + mf.ModuleStatus.PassThruEnabled);
@@ -98,7 +99,7 @@ namespace PCBsetup.Forms
         private void timer1_Tick(object sender, EventArgs e)
         {
             UpdateForm();
-            if (RequestSent) tbMonitor.AppendText(Environment.NewLine + "Missing update." + Environment.NewLine);
+            if (RequestSent) tbMonitor.AppendText(".");
             RequestSent = true;
         }
 

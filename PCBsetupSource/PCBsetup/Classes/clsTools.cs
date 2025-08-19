@@ -20,7 +20,7 @@ namespace PCBsetup
         private string cAppVersion = "2.0.3";
         private string cFileName;
         private string cFirmwareDir;
-        private string cVersionDate = "11-Aug-2025";
+        private string cVersionDate = "18-Aug-2025";
         private frmMain mf;
 
         public clsTools(frmMain CallingForm)
