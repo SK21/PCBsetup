@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace PCBsetup
@@ -20,7 +21,7 @@ namespace PCBsetup
         private string cAppVersion = "2.0.3";
         private string cFileName;
         private string cFirmwareDir;
-        private string cVersionDate = "18-Aug-2025";
+        private string cVersionDate = "21-Aug-2025";
         private frmMain mf;
 
         public clsTools(frmMain CallingForm)
@@ -98,6 +99,20 @@ namespace PCBsetup
         public string FirmwareDir()
         {
             return cFirmwareDir;
+        }
+
+        public Form GetOpenFormInstance(string formName)
+        {
+            Form Result = null;
+            foreach (Form openForm in Application.OpenForms)
+            {
+                if (openForm.Name.Equals(formName, StringComparison.OrdinalIgnoreCase))
+                {
+                    Result = openForm;
+                    break;
+                }
+            }
+            return Result;
         }
 
         public bool GoodCRC(byte[] Data, byte Start = 0)
@@ -228,6 +243,9 @@ namespace PCBsetup
         public void ShowHelp(string Message, string Title = "Help",
             int timeInMsec = 5000, bool LogError = false, bool Modal = false)
         {
+            Form OF = GetOpenFormInstance("frmHelp");
+            if (OF != null) OF.Close();
+
             var Hlp = new frmHelp(mf, Message, Title, timeInMsec);
             if (Modal)
             {

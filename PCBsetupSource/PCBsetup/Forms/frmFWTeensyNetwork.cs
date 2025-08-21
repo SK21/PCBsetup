@@ -39,7 +39,7 @@ namespace PCBsetup.Forms
         private byte ModuleID = 0;
         private byte ModuleType = 0;          // 0 - Teensy AutoSteer, 1 - Teensy Rate
         private int TotalLines = 0;
-        private bool UseDefault = false;
+        private bool UseDefaultFile = false;
 
         public frmFWTeensyNetwork(frmMain CallingForm, byte ID)
         {
@@ -110,7 +110,7 @@ namespace PCBsetup.Forms
 
         private void btnBrowse_Click(object sender, EventArgs e)
         {
-            UseDefault = false;
+            UseDefaultFile = false;
             tbHexfile.Text = "";
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -139,7 +139,7 @@ namespace PCBsetup.Forms
 
         private void btnDefault_Click(object sender, EventArgs e)
         {
-            UseDefault = true;
+            UseDefaultFile = true;
             tbHexfile.Text = FileVersion();
         }
 
@@ -172,7 +172,7 @@ namespace PCBsetup.Forms
             {
                 string filename = "";
 
-                if (UseDefault)
+                if (UseDefaultFile)
                 {
                     filename = Path.GetTempFileName();
                     switch (ModuleType)
@@ -251,15 +251,22 @@ namespace PCBsetup.Forms
         private string FileVersion()
         {
             string Result = "";
-            switch (ModuleType)
+            try
             {
-                case 1:
-                    Result = "File version date:  " + mf.VC.Version((int)ModuleTypes.Teensy_Rate);
-                    break;
+                switch (ModuleType)
+                {
+                    case 1:
+                        Result = "File version date:  " + mf.VC.Version((int)ModuleTypes.Teensy_Rate);
+                        break;
 
-                default:
-                    Result = "File version date:  " + mf.ASF.AutoSteerVersion.ToString();
-                    break;
+                    default:
+                        Result = "File version date:  " + mf.ASF.AutoSteerVersion.ToString();
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                mf.Tls.WriteErrorLog(this.Text + "/FileVersion: " + ex.Message);
             }
             return Result;
         }
@@ -274,30 +281,38 @@ namespace PCBsetup.Forms
 
         private void frmFWTeensyNetwork_Load(object sender, EventArgs e)
         {
-            mf.Tls.LoadFormData(this);
-            this.BackColor = PCBsetup.Properties.Settings.Default.DayColour;
-
-            UseDefault = true;
-            switch (ModuleType)
+            try
             {
-                case 1:
-                    // rate
-                    tbHexfile.Text = FileVersion();
-                    this.Text = "Teensy Rate Firmware";
-                    IDname = "TeensyRateID";
-                    break;
+                mf.Tls.LoadFormData(this);
+                this.BackColor = PCBsetup.Properties.Settings.Default.DayColour;
 
-                default:
-                    // autosteer
-                    tbHexfile.Text = FileVersion();
-                    this.Text = "Teensy AutoSteer Firmware";
-                    IDname = "TeensySteerID";
-                    break;
+                UseDefaultFile = true;
+                switch (ModuleType)
+                {
+                    case 1:
+                        // rate
+                        tbHexfile.Text = FileVersion();
+                        this.Text = "Teensy Rate Firmware";
+                        IDname = "TeensyRateID";
+                        break;
+
+                    default:
+                        // autosteer
+                        tbHexfile.Text = FileVersion();
+                        this.Text = "Teensy AutoSteer Firmware";
+                        IDname = "TeensySteerID";
+                        break;
+                }
+
+                if (int.TryParse(mf.Tls.LoadProperty(IDname), out int ID)) ModuleID = (byte)ID;
+
+                UpdateForm();
+
             }
-
-            if (int.TryParse(mf.Tls.LoadProperty(IDname), out int ID)) ModuleID = (byte)ID;
-
-            UpdateForm();
+            catch (Exception ex)
+            {
+                mf.Tls.WriteErrorLog(this.Text + "/frmFWTeensyNetwork_Load: " + ex.Message);
+            }
         }
 
         private void SetButtons(bool Edited)

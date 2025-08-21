@@ -11,7 +11,7 @@ namespace PCBsetup.Classes
     public class clsAutoSteerFirmware
     {
         private static readonly HttpClient _httpClient = new HttpClient();
-        private string cAutoSteerVersion;
+        private string cAutoSteerVersion = "";
         private string HexFileURL = "https://github.com/SK21/AOG_AutoSteer/releases/latest/download/AutoSteerTeensyRVC.ino.hex";
         private frmMain mf;
         private string VersionLocation;

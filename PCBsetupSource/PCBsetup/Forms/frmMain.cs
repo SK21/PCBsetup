@@ -251,6 +251,7 @@ namespace PCBsetup.Forms
             bool NewFirmware = false;
             try
             {
+                Tls.ShowHelp("Checking for new firmware.");
                 NewFirmware |= await VC.HasVersionChanged();
                 NewFirmware |= await ASF.HasVersionChanged();
 
