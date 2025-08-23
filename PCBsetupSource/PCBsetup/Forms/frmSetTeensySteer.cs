@@ -90,18 +90,19 @@ namespace PCBsetup.Forms
         private void btnLoadDefaults_Click(object sender, EventArgs e)
         {
             // AS15-3 pcb
+            tbTSReceiverPort.Text = "4";
+            tbTSIMUport.Text = "3";
+            tbTSRS232In.Text = "8";
+            tbTSRS232Out.Text = "2";
+
             tbTSpowerRelay.Text = "0";
             tbTSsteerRelay.Text = "1";
-            tbTSwas.Text = "25";
-            tbTScurrent.Text = "26";
             tbTSsteerSwitch.Text = "30";
             tbTSworkSwitch.Text = "31";
+            tbTSwas.Text = "25";
+            tbTScurrent.Text = "26";
             tbTSdir.Text = "23";
             tbTSpwm.Text = "22";
-            tbTSReceiverPort.Text = "8";
-            tbTSRS232Out.Text = "2";
-            tbTSRS232In.Text = "4";
-            tbTSIMUport.Text = "3";
             cboIMU.SelectedIndex = 0;
 
             // check boxes
