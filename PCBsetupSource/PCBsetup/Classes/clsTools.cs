@@ -8,7 +8,6 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace PCBsetup
@@ -18,10 +17,10 @@ namespace PCBsetup
         private static Hashtable ht;
         private string cAppDir;
         private string cAppName = "PCBsetup";
-        private string cAppVersion = "2.0.3";
+        private string cAppVersion = "2.0.4";
         private string cFileName;
         private string cFirmwareDir;
-        private string cVersionDate = "22-Aug-2025";
+        private string cVersionDate = "28-Apr-2026";
         private frmMain mf;
 
         public clsTools(frmMain CallingForm)

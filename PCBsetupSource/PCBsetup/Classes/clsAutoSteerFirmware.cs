@@ -12,7 +12,7 @@ namespace PCBsetup.Classes
     {
         private static readonly HttpClient _httpClient = new HttpClient();
         private string cAutoSteerVersion = "";
-        private string HexFileURL = "https://github.com/SK21/AOG_AutoSteer/releases/latest/download/AutoSteerTeensyRVC.ino.hex";
+        private string HexFileURL = "https://github.com/SK21/AOG_AutoSteer/releases/latest/download/AutoSteerTeensy.ino.hex";
         private frmMain mf;
         private string VersionLocation;
         private string VersionsURL = "https://github.com/SK21/AOG_AutoSteer/releases/latest/download/Versions.json";

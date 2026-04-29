@@ -396,7 +396,7 @@ namespace PCBsetup.Forms
             {
                 Tls.ShowHelp("UDPupdate failed to start.", "", 3000, true, true);
             }
-            this.Text = "PCBsetup [Version " + Tls.AppVersion() + " - " + Tls.VersionDate() + "]";
+            this.Text = "PCBsetup [ Version " + Tls.AppVersion() + "    " + Tls.VersionDate() + " ]";
         }
 
         private void groupBox1_Paint(object sender, PaintEventArgs e)
